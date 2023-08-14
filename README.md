@@ -18,6 +18,13 @@ export PATH=$PATH:$GOPATH/bin
 
 [asdf-vm](https://asdf-vm.com/)を利用してインストールを実施
 
+## build
+
+ビルドするには以下の通りで実施
+
+```zsh
+go build -o hello hello.go```
+
 ## TODO
 
 ### ASDF_GOLANG_MOD_VERSION_ENABLED
