@@ -37,3 +37,20 @@ export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 ### gocode
 
 現在はあまり使われていない模様なのでインストールはしない事にしている。
+
+### gopls was not able to find modules in your workspace
+
+[VSCodeでProject Managerを使っている場合にgoplsが動かない現象を解消する](https://qiita.com/y_tochukaso/items/da426190a4563c1dbebd)を参考に対応する。
+
+コーディング中に出力されたメッセージは以下
+
+```
+gopls was not able to find modules in your workspace.
+When outside of GOPATH, gopls needs to know which modules you are working on.
+You can fix this by opening your workspace to a folder inside a Go module, or
+by using a go.work file to specify multiple modules.
+See the documentation for more information on setting up your workspace:
+https://github.com/golang/tools/blob/master/gopls/doc/workspace.md.go
+```
+
+`mkdir go.mod` で対応した。
