@@ -20,7 +20,7 @@ export PATH=$PATH:$GOPATH/bin
 
 ## TODO
 
-asdf利用時に以下のメッセージが出力される
+### ASDF_GOLANG_MOD_VERSION_ENABLED
 
 ```
 Notice: Behaving like ASDF_GOLANG_MOD_VERSION_ENABLED=true
@@ -33,3 +33,7 @@ Notice: Behaving like ASDF_GOLANG_MOD_VERSION_ENABLED=true
 ```zsh
 export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 ```
+
+### gocode
+
+現在はあまり使われていない模様なのでインストールはしない事にしている。
