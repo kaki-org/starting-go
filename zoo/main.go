@@ -92,6 +92,20 @@ func main() {
 
 	fmt.Printf("uint32 max value = %d\n", math.MaxUint32)
 
+	// 浮動小数点数
+	zero := 0.0
+	pinf := 1.0 / zero
+	ninf := -1.0 / zero
+	nan := zero / zero
+	fmt.Println(pinf, ninf, nan)
+
+	fmt.Println(1.0e2)  // 1.0 * 10^2
+	fmt.Println(1.0e+2) // 1.0 * 10^2
+	fmt.Println(1.0e-2) // 1.0 / 10^2
+
+	doubleValueSample()
+	complexSomething()
+	runeSomething()
 }
 
 func one() int {
@@ -174,4 +188,64 @@ func doSomething(a, b uint32) bool {
 		fmt.Println(sum)
 		return true
 	}
+}
+
+func doubleValueSample() {
+	fmt.Printf("value = %v\n", 1.0000000000000000)
+	fmt.Printf("value = %v\n", 1.0000000000000001)
+	fmt.Printf("value = %v\n", 1.0000000000000002)
+	fmt.Printf("value = %v\n", 1.0000000000000003)
+	fmt.Printf("value = %v\n", 1.0000000000000004)
+	fmt.Printf("value = %v\n", 1.0000000000000005)
+	fmt.Printf("value = %v\n", 1.0000000000000006)
+	fmt.Printf("value = %v\n", 1.0000000000000007)
+	fmt.Printf("value = %v\n", 1.0000000000000008)
+	fmt.Printf("value = %v\n", 1.0000000000000009)
+	fmt.Printf("value = %v\n", float32(1.0000000000000000))
+	fmt.Printf("value = %v\n", float32(1.0000000000000001))
+	fmt.Printf("value = %v\n", float32(1.0000000000000002))
+	fmt.Printf("value = %v\n", float32(1.0000000000000003))
+	fmt.Printf("value = %v\n", float32(1.0000000000000004))
+	fmt.Printf("value = %v\n", float32(1.0000000000000005))
+	fmt.Printf("value = %v\n", float32(1.0000000000000006))
+	fmt.Printf("value = %v\n", float32(1.0000000000000007))
+	fmt.Printf("value = %v\n", float32(1.0000000000000008))
+	fmt.Printf("value = %v\n", float32(1.0000000000000009))
+	fmt.Println(float32(1.0) / float32(3.0))
+	fmt.Println(float64(1.0) / float64(3.0))
+
+	f := 3.14
+	n := int(f)
+	fmt.Println(n)
+
+	nf := -3.14
+	nn := int(nf)
+	fmt.Println(nn)
+}
+
+func complexSomething() {
+	// 複素数型のサンプル
+	c := 1.0 + 3i         // complex128型の変数cを定義して、1.0 + 3iを代入
+	fmt.Println(c)        // 出力: (1+3i)
+	c2 := complex(1.0, 3) // 別の定義方法
+	fmt.Println(c2 == c)  // 出力: true
+	// 複素数リテラル
+	fmt.Println(0i)
+	fmt.Println(11i)
+	fmt.Println(0.i)
+	fmt.Println(2.71828i)
+	fmt.Println(6.67428e-11i)
+	fmt.Println(1e6i)
+	fmt.Println(.25i)
+	fmt.Println(.12345e+5i)
+
+	// 複素数の実部と虚部
+	c3 := 1.3 + 4.2i
+	fmt.Println(real(c3)) // real number (実数)
+	fmt.Println(imag(c3)) // imaginary number (虚数)
+}
+
+func runeSomething() {
+	r := '松'
+	fmt.Printf("%v\n", r) // 出力: 26494
 }
