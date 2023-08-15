@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 
 	"github.com/kakikubo/starting-go/zoo/animals"
 )
@@ -83,6 +84,14 @@ func main() {
 	fmt.Printf("n=%d\n", n)
 
 	var_sample()
+	var_sample3()
+	var_sample4()
+	var_sample5()
+	var_sample6()
+	wrap_around()
+
+	fmt.Printf("uint32 max value = %d\n", math.MaxUint32)
+
 }
 
 func one() int {
@@ -99,4 +108,70 @@ func var_sample() {
 	// ./main.go:94:2: c declared and not used
 
 	fmt.Println(a)
+}
+
+func var_sample2() {
+	n4 := 9223372036854775807 // 符号付き64ビット整数で表現可能である最大値
+	fmt.Println(n4)
+
+	// var (
+	// 	n1 int
+	// 	n2 int64
+	// )
+	// n1 = 1
+	// n2 = n1 // コンパイルエラー
+	// fmt.Println(n1, n2)
+
+}
+
+func var_sample3() {
+	// n := uint(17)
+	n := 1
+	b := byte(n)
+	i64 := int64(n)
+	u32 := uint32(n)
+	fmt.Println(b, i64, u32)
+	fmt.Printf("%T %T %T\n", b, i64, u32)
+}
+
+func var_sample4() {
+	n := 256
+	b := byte(n)
+	fmt.Printf("b = %s\n", b)
+}
+
+func var_sample5() {
+	b := byte(255)
+	b = b + 1
+	fmt.Println(b)
+}
+
+func var_sample6() {
+	n := -1
+	b := byte(n)
+	fmt.Println(b)
+}
+
+func wrap_around() {
+	ui_1 := uint32(400000000)
+	ui_2 := uint32(4000000000)
+	if !doSomething(ui_1, ui_2) {
+		fmt.Println("エラーが発生しました")
+		return
+	}
+
+	sum := ui_1 + ui_2
+	fmt.Printf("%d + %d = %d\n", ui_1, ui_2, sum)
+	// 400000000 + 4000000000 = 105032704 オーバーフローして1億弱になってしまう
+}
+
+func doSomething(a, b uint32) bool {
+	if (math.MaxInt32 - a) < b {
+		return false
+	} else {
+		// チェック済みの為、問題なし
+		sum := a + b
+		fmt.Println(sum)
+		return true
+	}
 }
