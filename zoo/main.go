@@ -27,9 +27,9 @@ func main() {
 	// 数値用の書式いろいろ
 	fmt.Printf("10進数=%d 2進数=%b 8進数=%o 16進数=%x\n", 17, 17, 17, 17) // => "10進数=17 2進数=10001 8進数=21 16進数=11"
 	// 埋め込むパラメータが足りない
-	fmt.Printf("%d年%d月%d日\n", 2015, 7) // => "2015年7月%!d(MISSING)日"
+	// fmt.Printf("%d年%d月%d日\n", 2015, 7) // => "2015年7月%!d(MISSING)日"
 	// 埋め込むパラメータが過剰
-	fmt.Printf("%d年%d月%d日\n", 2015, 7, 15, 23)
+	// fmt.Printf("%d年%d月%d日\n", 2015, 7, 15, 23)
 	/* => "2015年7月15日
 	%!(EXTRA int=23)" */
 
@@ -106,6 +106,8 @@ func main() {
 	doubleValueSample()
 	complexSomething()
 	runeSomething()
+	someString()
+	someArray()
 }
 
 func one() int {
@@ -151,7 +153,7 @@ func var_sample3() {
 func var_sample4() {
 	n := 256
 	b := byte(n)
-	fmt.Printf("b = %s\n", b)
+	fmt.Printf("b = %b\n", b)
 }
 
 func var_sample5() {
@@ -248,4 +250,85 @@ func complexSomething() {
 func runeSomething() {
 	r := '松'
 	fmt.Printf("%v\n", r) // 出力: 26494
+}
+
+func someString() {
+	s := "Goの文字列"
+	fmt.Printf("%v\n", s) // 出力: Goの文字列
+
+	s2 := `
+GOの
+RAW文字列リテラルによる
+複数行に渡る
+文字列
+`
+	fmt.Printf("%v\n", s2)
+	s3 := `abc`
+	fmt.Printf("%v\n", s3)
+	s4 := `\n
+\n`
+	fmt.Printf("%v\n", s4)
+}
+
+func someArray() {
+	a := [5]int{1, 2, 3, 4, 5}
+	fmt.Printf("%v\n", a)
+	fmt.Printf("%v\n", a[0]) // 出力: 1
+	a1 := [5]int{}
+	fmt.Printf("%v\n", a1)
+	a2 := [5]int{1, 2, 3}
+	fmt.Printf("%v\n", a2)
+	// a3 := [5]int{1, 2, 3, 4, 5, 6}
+	// fmt.Printf("%v\n", a3) // ./main.go:281:30: index 5 is out of bounds (>= 5)
+	var a3 [5]int
+	a4 := [5]int{}
+	fmt.Printf("%v\n", a3 == a4) // 出力: true
+
+	ia := [3]int{}
+	fmt.Printf("int array %v\n", ia) // 出力: [0 0 0]
+	ua := [3]uint{}
+	fmt.Printf("unsigned int array %v\n", ua) // 出力: [0 0 0]
+	ba := [3]bool{}
+	fmt.Printf("bool array %v\n", ba) // 出力: [false false false]
+	fa := [3]float64{}
+	fmt.Printf("float64 array %v\n", fa) // 出力: [0 0 0]
+	ca := [3]complex128{}
+	fmt.Printf("complex128 array %v\n", ca) // 出力: [(0+0i) (0+0i) (0+0i)]
+	ra := [3]rune{}
+	fmt.Printf("rune array %v\n", ra) // 出力: [0 0 0]
+	sa := [3]string{}
+	fmt.Printf("string array %v\n", sa) // 出力: [  ]
+	zeroa := [0]int{}
+	fmt.Printf("zero array %v\n", zeroa) // 出力: []
+
+	a10 := [...]int{1, 2, 3}
+	a11 := [...]int{1, 2, 3, 4, 5}
+	a12 := [...]int{}
+	fmt.Printf("%v\n%v\n%v\n", a10, a11, a12)
+
+	a5 := [...]int{1, 2, 3}
+	a5[0] = 0
+	a5[2] = 0
+	fmt.Printf("%v\n", a5) // 出力: [0 2 0]
+	// 以下はエラーになる
+	// var (
+	// 	a6 [3]int
+	// 	a7 [5]int
+	// )
+	// a6 = a7 // ./main.go:317:7: cannot use a7 (variable of type [5]int) as type [3]int value in assignment(exit status 1)
+
+	// 異なる型の配列は代入できません
+	// var (
+	// 	a8 [5]int
+	// 	a9 [5]uint
+	// )
+	// a8 = a9 // ./main.go:325:7: cannot use a9 (variable of type [5]uint) as [5]int value in assignment (exit status 1)
+
+	a13 := [3]int{1, 2, 3}
+	a14 := [3]int{4, 5, 6}
+	a13 = a14
+	a13[0] = 0
+	a13[2] = 0
+	fmt.Printf("a13 = %v\n", a13) // a13の値は[0 5 0]
+	fmt.Printf("a14 = %v\n", a14) // a14の値は[4 5 6]※a13とa14は別の配列
 }
