@@ -108,6 +108,7 @@ func main() {
 	runeSomething()
 	someString()
 	someArray()
+	someInterface()
 }
 
 func one() int {
@@ -331,4 +332,20 @@ func someArray() {
 	a13[2] = 0
 	fmt.Printf("a13 = %v\n", a13) // a13の値は[0 5 0]
 	fmt.Printf("a14 = %v\n", a14) // a14の値は[4 5 6]※a13とa14は別の配列
+}
+
+func someInterface() {
+	var x interface{}
+	fmt.Printf("%#v\n", x) // 出力: <nil>
+	x = 1
+	x = 3.14
+	x = '山'
+	x = "文字列"
+	x = [...]uint8{1, 2, 3, 4, 5}
+	fmt.Printf("%#v\n", x) // 出力: [5]uint8{0x1, 0x2, 0x3, 0x4, 0x5}
+
+	// interfaceはすべての型の値を汎用的に表す手段である為、演算の対象としては利用できない
+	// var xx, yy interface{}
+	// xx, yy = 1, 2 // 代入
+	// z := xx + yy  // 演算できない
 }

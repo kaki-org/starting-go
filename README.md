@@ -61,3 +61,16 @@ https://github.com/golang/tools/blob/master/gopls/doc/workspace.md.go
 ```
 
 `mkdir go.mod` で対応した。
+
+### gore
+
+<https://motemen.hatenablog.com/entry/2015/02/go-repl-gore>
+に記載の内容どおりインストールしてみる。
+最新の内容は <https://github.com/x-motemen/gore> にある
+
+```zsh
+go install github.com/x-motemen/gore/cmd/gore@latest
+go get github.com/nsf/gocode # 入力補完に
+go get github.com/k0kubun/pp # プリティプリントに
+go get github.com/x/tools/cmd/godoc # ドキュメントに
+```
