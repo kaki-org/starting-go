@@ -109,6 +109,13 @@ func main() {
 	someString()
 	someArray()
 	someInterface()
+	someMath()
+	fmt.Println(plus(1, 2))
+	hello()
+	q, r := div(19, 7)
+	fmt.Printf("商=%d 余り=%d\n", q, r) // => "商=2 余り=5" quotient, remainder
+	q2, _ := div(19, 7)              // 余りは捨てる
+	fmt.Printf("商=%d\n", q2)         // => "商=2"
 }
 
 func one() int {
@@ -348,4 +355,33 @@ func someInterface() {
 	// var xx, yy interface{}
 	// xx, yy = 1, 2 // 代入
 	// z := xx + yy  // 演算できない
+}
+
+func someMath() {
+	var n int
+	s := "Go言語"
+	x := 10
+	n += 5
+	fmt.Println(n)
+	s += "の解説"
+	fmt.Println(s)
+	n *= 10
+	fmt.Println(n)
+	n &= x
+	fmt.Println(n)
+}
+
+func plus(x, y int) int {
+	return x + y
+}
+
+func hello() {
+	fmt.Println("Hello, World!")
+	return
+}
+
+func div(a, b int) (int, int) {
+	q := a / b
+	r := a % b
+	return q, r
 }
