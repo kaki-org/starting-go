@@ -181,8 +181,18 @@ func main() {
 		S1 = "あ"
 		S2
 	)
-
 	fmt.Println(XX, YY, ZZ, S1, S2) // => "10 10 10 あ あ"
+
+	const (
+		XXX = 2
+		YYY = 7
+		ZZZ = XXX + YYY // ZZZ = 9
+
+		S3  = "今日"
+		S4  = "晴れ"
+		S34 = S3 + "は" + S4 // S = "今日は晴れ"
+	)
+	fmt.Println(ZZZ, S34)
 
 }
 
