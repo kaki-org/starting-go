@@ -133,6 +133,11 @@ func main() {
 	var plusAlias = plus
 	fmt.Println(plusAlias(10, 20))
 
+	// 関数を返す関数
+	rfn := returnFunc()
+	rfn()
+	fmt.Printf("%T\n", rfn) // => "func()"
+	returnFunc()()          // こうやっても実行できる
 }
 
 func one() int {
@@ -448,4 +453,10 @@ func ClosureSample() {
 
 	fmt.Printf("%#v\n", func(x, y int) int { return x + y })
 	fmt.Printf("%#v\n", func(x, y int) int { return x + y }(2, 3))
+}
+
+func returnFunc() func() {
+	return func() {
+		fmt.Println("I'm a function")
+	}
 }
