@@ -209,6 +209,33 @@ func main() {
 		F64 = float64(1.2)
 	)
 	fmt.Printf("%T %v\n%T %v\n", I64, I64, F64, F64) // => "int64 -1\nfloat64 1.2"
+
+	// 以下はオーバーフローする
+	/*
+		const (
+			N = 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+		)
+		n999 := N
+		fmt.Printf("%T %v\n", n999, n999) // => "int64 999999
+	*/
+
+	// 型が違う場合はコンパイルエラーにしてくれる
+	/*
+		const (
+			UI64 = uint64(12345)
+		)
+
+		var i64 int64
+		i64 = UI64 // cannot use UI64 (constant 12345 of type uint64) as int64 value in assignment
+	*/
+
+	// コンパイル時に演算が処理される為、以下はコンパイルエラーにならない
+	const (
+		// uint64の最大値に1を足した値
+		MAXUI64PLUS1 = math.MaxUint64 + 1
+	)
+	muint64 := uint64(MAXUI64PLUS1 - 1)     // コンパイル時に値が決定される為、18446744073709551615(uint64の最大値)になる
+	fmt.Printf("%T %v\n", muint64, muint64) // => "uint64 18446744073709551615"
 }
 
 func one() int {
