@@ -172,6 +172,18 @@ func main() {
 	// 関数内での定数宣言
 	x, y := onetwo()
 	fmt.Printf("x=%d, y=%d\n", x, y) // => "x=1, y=2"
+
+	// 定数定義(値の省略)
+	const (
+		XX = 10
+		YY
+		ZZ
+		S1 = "あ"
+		S2
+	)
+
+	fmt.Println(XX, YY, ZZ, S1, S2) // => "10 10 10 あ あ"
+
 }
 
 func one() int {
