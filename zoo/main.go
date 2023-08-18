@@ -194,6 +194,7 @@ func main() {
 	)
 
 	fmt.Println(ZZZ, S34)
+	fmt.Printf("%T\n", ZZZ) // => "int"
 	// 以前はこの書き方でもOKだったみたい(X1, X2が定義されていない状態でX12を定義している)
 	// const (
 	// 	X12 = X1 + X2
@@ -201,6 +202,13 @@ func main() {
 	// 	X2 = 2
 	// )
 
+	const (
+		// I64 int64   = -1
+		// F64 float64 = 1.2
+		I64 = int64(-1)
+		F64 = float64(1.2)
+	)
+	fmt.Printf("%T %v\n%T %v\n", I64, I64, F64, F64) // => "int64 -1\nfloat64 1.2"
 }
 
 func one() int {
