@@ -150,6 +150,17 @@ func main() {
 	fmt.Println(later("is"))
 	fmt.Println(later("awesome!"))
 	fmt.Println(later("awesome!"))
+
+	// クロージャを利用してGeneratorを実装する
+	ints := integers()
+
+	fmt.Println(ints()) // 1
+	fmt.Println(ints()) // 2
+	fmt.Println(ints()) // 3
+
+	otherInts := integers()
+	fmt.Println(otherInts()) // 1 (otherIntsの状態は別)
+
 }
 
 func one() int {
@@ -485,5 +496,13 @@ func later() func(string) string {
 		s := store
 		store = next
 		return s
+	}
+}
+
+func integers() func() int {
+	i := 0
+	return func() int {
+		i += 1
+		return i
 	}
 }
