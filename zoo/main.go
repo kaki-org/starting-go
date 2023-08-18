@@ -161,6 +161,17 @@ func main() {
 	otherInts := integers()
 	fmt.Println(otherInts()) // 1 (otherIntsの状態は別)
 
+	// 定数
+	// const X = 1
+	const (
+		X = 1
+		Y = 2
+		Z = 3
+	)
+
+	// 関数内での定数宣言
+	x, y := onetwo()
+	fmt.Printf("x=%d, y=%d\n", x, y) // => "x=1, y=2"
 }
 
 func one() int {
@@ -505,4 +516,11 @@ func integers() func() int {
 		i += 1
 		return i
 	}
+}
+
+const ONE = 1
+
+func onetwo() (int, int) {
+	const TWO = 2
+	return ONE, TWO
 }
