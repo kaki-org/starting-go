@@ -128,6 +128,11 @@ func main() {
 	fmt.Println(fn(2, 3))
 	fmt.Printf("%T\n", fn) // => "func(int, int) int"
 	ClosureSample()
+
+	// 定義済みの関数に別名をつけているかのような記述
+	var plusAlias = plus
+	fmt.Println(plusAlias(10, 20))
+
 }
 
 func one() int {
@@ -443,5 +448,4 @@ func ClosureSample() {
 
 	fmt.Printf("%#v\n", func(x, y int) int { return x + y })
 	fmt.Printf("%#v\n", func(x, y int) int { return x + y }(2, 3))
-
 }
