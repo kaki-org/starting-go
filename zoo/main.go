@@ -138,6 +138,11 @@ func main() {
 	rfn()
 	fmt.Printf("%T\n", rfn) // => "func()"
 	returnFunc()()          // こうやっても実行できる
+
+	// 関数を引数にとる関数
+	callFunction(func() {
+		fmt.Println("I'm a callFunction")
+	})
 }
 
 func one() int {
@@ -459,4 +464,8 @@ func returnFunc() func() {
 	return func() {
 		fmt.Println("I'm a function")
 	}
+}
+
+func callFunction(f func()) {
+	f()
 }
