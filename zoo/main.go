@@ -116,6 +116,18 @@ func main() {
 	fmt.Printf("商=%d 余り=%d\n", q, r) // => "商=2 余り=5" quotient, remainder
 	q2, _ := div(19, 7)              // 余りは捨てる
 	fmt.Printf("商=%d\n", q2)         // => "商=2"
+
+	fmt.Println(doSomethingA())
+	fmt.Println(doSomethingXY())
+	fmt.Println(ignoreArgs(1, 2))
+
+	// fmt.Println(RequiredFunction(1))
+
+	// 無名関数
+	fn := func(x, y int) int { return x + y }
+	fmt.Println(fn(2, 3))
+	fmt.Printf("%T\n", fn) // => "func(int, int) int"
+	ClosureSample()
 }
 
 func one() int {
@@ -384,4 +396,52 @@ func div(a, b int) (int, int) {
 	q := a / b
 	r := a % b
 	return q, r
+}
+
+// 戻り値を表す変数
+func doSomethingA() (a int) {
+	return
+	// 以下のコードと同じ
+	// var a int
+	// return a
+}
+
+func doSomethingXY() (x, y int) {
+	y = 5
+	return
+	// 以下のコードと同じ
+	// var x, y int
+	// y = 5
+	// return x, y
+}
+
+func ignoreArgs(_, _ int) int {
+	return 1
+}
+
+// 型Tの定義
+type T struct {
+	value int
+}
+
+// インターフェース型I
+type I interface {
+	// 引数が2つ必要であると定義
+	RequiredFunction(a, b int) int
+}
+
+// T型のインターフェースIを満たす関数(メソッド)
+func (*T) RequiredFunction(a, _ int) int {
+	// 実装に2番目の引数は不要
+	return a
+}
+
+func ClosureSample() {
+	var f func(int, int) int
+	f = func(x, y int) int { return x + y }
+	fmt.Println(f(1, 2))
+
+	fmt.Printf("%#v\n", func(x, y int) int { return x + y })
+	fmt.Printf("%#v\n", func(x, y int) int { return x + y }(2, 3))
+
 }
