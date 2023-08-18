@@ -143,6 +143,13 @@ func main() {
 	callFunction(func() {
 		fmt.Println("I'm a callFunction")
 	})
+
+	// クロージャ(関数閉包)
+	later := later()
+	fmt.Println(later("Golang"))
+	fmt.Println(later("is"))
+	fmt.Println(later("awesome!"))
+	fmt.Println(later("awesome!"))
 }
 
 func one() int {
@@ -468,4 +475,15 @@ func returnFunc() func() {
 
 func callFunction(f func()) {
 	f()
+}
+
+func later() func(string) string {
+	// 1つ前に与えられた文字列を保存する変数
+	var store string
+	// 引数に文字列を取り、文字列を返す関数を返す
+	return func(next string) string {
+		s := store
+		store = next
+		return s
+	}
 }
