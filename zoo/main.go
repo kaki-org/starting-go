@@ -605,8 +605,8 @@ func ClosureSample() {
 	f = func(x, y int) int { return x + y }
 	fmt.Println(f(1, 2))
 
-	fmt.Printf("%#v\n", func(x, y int) int { return x + y })
-	fmt.Printf("%#v\n", func(x, y int) int { return x + y }(2, 3))
+	fmt.Printf("ClosureSample %#v\n", func(x, y int) int { return x + y })
+	fmt.Printf("ClosureSample %#v\n", func(x, y int) int { return x + y }(2, 3))
 }
 
 func returnFunc() func() {
