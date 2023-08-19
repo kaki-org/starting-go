@@ -292,6 +292,12 @@ func main() {
 
 	// 文字と認められていない〒(記号とされている)を使ってみる
 	// const 〒 = "郵便番号"
+
+	fmt.Println(animals.MAX)
+	// fmt.Println(animals.internal_const) // コンパイルエラー
+
+	fmt.Println(animals.FooFunc(5)) // => "6"
+	// fmt.Println(animals.internalFunc(5)) // コンパイルエラー
 }
 
 func one() int {
@@ -647,4 +653,20 @@ func onetwo() (int, int) {
 
 func あいさつ(m string) {
 	fmt.Println(m)
+}
+
+/* パッケージ変数 */
+var (
+	m = 256 // パッケージ内のみで参照出来る変数
+	N = 512 // 公開される変数
+)
+
+/* 公開される関数 */
+func DoSomethingDo() {
+	fmt.Println("DoSomething Do")
+}
+
+/* パッケージ内のみで参照できる関数 */
+func doSomethingDo() {
+	fmt.Println("doSomething Do")
 }
