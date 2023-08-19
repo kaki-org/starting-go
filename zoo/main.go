@@ -249,6 +249,23 @@ func main() {
 	fmt.Println(float64(F) * 10000)
 	fmt.Println(F * 10000)
 
+	// 複素数の定数
+	const (
+		C = 4.7 + 1.3i
+	)
+	fmt.Printf("%T %v\n", C, C) // => "complex128 (4.7+1.3i)"
+
+	// ルーン、文字列の定数
+	const (
+		R  = 'あ'
+		S  = "Go言語"
+		RS = `秋の田のかりほの庵の苫をあらみ
+わが衣手は露にぬれつつ`
+	)
+	fmt.Printf("%v\n", R)  // => "12354"
+	fmt.Printf("%v\n", S)  // => "Go言語"
+	fmt.Printf("%v\n", RS) // => "秋の田のかりほの庵の苫をあらみ\nわが衣手は露にぬれつつ"
+
 }
 
 func one() int {
