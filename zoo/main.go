@@ -688,5 +688,25 @@ func someCondition() {
 	} else {
 		fmt.Println("奇数")
 	}
+	/* 変数iが100になるまでループ */
+	i := 0
+	for i < 100 {
+		// continue使うとdlvが停止してしまうのでコメントアウト
+		// if i == 50 {
+		// 	continue
+		// }
+		fmt.Println(i)
+		i++
+	}
+	fruits := [3]string{"Apple", "Banana", "Cherry"}
+	/* rangeを伴うfor */
+	for i, s := range fruits {
+		// iはインデックス、sは要素(値)を取る
+		fmt.Printf("fruits[%d]=%s\n", i, s)
+	}
+	/* 文字列の場合はrune型になる */
+	for i, r := range "あいう" {
+		fmt.Printf("[%d]=%d %v\n", i, r, string(r))
+	}
 
 }
