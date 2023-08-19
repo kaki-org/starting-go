@@ -300,13 +300,7 @@ func main() {
 	// fmt.Println(animals.internalFunc(5)) // コンパイルエラー
 	fmain()
 
-	for {
-		fmt.Println("loop")
-		break // このbreakがないと無限ループになる
-	}
-	for i := 0; i < 10; i++ {
-		fmt.Println(i)
-	}
+	someCondition()
 }
 
 func one() int {
@@ -678,4 +672,21 @@ func DoSomethingDo() {
 /* パッケージ内のみで参照できる関数 */
 func doSomethingDo() {
 	fmt.Println("doSomething Do")
+}
+
+func someCondition() {
+	for {
+		fmt.Println("loop")
+		break // このbreakがないと無限ループになる
+	}
+	for i := 0; i < 10; i++ {
+		fmt.Println(i)
+	}
+	x, y := 3, 5
+	if n := x * y; n%2 == 0 {
+		fmt.Println("偶数")
+	} else {
+		fmt.Println("奇数")
+	}
+
 }
