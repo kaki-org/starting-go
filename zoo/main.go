@@ -298,6 +298,7 @@ func main() {
 
 	fmt.Println(animals.FooFunc(5)) // => "6"
 	// fmt.Println(animals.internalFunc(5)) // コンパイルエラー
+	fmain()
 }
 
 func one() int {
