@@ -299,6 +299,14 @@ func main() {
 	fmt.Println(animals.FooFunc(5)) // => "6"
 	// fmt.Println(animals.internalFunc(5)) // コンパイルエラー
 	fmain()
+
+	for {
+		fmt.Println("loop")
+		break // このbreakがないと無限ループになる
+	}
+	for i := 0; i < 10; i++ {
+		fmt.Println(i)
+	}
 }
 
 func one() int {
