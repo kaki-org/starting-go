@@ -236,6 +236,19 @@ func main() {
 	)
 	muint64 := uint64(MAXUI64PLUS1 - 1)     // コンパイル時に値が決定される為、18446744073709551615(uint64の最大値)になる
 	fmt.Printf("%T %v\n", muint64, muint64) // => "uint64 18446744073709551615"
+
+	// 浮動小数点数の定数
+	const (
+		Pi = 3.14
+	)
+	f32 := float32(math.Pi)
+	f64 := float64(math.Pi)
+	fmt.Printf("%v\n", f32)
+	fmt.Printf("%v\n", f64)
+	const F = 1.0000000000001
+	fmt.Println(float64(F) * 10000)
+	fmt.Println(F * 10000)
+
 }
 
 func one() int {
