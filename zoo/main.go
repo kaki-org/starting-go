@@ -281,6 +281,17 @@ func main() {
 	)
 	fmt.Println(A1, B1, C1, N) // => "1 2 3 3"
 	fmt.Println(A2, B2, C2)    // => "0 1 2"
+	// やらないけど言語仕様上は以下のようにもかける
+
+	const (
+		朝の挨拶 = "おはよう"
+		昼の挨拶 = "こんにちは"
+		夜の挨拶 = "こんばんは"
+	)
+	あいさつ(昼の挨拶) // => "こんにちは"
+
+	// 文字と認められていない〒(記号とされている)を使ってみる
+	// const 〒 = "郵便番号"
 }
 
 func one() int {
@@ -632,4 +643,8 @@ const ONE = 1
 func onetwo() (int, int) {
 	const TWO = 2
 	return ONE, TWO
+}
+
+func あいさつ(m string) {
+	fmt.Println(m)
 }
