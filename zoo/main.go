@@ -266,6 +266,21 @@ func main() {
 	fmt.Printf("%v\n", S)  // => "Go言語"
 	fmt.Printf("%v\n", RS) // => "秋の田のかりほの庵の苫をあらみ\nわが衣手は露にぬれつつ"
 
+	// iota
+	const (
+		A1 = iota + 1
+		B1
+		C1
+		N = iota
+	)
+	// iotaは定数の宣言ごとにリセットされる
+	const (
+		A2 = iota
+		B2
+		C2
+	)
+	fmt.Println(A1, B1, C1, N) // => "1 2 3 3"
+	fmt.Println(A2, B2, C2)    // => "0 1 2"
 }
 
 func one() int {
