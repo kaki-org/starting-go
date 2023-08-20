@@ -302,6 +302,7 @@ func main() {
 
 	someCondition()
 	funcSwitch()
+	typeAssertion()
 }
 
 func one() int {
@@ -747,4 +748,32 @@ func funcSwitch() {
 	// case x > 3:
 	// 	fmt.Println("x > 3")
 	// }
+}
+
+func typeAssertion() {
+	anything(1)
+	anything(3.14)
+	anything(4 + 5i)
+	anything('海')
+	anything("日本語")
+	anything([...]int{1, 2, 3, 4, 5})
+
+	var x interface{} = 3
+	i := x.(int)
+	// f := x.(float64) // panic: interface conversion: interface {} is int, not float64
+	fmt.Println(i)
+
+	var y interface{} = 3.14
+
+	ii, isInt := y.(int)
+	ff, isFloat64 := y.(float64)
+	s, isString := y.(string)
+	fmt.Println(ii, isInt)     // 0 false
+	fmt.Println(ff, isFloat64) // 3.14 true
+	fmt.Println(s, isString)   //  false
+
+}
+
+func anything(a interface{}) {
+	fmt.Println(a)
 }
