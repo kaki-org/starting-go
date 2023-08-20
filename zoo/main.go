@@ -310,6 +310,7 @@ func main() {
 	labelSample()
 	labelSample2()
 	runDefer()
+	runPanic()
 }
 
 func one() int {
@@ -876,4 +877,12 @@ func runDefer() {
 		fmt.Println("C")
 	}() // deferに登録する関数を即時実行する場合は()を付ける
 	fmt.Println("done")
+}
+
+func runPanic() {
+	/* panic時でもdeferは実行される */
+	defer fmt.Println("defer on runPanic")
+
+	panic("runtime error") // ここでエラー終了
+	fmt.Println("Hello, World!")
 }
