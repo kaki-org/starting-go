@@ -825,13 +825,13 @@ func typeSwitch2() {
 
 	switch v := x.(type) {
 	case bool:
-		fmt.Println(v)
+		fmt.Println("bool:", v)
 	case int:
 		fmt.Println(v * v)
 	case string:
 		fmt.Println(v)
 	default:
-		fmt.Println("%#v\n", v)
+		fmt.Printf("%#v\n", v)
 	}
 }
 
