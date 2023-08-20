@@ -309,6 +309,7 @@ func main() {
 	gotoSample()
 	labelSample()
 	labelSample2()
+	runDefer()
 }
 
 func one() int {
@@ -862,4 +863,17 @@ L:
 		}
 		fmt.Println("ここは処理されない")
 	}
+}
+
+func runDefer() {
+	/* deferに登録された式は関数の終了時に評価される。実行順序は最後に登録したものから先に実行される */
+	defer fmt.Println("defer1")
+	defer fmt.Println("defer2")
+	defer fmt.Println("defer3")
+	defer func() {
+		fmt.Println("A")
+		fmt.Println("B")
+		fmt.Println("C")
+	}() // deferに登録する関数を即時実行する場合は()を付ける
+	fmt.Println("done")
 }
