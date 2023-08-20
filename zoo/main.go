@@ -304,6 +304,7 @@ func main() {
 	funcSwitch()
 	typeAssertion()
 	typeAssertion2()
+	typeSwitch()
 }
 
 func one() int {
@@ -791,4 +792,19 @@ func typeAssertion2() {
 
 func anything(a interface{}) {
 	fmt.Println(a)
+}
+
+func typeSwitch() {
+	var x interface{} = 3
+
+	switch x.(type) {
+	case bool:
+		fmt.Println("bool")
+	case int, uint:
+		fmt.Println("integer or unsigned integer")
+	case string:
+		fmt.Println("string")
+	default:
+		fmt.Println("don't know")
+	}
 }
