@@ -310,7 +310,12 @@ func main() {
 	labelSample()
 	labelSample2()
 	runDefer()
-	runPanic()
+	// runPanic()
+	runRecover()
+
+	testRecover(128)
+	testRecover("hogehoge")
+	testRecover([...]int{1, 2, 3})
 }
 
 func one() int {
@@ -885,4 +890,35 @@ func runPanic() {
 
 	panic("runtime error") // ここでエラー終了
 	fmt.Println("Hello, World!")
+}
+
+func runRecover() {
+	/* recoverはpanic時に発生したエラー情報を取得する */
+	defer func() {
+		if x := recover(); x != nil {
+			/* 変数xはpanicに渡されたinterface{}型の値 */
+			fmt.Println("recover:", x)
+		}
+	}()
+	panic("runtime error")
+	/* これは実行されない */
+	fmt.Println("Hello, World!")
+}
+
+func testRecover(src interface{}) {
+	defer func() {
+		if x := recover(); x != nil {
+			/* panicによるinterface{}型の値に応じて処理を分岐 */
+			switch v := x.(type) {
+			case int:
+				fmt.Printf("panic: int=%v\n", v)
+			case string:
+				fmt.Printf("panic: string=%v\n", v)
+			default:
+				fmt.Printf("panic: unknown=%v\n", v)
+			}
+		}
+	}()
+	panic(src)
+	return
 }
