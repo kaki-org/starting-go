@@ -307,6 +307,8 @@ func main() {
 	typeSwitch()
 	typeSwitch2()
 	gotoSample()
+	labelSample()
+	labelSample2()
 }
 
 func one() int {
@@ -832,4 +834,32 @@ func gotoSample() {
 	fmt.Println("B")
 L: /* ラベル */
 	fmt.Println("C")
+}
+
+func labelSample() {
+LOOP:
+	for {
+		for {
+			for {
+				fmt.Println("START")
+				break LOOP
+			}
+			fmt.Println("ここは通らない")
+		}
+		fmt.Println("ここは通らない")
+	}
+	fmt.Println("END")
+}
+
+func labelSample2() {
+L:
+	for i := 1; i <= 3; i++ {
+		for j := 1; j <= 3; j++ {
+			if j > 1 {
+				continue L
+			}
+			fmt.Printf("%d * %d = %d\n", i, j, i*j)
+		}
+		fmt.Println("ここは処理されない")
+	}
 }
