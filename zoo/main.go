@@ -306,6 +306,7 @@ func main() {
 	typeAssertion2()
 	typeSwitch()
 	typeSwitch2()
+	gotoSample()
 }
 
 func one() int {
@@ -823,5 +824,12 @@ func typeSwitch2() {
 	default:
 		fmt.Println("%#v\n", v)
 	}
+}
 
+func gotoSample() {
+	fmt.Println("A")
+	goto L
+	fmt.Println("B")
+L: /* ラベル */
+	fmt.Println("C")
 }
