@@ -303,6 +303,7 @@ func main() {
 	someCondition()
 	funcSwitch()
 	typeAssertion()
+	typeAssertion2()
 }
 
 func one() int {
@@ -772,6 +773,20 @@ func typeAssertion() {
 	fmt.Println(ff, isFloat64) // 3.14 true
 	fmt.Println(s, isString)   //  false
 
+}
+
+func typeAssertion2() {
+	// 2つの値を返す型アサーションの結果で条件分岐
+	var x interface{} = "abc"
+	if x == nil {
+		fmt.Println("x is nil")
+	} else if i, isInt := x.(int); isInt {
+		fmt.Printf("int %d\n", i)
+	} else if s, isString := x.(string); isString {
+		fmt.Printf("string %s\n", s)
+	} else {
+		fmt.Println("Unsupported type!")
+	}
 }
 
 func anything(a interface{}) {
