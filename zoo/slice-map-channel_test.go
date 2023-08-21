@@ -22,4 +22,6 @@ func TestSlice(t *testing.T) {
 	if expect_value != actual[9] {
 		t.Errorf("%d != %d", expect_value, actual[0])
 	}
+	// 要素数を超えた値を指定するとpanicになる
+	// fmt.Println(actual[10]) // panic: runtime error: index out of range
 }
