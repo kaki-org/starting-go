@@ -51,6 +51,7 @@ func TestSliceCap(t *testing.T) {
 	s5[3] = 4
 	s5[4] = 5
 
+	// makeを使用しないリテラルでのスライスの作成
 	s := []int{1, 2, 3, 4, 5}
 
 	if !reflect.DeepEqual(s5, s) {
