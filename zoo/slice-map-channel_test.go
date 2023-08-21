@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -44,4 +45,15 @@ func TestSliceCap(t *testing.T) {
 	fmt.Println(s10[4])
 	fmt.Printf("%#v\n", s10[0:10]) // 0から9までの要素を取得
 
+	s5[0] = 1
+	s5[1] = 2
+	s5[2] = 3
+	s5[3] = 4
+	s5[4] = 5
+
+	s := []int{1, 2, 3, 4, 5}
+
+	if !reflect.DeepEqual(s5, s) {
+		t.Errorf("%v != %v", s5, s)
+	}
 }
