@@ -13,10 +13,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Ruby 3.2
+      - name: Set up Ruby 3.1
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2
+          ruby-version: 3.1
 
       - name: Create a release pull request
         env:
@@ -25,5 +25,5 @@ jobs:
           GIT_PR_RELEASE_BRANCH_STAGING: develop
           GIT_PR_RELEASE_LABELS: release
         run: |
-          gem install -N git-pr-release -v "2.1.1"
+          gem install -N git-pr-release -v "2.2.0"
           git-pr-release --no-fetch
