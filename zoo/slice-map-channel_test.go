@@ -10,9 +10,9 @@ func TestSlice(t *testing.T) {
 	s := make([]int, 10)
 
 	fmt.Printf("こっちは配列%T\n", a)
-	fmt.Println(a)
 	fmt.Printf("こっちはスライス%T\n", s)
-	fmt.Println(s)
+	fmt.Printf("%d\n%d\n", len(a), len(s))
+	fmt.Printf("%v\n%v\n", a, s)
 	expect := 10
 	expect_value := 0
 	actual := s
