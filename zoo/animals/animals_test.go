@@ -29,3 +29,12 @@ func TestRabbitFeed(t *testing.T) {
 		t.Errorf("%s != %s", expect, actual)
 	}
 }
+
+func TestFooFunc(t *testing.T) {
+	expect := 3
+	actual := FooFunc(2)
+
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+}
