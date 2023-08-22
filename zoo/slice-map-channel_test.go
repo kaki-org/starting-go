@@ -373,3 +373,41 @@ func TestArrayAndSlice(t *testing.T) {
 	}
 
 }
+
+func TestSlicePitfall(t *testing.T) {
+	a := [3]int{1, 2, 3}
+	s := a[:]
+
+	expect_len := 3
+	expect_cap := 3
+	if expect_len != len(s) {
+		t.Errorf("%d != %d", expect_len, len(s))
+	}
+	if expect_cap != cap(s) {
+		t.Errorf("%d != %d", expect_cap, cap(s))
+	}
+	// この時点では配列とスライスの要素は同じ
+	a[0] = 9
+	// 配列に代入した値はスライスにも反映される
+	if a[0] != s[0] {
+		t.Errorf("%d != %d", a[0], s[0])
+	}
+
+	// スライスの自動拡張が起こるように要素を追加する
+	s = append(s, 4, 5, 6)
+	// 再度配列の要素を変更する
+	a[0] = 99
+	// 配列に代入した値はもちろん反映される
+	if a[0] != 99 {
+		t.Errorf("%d == %d", a[0], 99)
+	}
+	// スライスは別の参照領域を指すようになった為、9のまま
+	if s[0] != 9 {
+		t.Errorf("%d != %d", s[0], 9)
+	}
+	// この時点で配列とスライスは値が異なる
+	if a[0] == s[0] {
+		t.Errorf("%d == %d", a[0], s[0])
+	}
+
+}
