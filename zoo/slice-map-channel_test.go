@@ -144,3 +144,55 @@ func TestSliceAppend(t *testing.T) {
 	}
 
 }
+
+func TestSliceAppendCapacity(t *testing.T) {
+	s := make([]int, 0, 0)
+	fmt.Printf("len=%d cap=%d value=%v\n", len(s), cap(s), s)
+	expect := 0
+	if expect != cap(s) {
+		t.Errorf("%d != %d", expect, cap(s))
+	}
+
+	s = append(s, 1)
+	fmt.Printf("len=%d cap=%d value=%v\n", len(s), cap(s), s)
+	expect = 1
+	if expect != cap(s) {
+		t.Errorf("%d != %d", expect, cap(s))
+	}
+
+	s = append(s, []int{2, 3, 4}...)
+	fmt.Printf("len=%d cap=%d value=%v\n", len(s), cap(s), s)
+	expect = 4
+	if expect != cap(s) {
+		t.Errorf("%d != %d", expect, cap(s))
+	}
+
+	s = append(s, 5)
+	fmt.Printf("len=%d cap=%d value=%v\n", len(s), cap(s), s)
+	expect = 8
+	if expect != cap(s) {
+		t.Errorf("%d != %d", expect, cap(s))
+	}
+
+	s = append(s, 6, 7, 8, 9)
+	fmt.Printf("len=%d cap=%d value=%v\n", len(s), cap(s), s)
+	expect = 16
+	if expect != cap(s) {
+		t.Errorf("%d != %d", expect, cap(s))
+	}
+
+	s = make([]int, 1024, 1024)
+	fmt.Printf("len=%d cap=%d\n", len(s), cap(s))
+	expect = 1024
+	if expect != cap(s) {
+		t.Errorf("%d != %d", expect, cap(s))
+	}
+
+	// その時の実装においてどのくらい拡張されるかは不明
+	s = append(s, 0)
+	fmt.Printf("len=%d cap=%d\n", len(s), cap(s))
+	expect = 1536
+	if expect != cap(s) {
+		t.Errorf("%d != %d", expect, cap(s))
+	}
+}
