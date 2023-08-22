@@ -96,11 +96,11 @@ func TestSimpleSliceExpressionsString(t *testing.T) {
 	multibytes := "あいうえお"[3:9] // バイト列([]byte)であるとみなされる
 
 	expect := "BC"
-	expect_multibytes := "いう"
+	expectMultibytes := "いう"
 	if !reflect.DeepEqual(expect, s) {
 		t.Errorf("%v != %v", expect, s)
 	}
-	if !reflect.DeepEqual(expect_multibytes, multibytes) {
-		t.Errorf("%v != %v", expect_multibytes, multibytes)
+	if !reflect.DeepEqual(expectMultibytes, multibytes) {
+		t.Errorf("%v != %v", expectMultibytes, multibytes)
 	}
 }
