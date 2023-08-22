@@ -271,3 +271,23 @@ func TestFullSliceExpressions(t *testing.T) {
 		t.Errorf("%d != %d", expect_cap, cap(s3))
 	}
 }
+
+func TestSliceFor(t *testing.T) {
+	s := []string{"Apple", "Banana", "Cherry"}
+
+	output := ""
+	for i, v := range s {
+		output += fmt.Sprintf("i=%d v=%s\n", i, v)
+		fmt.Printf("i=%d v=%s\n", i, v)
+		s = append(s, "Melon") // 要素の追加をしても元のスライスsには影響しない
+	}
+	expect := "i=0 v=Apple\ni=1 v=Banana\ni=2 v=Cherry\n"
+	if expect != output {
+		t.Errorf("%v != %v", expect, output)
+	}
+	expect_slice := []string{"Apple", "Banana", "Cherry", "Melon", "Melon", "Melon"}
+	if !reflect.DeepEqual(expect_slice, s) {
+		t.Errorf("%v != %v", expect_slice, s)
+	}
+
+}
