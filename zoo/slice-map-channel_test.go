@@ -291,3 +291,43 @@ func TestSliceFor(t *testing.T) {
 	}
 
 }
+
+// 可変長引数を取る関数
+func sum(s ...int) int {
+	n := 0
+	for _, v := range s {
+		n += v
+	}
+	return n
+}
+
+// func sum(s ...int) int { // OK
+// func sum(s ...int, s...int) int { // コンパイルエラー
+// func sum(s ...int, b bool) int { // コンパイルエラー
+
+func TestVariableLengthArguments(t *testing.T) {
+	expect := 6
+	actual := sum(1, 2, 3)
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+
+	expect = 15
+	actual = sum(1, 2, 3, 4, 5)
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+
+	expect = 0
+	actual = sum()
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+
+	s := []int{1, 2, 3}
+	expect = 6
+	actual = sum(s...)
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+}
