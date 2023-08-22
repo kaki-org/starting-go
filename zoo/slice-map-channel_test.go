@@ -236,3 +236,38 @@ func TestSliceCopy(t *testing.T) {
 		t.Errorf("%v != %v", expect_string, string(b))
 	}
 }
+
+func TestFullSliceExpressions(t *testing.T) {
+	a := [10]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+	// a[low : high : max] という形式でスライスを作成する
+	s1 := a[2:4]
+	expect_len := 2
+	expect_cap := 8 // (len(a) - low) → 10 - 2 = 8
+	if expect_len != len(s1) {
+		t.Errorf("%d != %d", expect_len, len(s1))
+	}
+	if expect_cap != cap(s1) {
+		t.Errorf("%d != %d", expect_cap, cap(s1))
+	}
+
+	s2 := a[2:4:4]
+	expect_len = 2
+	expect_cap = 2 // max - low → 4 - 2 = 2
+	if expect_len != len(s2) {
+		t.Errorf("%d != %d", expect_len, len(s2))
+	}
+	if expect_cap != cap(s2) {
+		t.Errorf("%d != %d", expect_cap, cap(s2))
+	}
+
+	s3 := a[2:4:6]
+	expect_len = 2
+	expect_cap = 4 // max - low → 6 - 2 = 4
+	if expect_len != len(s3) {
+		t.Errorf("%d != %d", expect_len, len(s3))
+	}
+	if expect_cap != cap(s3) {
+		t.Errorf("%d != %d", expect_cap, cap(s3))
+	}
+}
