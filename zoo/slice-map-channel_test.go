@@ -196,3 +196,43 @@ func TestSliceAppendCapacity(t *testing.T) {
 		t.Errorf("%d != %d", expect, cap(s))
 	}
 }
+
+func TestSliceCopy(t *testing.T) {
+	s1 := []int{1, 2, 3, 4, 5}
+	s2 := []int{10, 11}
+	n := copy(s1, s2) // s2の要素数分だけコピーする
+
+	expect_len := 2
+	expect_slice := []int{10, 11, 3, 4, 5}
+	if expect_len != n {
+		t.Errorf("%d != %d", expect_len, n)
+	}
+	if !reflect.DeepEqual(expect_slice, s1) {
+		t.Errorf("%v != %v", expect_slice, s1)
+	}
+
+	s3 := []int{1, 2, 3, 4, 5}
+	s4 := []int{10, 11, 12, 13, 14, 15, 16}
+	n2 := copy(s3, s4) // コピーできたs3の要素数がn2に入る
+	expect_len = 5
+	expect_slice = []int{10, 11, 12, 13, 14}
+	if expect_len != n2 {
+		t.Errorf("%d != %d", expect_len, n2)
+	}
+	if !reflect.DeepEqual(expect_slice, expect_slice) {
+		t.Errorf("%v != %v", expect_slice, expect_slice)
+	}
+
+	// あくまで[]byte単位でコピーする
+	b := make([]byte, 9)
+	n3 := copy(b, "あいうえお")
+
+	expect_len = 9
+	expect_string := "あいう"
+	if expect_len != n3 {
+		t.Errorf("%d != %d", expect_len, n3)
+	}
+	if expect_string != string(b) {
+		t.Errorf("%v != %v", expect_string, string(b))
+	}
+}
