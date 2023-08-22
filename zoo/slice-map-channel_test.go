@@ -65,13 +65,13 @@ func TestSimpleSliceExpressions(t *testing.T) {
 	actual2 := a[2:]
 	actual3 := a[:4]
 	actual4 := a[:]
-	actual5 := a[len(a) -2:] // 式もかける
+	actual5 := a[len(a)-2:] // 式もかける
 
 	expect1 := []int{1, 2}
 	expect2 := []int{3, 4, 5}
 	expect3 := []int{1, 2, 3, 4}
 	expect4 := []int{1, 2, 3, 4, 5}
-	expect5 := []int{4,5}
+	expect5 := []int{4, 5}
 
 	if !reflect.DeepEqual(expect1, actual1) {
 		t.Errorf("%v != %v", expect1, actual1)
@@ -89,4 +89,18 @@ func TestSimpleSliceExpressions(t *testing.T) {
 		t.Errorf("%v != %v", expect5, actual5)
 	}
 
+}
+
+func TestSimpleSliceExpressionsString(t *testing.T) {
+	s := "ABCDE"[1:3]
+	multibytes := "あいうえお"[3:9] // バイト列([]byte)であるとみなされる
+
+	expect := "BC"
+	expect_multibytes := "いう"
+	if !reflect.DeepEqual(expect, s) {
+		t.Errorf("%v != %v", expect, s)
+	}
+	if !reflect.DeepEqual(expect_multibytes, multibytes) {
+		t.Errorf("%v != %v", expect_multibytes, multibytes)
+	}
 }
