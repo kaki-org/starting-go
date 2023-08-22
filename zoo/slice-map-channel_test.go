@@ -104,3 +104,43 @@ func TestSimpleSliceExpressionsString(t *testing.T) {
 		t.Errorf("%v != %v", expectMultibytes, multibytes)
 	}
 }
+func TestSliceAppend(t *testing.T) {
+	// 配列と違って、スライスは拡張できる
+	s := []int{1, 2, 3}
+	s = append(s, 4)
+	// append(s, 4) // 代入を伴わないappendはコンパイルエラー
+	expect := []int{1, 2, 3, 4}
+	if !reflect.DeepEqual(expect, s) {
+		t.Errorf("%v != %v", expect, s)
+	}
+
+	// 5,6,7を続けて追加できる
+	s = append(s, 5, 6, 7)
+	expect = []int{1, 2, 3, 4, 5, 6, 7}
+	if !reflect.DeepEqual(expect, s) {
+		t.Errorf("%v != %v", expect, s)
+	}
+
+	// スライス同士を結合する。s1の追加の「...」に注意
+	s0 := []int{1, 2, 3}
+	s1 := []int{4, 5, 6}
+	s2 := append(s0, s1...)
+
+	expect = []int{1, 2, 3, 4, 5, 6}
+	if !reflect.DeepEqual(expect, s2) {
+		t.Errorf("%v != %v", expect, s2)
+	}
+
+	// []byte型のスライスに文字列を追加する
+	var b []byte
+	b = append(b, "あいうえお"...)
+	b = append(b, "かきくけこ"...)
+	b = append(b, "さしすせそ"...)
+	fmt.Println(b)         // [227 129 130 227 129 132 227 129 134 227 129 136 227 129 138 227 129 139 227 129 141 227 129 143 227 129 145 227 129 147 227 129 149 227 129 151 227 129 153 227 129 155 227 129 157]
+	fmt.Println(string(b)) // あいうえおかきくけこさしすせそ
+	expectStr := "あいうえおかきくけこさしすせそ"
+	if expectStr != string(b) {
+		t.Errorf("%v != %v", expect, string(b))
+	}
+
+}
