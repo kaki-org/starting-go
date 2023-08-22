@@ -331,3 +331,31 @@ func TestVariableLengthArguments(t *testing.T) {
 		t.Errorf("%d != %d", expect, actual)
 	}
 }
+
+func powArray(a [3]int) {
+	for i, v := range a {
+		a[i] = v * v
+	}
+	return
+}
+func powSlice(a []int) {
+	for i, v := range a {
+		a[i] = v * v
+	}
+	return
+}
+func TestArrayAndSlice(t *testing.T) {
+	a := [3]int{1, 2, 3}
+	powArray(a)
+	expect := [3]int{1, 2, 3} // 配列は値渡し
+	if !reflect.DeepEqual(expect, a) {
+		t.Errorf("%v != %v", expect, a)
+	}
+
+	s := []int{1, 2, 3}
+	powSlice(s)
+	expect_slice := []int{1, 4, 9} // スライスは参照渡し
+	if !reflect.DeepEqual(expect_slice, s) {
+		t.Errorf("%v != %v", expect_slice, s)
+	}
+}
