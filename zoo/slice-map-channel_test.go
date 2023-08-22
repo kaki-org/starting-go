@@ -358,4 +358,18 @@ func TestArrayAndSlice(t *testing.T) {
 	if !reflect.DeepEqual(expect_slice, s) {
 		t.Errorf("%v != %v", expect_slice, s)
 	}
+
+	var (
+		a2 [3]int
+		s2 []int
+	)
+	expectArray := [3]int{0, 0, 0}
+	expectSlice := []int(nil)
+	if !reflect.DeepEqual(expectArray, a2) {
+		t.Errorf("%v != %v", expectArray, a2)
+	}
+	if !reflect.DeepEqual(expectSlice, s2) {
+		t.Errorf("%v != %v", expectSlice, s2)
+	}
+
 }
