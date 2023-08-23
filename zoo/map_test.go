@@ -147,3 +147,21 @@ func TestMapFor(t *testing.T) {
 		t.Errorf("%s != %s", expect_3, m[3])
 	}
 }
+
+func TestMapLen(t *testing.T) {
+	m := map[int]string{1: "A", 2: "B", 3: "C"}
+
+	expect := 3
+	actual := len(m)
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+
+	m[4] = "D"
+	m[5] = "E"
+	expect = 5
+	actual = len(m)
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+}
