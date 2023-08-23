@@ -176,5 +176,20 @@ func TestMapDelete(t *testing.T) {
 	if !reflect.DeepEqual(expect, actual) {
 		t.Errorf("%v != %v", expect, actual)
 	}
+}
 
+func TestMapMake(t *testing.T) {
+	// 要素100のMapを作成(だからといってテストがかけるわけでもないので困った)
+	m := make(map[int]string, 100)
+
+	m[1] = "A"
+	m[2] = "B"
+	m[3] = "C"
+
+	expect := map[int]string{1: "A", 2: "B", 3: "C"}
+	actual := m
+
+	if !reflect.DeepEqual(expect, actual) {
+		t.Errorf("%v != %v", expect, actual)
+	}
 }
