@@ -117,3 +117,33 @@ func TestMapReference(t *testing.T) {
 		fmt.Println("m[1]は存在する")
 	}
 }
+
+func TestMapFor(t *testing.T) {
+	m := map[int]string{
+		1: "Apple",
+		2: "Banana",
+		3: "Cherry",
+	}
+	for k, v := range m {
+		fmt.Printf("%d => %s\n", k, v)
+		// result += fmt.Sprintf("%d => %s\n", k, v)
+	}
+
+	// 順序が保証されないので、結果が毎回異なる
+	// expect := "1 => Apple\n2 => Banana\n3 => Cherry\n"
+
+	// 個別に指定する
+	expect_1 := "Apple"
+	expect_2 := "Banana"
+	expect_3 := "Cherry"
+
+	if expect_1 != m[1] {
+		t.Errorf("%s != %s", expect_1, m[1])
+	}
+	if expect_2 != m[2] {
+		t.Errorf("%s != %s", expect_2, m[2])
+	}
+	if expect_3 != m[3] {
+		t.Errorf("%s != %s", expect_3, m[3])
+	}
+}
