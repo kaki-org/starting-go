@@ -165,3 +165,16 @@ func TestMapLen(t *testing.T) {
 		t.Errorf("%d != %d", expect, actual)
 	}
 }
+
+func TestMapDelete(t *testing.T) {
+	m := map[int]string{1: "A", 2: "B", 3: "C"}
+	delete(m, 2)
+
+	expect := map[int]string{1: "A", 3: "C"}
+	actual := m
+
+	if !reflect.DeepEqual(expect, actual) {
+		t.Errorf("%v != %v", expect, actual)
+	}
+
+}
