@@ -63,3 +63,51 @@ func TestMapLiteral(t *testing.T) {
 		t.Errorf("%v != %v", m1, m2)
 	}
 }
+
+func TestMapReference(t *testing.T) {
+	// 基本的なMapの参照
+	m := map[int]string{1: "A", 2: "B", 3: "C"}
+
+	s := m[1]
+	expect := "A"
+	if expect != s {
+		t.Errorf("%s != %s", expect, s)
+	}
+	s2 := m[9] // 存在しないキーを指定してもエラーにならない
+	expect = ""
+	if expect != s2 {
+		t.Errorf("%s != %s", expect, s2)
+	}
+
+	// 0が返るが、値がとれて0なのか、存在しないキーなのか区別できない
+	m2 := map[int]int{1: 0}
+	e := m2[1] // 値がとれている
+	n := m2[7] // 存在しないキー
+
+	if e != n {
+		t.Errorf("%d != %d", e, n)
+	}
+
+	// キーが存在しなかったかどうかを調べる方法
+	m3 := map[int]string{1: "A", 2: "B", 3: "C"}
+
+	s, ok := m3[1]
+	expect = "A"
+	result := true
+	if expect != s || result != ok {
+		t.Errorf("%s != %s %t != %t", expect, s, result, ok)
+	}
+
+	s, ok = m3[9]
+	expect = ""
+	result = false
+	if expect != s || result != ok {
+		t.Errorf("%s != %s %t != %t", expect, s, result, ok)
+	}
+
+	_, ok = m3[3]
+	result = true
+	if result != ok {
+		t.Errorf("%t != %t", result, ok)
+	}
+}
