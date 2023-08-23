@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -109,5 +110,10 @@ func TestMapReference(t *testing.T) {
 	result = true
 	if result != ok {
 		t.Errorf("%t != %t", result, ok)
+	}
+
+	// 頻出イディオム
+	if _, ok := m[1]; ok {
+		fmt.Println("m[1]は存在する")
 	}
 }
