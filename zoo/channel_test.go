@@ -59,6 +59,29 @@ func TestChannelCap(t *testing.T) {
 	fmt.Println(cap(ch))
 }
 
+func TestChannelClose(t *testing.T) {
+	ch := make(chan int, 3)
+	ch <- 1
+	ch <- 2
+	ch <- 3
+	close(ch)
+
+	// ch <- 1 // クローズしているので送信はできない
+
+	var (
+		i int
+		ok bool
+	)
+	i, ok = <-ch
+	fmt.Println(i, ok) // 1 true
+	i, ok = <-ch
+	fmt.Println(i, ok) // 2 true
+	i, ok = <-ch
+	fmt.Println(i, ok) // 3 true
+	i, ok = <-ch
+	fmt.Println(i, ok) // 0 false
+}
+
 // func TestChannelAssignDummy(t *testing.T) {
 // 	var ch0 chan int // 送受信可能チャネル
 // 	var ch1 <-chan int // 受信専用チャネル
