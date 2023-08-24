@@ -29,6 +29,9 @@ func TestChannel(t *testing.T) {
 
 func TestChannelLen(t *testing.T) {
 	ch := make(chan int, 3)
+	if len(ch) != 0 {
+		t.Errorf("チャネルの長さが異なります。")
+	}
 	ch <- 1
 	ch <- 1
 	ch <- 1
@@ -40,6 +43,20 @@ func TestChannelLen(t *testing.T) {
 	// 	i := <-ch
 	// }
 	fmt.Println(len(ch))
+}
+
+func TestChannelCap(t *testing.T) {
+	ch := make(chan int, 3)
+	if cap(ch) != 3 {
+		t.Errorf("チャネルの容量が異なります。")
+	}
+	ch <- 1
+	ch <- 1
+	ch <- 1
+	if cap(ch) != 3 {
+		t.Errorf("チャネルの容量が異なります。")
+	}
+	fmt.Println(cap(ch))
 }
 
 // func TestChannelAssignDummy(t *testing.T) {
