@@ -112,6 +112,20 @@ func TestGoRoutine(t *testing.T) {
 	time.Sleep(3 * time.Second)
 }
 
+func TestChannelFor(t *testing.T) {
+	ch := make(chan int, 20)
+
+	ch <- 1
+	ch <- 2
+	ch <- 3
+	close(ch)
+	for i := range ch {
+		fmt.Println(i)
+	}
+
+	time.Sleep(3 * time.Second)
+}
+
 // func TestChannelAssignDummy(t *testing.T) {
 // 	var ch0 chan int // 送受信可能チャネル
 // 	var ch1 <-chan int // 受信専用チャネル
