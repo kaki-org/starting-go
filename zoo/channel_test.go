@@ -126,6 +126,29 @@ func TestChannelFor(t *testing.T) {
 	time.Sleep(3 * time.Second)
 }
 
+func TestChannelSelect(t *testing.T) {
+	ch1 := make(chan int, 1)
+	ch2 := make(chan int, 1)
+	ch3 := make(chan int, 1)
+
+	ch1 <- 1
+	ch2 <- 20
+
+	for i := 0; i < 3; i++ {
+		select {
+		case <-ch1:
+			fmt.Println("ch1から受信しました。")
+		case <-ch2:
+			fmt.Println("ch2から受信しました。")
+		case ch3 <- 30:
+			fmt.Println("ch3へ送信しました。")
+		default:
+			fmt.Println("ここへは到達しない。")
+		}
+	}
+
+}
+
 // func TestChannelAssignDummy(t *testing.T) {
 // 	var ch0 chan int // 送受信可能チャネル
 // 	var ch1 <-chan int // 受信専用チャネル
