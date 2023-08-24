@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"testing"
+	"time"
 )
 
 // https://www.wakuwakubank.com/posts/792-go-goroutine-channel/ 参照
@@ -69,7 +70,7 @@ func TestChannelClose(t *testing.T) {
 	// ch <- 1 // クローズしているので送信はできない
 
 	var (
-		i int
+		i  int
 		ok bool
 	)
 	i, ok = <-ch
@@ -80,6 +81,35 @@ func TestChannelClose(t *testing.T) {
 	fmt.Println(i, ok) // 3 true
 	i, ok = <-ch
 	fmt.Println(i, ok) // 0 false
+}
+
+func receive(name string, ch <-chan int) {
+	for {
+		i, ok := <-ch
+		if ok == false {
+			/* 受信できなくなったら終了 */
+			break
+		}
+		fmt.Println(name, i)
+	}
+	fmt.Println(name + " is done.")
+}
+
+func TestGoRoutine(t *testing.T) {
+	ch := make(chan int, 20)
+
+	go receive("1st goroutine", ch)
+	go receive("2nd goroutine", ch)
+	go receive("3rd goroutine", ch)
+
+	i := 0
+	for i < 100 {
+		ch <- i
+		i++
+	}
+	close(ch)
+
+	time.Sleep(3 * time.Second)
 }
 
 // func TestChannelAssignDummy(t *testing.T) {
