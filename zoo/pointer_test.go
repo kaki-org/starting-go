@@ -43,5 +43,21 @@ func TestAddressOperator(t *testing.T) {
 	if expect != actual {
 		t.Errorf("%d != %d", expect, actual)
 	}
+}
 
+func inc(p *int) {
+	// pをデリファレンスして、値をインクリメント
+	*p++
+}
+
+func TestPointerArgument(t *testing.T) {
+	i := 1
+	inc(&i)
+	inc(&i)
+	inc(&i)
+	expect := 4
+	actual := i
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
 }
