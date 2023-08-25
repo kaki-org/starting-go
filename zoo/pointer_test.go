@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -80,5 +81,30 @@ func TestPointerArray(t *testing.T) {
 	actual := *p
 	if expect != actual {
 		t.Errorf("%d != %d", expect, actual)
+	}
+
+	a := [3]string{"Apple", "Banana", "Cherry"}
+	ap := &a
+
+	if a[1] != (*ap)[1] {
+		t.Errorf("%s != %s", a[1], (*ap)[1])
+	}
+	if a[2] != (*ap)[2] {
+		t.Errorf("%s != %s", a[2], (*ap)[2])
+	}
+
+	// lenやcapはポインタ型に対しても使える
+	expect2 := 3
+	if expect2 != len(ap) {
+		t.Errorf("%d != %d", expect2, len(ap))
+	}
+	if expect2 != cap(ap) {
+		t.Errorf("%d != %d", expect2, cap(ap))
+	}
+
+	expect3 := [2]string{"Apple", "Banana"}
+	fmt.Println(ap[0:2])
+	if reflect.DeepEqual(expect3, ap[0:2]) {
+		t.Errorf("%v != %v", expect3, ap[0:2])
 	}
 }
