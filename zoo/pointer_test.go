@@ -76,4 +76,9 @@ func TestPointerArray(t *testing.T) {
 	p := &[3]int{1, 2, 3}
 	pow(p)
 	fmt.Println(p) // [1 4 9]
+	expect := [3]int{1, 4, 9}
+	actual := *p
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
 }
