@@ -82,7 +82,9 @@ func TestPointerArray(t *testing.T) {
 	if expect != actual {
 		t.Errorf("%d != %d", expect, actual)
 	}
+}
 
+func TestPointArrayDereference(t *testing.T) {
 	a := [3]string{"Apple", "Banana", "Cherry"}
 	ap := &a
 
@@ -91,6 +93,11 @@ func TestPointerArray(t *testing.T) {
 	}
 	if a[2] != (*ap)[2] {
 		t.Errorf("%s != %s", a[2], (*ap)[2])
+	}
+
+	// ポインタ型に対してもrangeが使える
+	for i, v := range ap { // for i, v := range *ap {
+		fmt.Println(i, v)
 	}
 
 	// lenやcapはポインタ型に対しても使える
@@ -107,4 +114,5 @@ func TestPointerArray(t *testing.T) {
 	if reflect.DeepEqual(expect3, ap[0:2]) {
 		t.Errorf("%v != %v", expect3, ap[0:2])
 	}
+
 }
