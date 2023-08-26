@@ -1,4 +1,3 @@
-// type_test.go
 package main
 
 import (
@@ -48,4 +47,31 @@ func TestTypeCallback(t *testing.T) {
 	if expect != actual {
 		t.Errorf("%d != %d", expect, actual)
 	}
+}
+
+func TestStruct(t *testing.T) {
+	type Point struct {
+		X, Y int
+	}
+
+	var pt Point
+	if (pt.X != pt.Y) || (pt.X != 0) {
+		t.Errorf("pt.X or pt.Y is not 0")
+	}
+
+	pt.X = 10
+	pt.Y = 8
+
+	expect := 10
+	actual := pt.X
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+
+	expect = 8
+	actual = pt.Y
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+
 }
