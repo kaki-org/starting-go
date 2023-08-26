@@ -201,3 +201,35 @@ func TestStructInStruct3(t *testing.T) {
 		t.Errorf("t123.Name3 is not C")
 	}
 }
+
+func TestStructInStruct4(t *testing.T) {
+	type Base struct {
+		Id    int
+		Owner string
+	}
+	type A struct {
+		Base /* 共通のフィールド */
+		Name string
+		Area string
+	}
+	type B struct {
+		Base   /* 共通のフィールド */
+		Title  string
+		Bodies []string
+	}
+
+	a := A{
+		Base: Base{17, "Taro"},
+		Name: "Taro",
+		Area: "Tokyo",
+	}
+	b := B{
+		Base:   Base{81, "Hanako"},
+		Title:  "no title",
+		Bodies: []string{"A", "B"},
+	}
+	fmt.Println(a.Id)
+	fmt.Println(a.Owner)
+	fmt.Println(b.Id)
+	fmt.Println(b.Owner)
+}
