@@ -84,5 +84,46 @@ func TestStruct(t *testing.T) {
 	if expectY != actualY {
 		t.Errorf("%d != %d", expectY, actualY)
 	}
+}
 
+func TestStructField(ts *testing.T) {
+	// 構造体のフィールド名指定を省略すると、宣言順に初期化される
+	type T struct {
+		int
+		float64
+		string
+	}
+	t := T{5, 3.14, "文字列"}
+	expectInt := 5
+	actualInt := t.int
+	if expectInt != actualInt {
+		ts.Errorf("%d != %d", expectInt, actualInt)
+	}
+	expectFloat64 := 3.14
+	actualFloat64 := t.float64
+	if expectFloat64 != actualFloat64 {
+		ts.Errorf("%f != %f", expectFloat64, actualFloat64)
+	}
+	expectString := "文字列"
+	actualString := t.string
+	if expectString != actualString {
+		ts.Errorf("%s != %s", expectString, actualString)
+	}
+
+	// 無名フィールドを用いた構造体の埋め込み
+	type T2 struct {
+		N uint
+		_ int16
+		S string
+	}
+
+	t2 := T2{
+		N: 1,
+		S: "文字列",
+	}
+	expect2 := T2{1, 0, "文字列"} // 0はint16のゼロ値。無名フィールドにも値は存在する
+	if expect2 != t2 {
+		ts.Errorf("%v != %v", expect2, t2)
+	}
+	fmt.Println(t2)
 }
