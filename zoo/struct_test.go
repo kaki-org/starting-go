@@ -62,13 +62,27 @@ func TestStruct(t *testing.T) {
 	pt.X = 10
 	pt.Y = 8
 
-	expect := Point{10, 8}
+	expect := Point{10, 8} // 省略してかけるが、後述のようにフィールド名を指定する書き方が推奨
 	actual := pt
 	if expect != actual {
 		t.Errorf("%v != %v", expect, actual)
 	}
-	expect = Point{X: 10, Y: 8}
+	expect = Point{X: 10, Y: 8} // フィールド名を指定して初期化
 	if expect != actual {
 		t.Errorf("%v != %v", expect, actual)
 	}
+
+	pt2 := Point{Y: 5}
+
+	expectX := 0
+	actualX := pt2.X
+	if expectX != actualX {
+		t.Errorf("%d != %d", expectX, actualX)
+	}
+	expectY := 5
+	actualY := pt2.Y
+	if expectY != actualY {
+		t.Errorf("%d != %d", expectY, actualY)
+	}
+
 }
