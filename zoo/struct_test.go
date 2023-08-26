@@ -127,3 +127,53 @@ func TestStructField(ts *testing.T) {
 	}
 	fmt.Println(t2)
 }
+
+func TestStructInStruct(t *testing.T) {
+	type Feed struct {
+		Name   string
+		Amount uint
+	}
+	type Animal struct {
+		Name string
+		Feed Feed // 構造体のフィールドに構造体を埋め込む
+	}
+	a := Animal{
+		Name: "Monkey",
+		Feed: Feed{ /* 複合リテラル内の複合リテラル */
+			Name:   "Banana",
+			Amount: 10,
+		},
+	}
+	fmt.Println(a)             // {Monkey {Banana 10}}
+	fmt.Println(a.Name)        // Monkey
+	fmt.Println(a.Feed.Name)   // Banana
+	fmt.Println(a.Feed.Amount) // 10
+
+	a.Feed.Amount = 15
+	fmt.Println(a.Feed.Amount) // 15
+}
+
+func TestStructInStruct2(t *testing.T) {
+	type Feed struct {
+		Name   string
+		Amount uint
+	}
+	type Animal struct {
+		Name string
+		Feed // 構造体のフィールドに構造体を埋め込む
+	}
+	a := Animal{
+		Name: "Monkey",
+		Feed: Feed{ /* 複合リテラル内の複合リテラル */
+			Name:   "Banana",
+			Amount: 10,
+		},
+	}
+	fmt.Println(a)           // {Monkey {Banana 10}}
+	fmt.Println(a.Name)      // Monkey
+	fmt.Println(a.Feed.Name) // Banana
+	fmt.Println(a.Amount)    // 10(フィールド名を省略している a.Feed.Amountと同じ)
+
+	a.Amount = 15
+	fmt.Println(a.Amount) // 15
+}
