@@ -177,3 +177,27 @@ func TestStructInStruct2(t *testing.T) {
 	a.Amount = 15
 	fmt.Println(a.Amount) // 15
 }
+
+func TestStructInStruct3(t *testing.T) {
+	type T1 struct {
+		Name1 string
+	}
+	type T2 struct {
+		T1
+		Name2 string
+	}
+	type T3 struct {
+		T2
+		Name3 string
+	}
+	t123 := T3{T2: T2{T1: T1{Name1: "A"}, Name2: "B"}, Name3: "C"}
+	if t123.Name1 != "A" {
+		t.Errorf("t123.Name1 is not A")
+	}
+	if t123.Name2 != "B" {
+		t.Errorf("t123.Name2 is not B")
+	}
+	if t123.Name3 != "C" {
+		t.Errorf("t123.Name3 is not C")
+	}
+}
