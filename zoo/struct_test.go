@@ -62,9 +62,9 @@ func TestStruct(t *testing.T) {
 	pt.X = 10
 	pt.Y = 8
 
-	expect_struct := Point{10, 8}
-	actual_struct := pt
-	if expect_struct != actual_struct {
-		t.Errorf("%v != %v", expect_struct, actual_struct)
+	expect := Point{10, 8}
+	actual := pt
+	if expect != actual {
+		t.Errorf("%v != %v", expect, actual)
 	}
 }
