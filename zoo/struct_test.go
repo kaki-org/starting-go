@@ -237,8 +237,15 @@ func TestStructInStruct4(t *testing.T) {
 func showStruct(s struct{ X, Y int }) {
 	fmt.Println(s)
 }
+
+type Point struct {
+	X, Y int
+}
+
 func TestAnonymousStruct(t *testing.T) {
 	// 無名構造体。あえてこの書き方にする必要はない
 	s := struct{ X, Y int }{X: 1, Y: 2}
 	showStruct(s)
+	p := Point{X: 1, Y: 2}
+	showStruct(p) // 互換性はあるのでPointを渡してもOK
 }
