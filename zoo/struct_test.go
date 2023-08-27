@@ -469,4 +469,10 @@ func TestStructToString(t *testing.T) {
 		t.Errorf("%s != %s", expect, actual)
 	}
 
+	p := &Point{X: 1, Y: 2}
+	fm := p.ToString // メソッド値 func() string型
+	actual = fm()    // メソッドを関数として実行
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
 }
