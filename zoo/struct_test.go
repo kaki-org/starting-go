@@ -249,6 +249,12 @@ func swap(p Point) {
 	p.X = x
 	p.Y = y
 }
+func swap2(p *Point) {
+	/* フィールドXとYを入れ替える */
+	x, y := p.Y, p.X
+	p.X = x
+	p.Y = y
+}
 
 func TestAnonymousStruct(t *testing.T) {
 	// 無名構造体。あえてこの書き方にする必要はない
@@ -266,4 +272,7 @@ func TestStructValue(t *testing.T) {
 	swap(p)
 	// 構造体は値渡しなので、swap関数内での変更は反映されない
 	fmt.Println(p) // {1 2}
+	swap2(&p)
+	// ポインタを渡すと、swap関数内での変更が反映される
+	fmt.Println(p) // {2 1}
 }
