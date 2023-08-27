@@ -419,3 +419,30 @@ func TestAliasMethods(t *testing.T) {
 		t.Errorf("%s != %s", expectJoin, actualJoin)
 	}
 }
+
+type User struct {
+	Id   int
+	Name string
+}
+
+// 型コンストラクタのパターン。ポインタ型を返すようにするのが望ましい
+func NewUser(id int, name string) *User {
+	u := new(User)
+	u.Id = id
+	u.Name = name
+	return u
+}
+
+func TestNewUser(t *testing.T) {
+	u := NewUser(1, "Taro")
+	expectId := 1
+	actualId := u.Id
+	if expectId != actualId {
+		t.Errorf("%d != %d", expectId, actualId)
+	}
+	expectName := "Taro"
+	actualName := u.Name
+	if expectName != actualName {
+		t.Errorf("%s != %s", expectName, actualName)
+	}
+}
