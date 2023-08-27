@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"reflect"
 	"testing"
 )
@@ -314,5 +315,27 @@ func TestStructNew(t *testing.T) {
 	actualPerson := *p
 	if expectPerson != actualPerson {
 		t.Errorf("%v != %v", expectPerson, actualPerson)
+	}
+}
+
+/* *Point型のメソッドRender */
+func (p *Point) Render() {
+	fmt.Printf("<%d, %d>\n", p.X, p.Y)
+}
+
+/* 2点間の距離を求めるメソッドDistance */
+func (p *Point) Distance(dp *Point) float64 {
+	x, y := p.X-dp.X, p.Y-dp.Y
+	return math.Sqrt(float64(x*x + y*y))
+}
+
+func TestStructMethod(t *testing.T) {
+	p := Point{X: 0, Y: 0}
+	p.Render() // メソッド呼び出し<0, 0>
+
+	distance := p.Distance(&Point{X: 1, Y: 1}) // メソッド呼び出し
+	expect := 1.4142135623730951
+	if expect != distance {
+		t.Errorf("%f != %f", expect, distance)
 	}
 }
