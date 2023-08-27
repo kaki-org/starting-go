@@ -446,3 +446,27 @@ func TestNewUser(t *testing.T) {
 		t.Errorf("%s != %s", expectName, actualName)
 	}
 }
+
+func (p *Point) ToString() string {
+	return fmt.Sprintf("[%d, %d]", p.X, p.Y)
+}
+
+func TestStructToString(t *testing.T) {
+	f := (*Point).ToString
+
+	expect := "[1, 2]"
+	actual := f(&Point{X: 1, Y: 2}) // メソッド呼び出し(関数の第一引数にレシーバを渡す)
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+
+	actual = (&Point{X: 1, Y: 2}).ToString() // (通常の)メソッド呼び出し
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+	actual = ((*Point).ToString)(&Point{X: 1, Y: 2}) // メソッド呼び出し(関数の第一引数にレシーバを渡す)
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+
+}
