@@ -276,3 +276,43 @@ func TestStructValue(t *testing.T) {
 	// ポインタを渡すと、swap関数内での変更が反映される
 	fmt.Println(p) // {2 1}
 }
+
+type Person struct {
+	Id   int
+	Name string
+	Area string
+}
+
+func setPerson(p *Person, id int, name, area string) {
+	p.Id = id
+	p.Name = name
+	p.Area = area
+}
+
+func TestStructNew(t *testing.T) {
+	// newで構造体(のポインタ)を生成する
+	p := new(Person)
+	expectId := 0
+	actualId := p.Id
+	if expectId != actualId {
+		t.Errorf("%d != %d", expectId, actualId)
+	}
+	expectName := ""
+	actualName := p.Name
+	if expectName != actualName {
+		t.Errorf("%s != %s", expectName, actualName)
+	}
+	expectArea := ""
+	actualArea := p.Area
+	if expectArea != actualArea {
+		t.Errorf("%s != %s", expectArea, actualArea)
+	}
+
+	setPerson(p, 1, "Gopher", "Tokyo")
+
+	expectPerson := Person{Id: 1, Name: "Gopher", Area: "Tokyo"}
+	actualPerson := *p
+	if expectPerson != actualPerson {
+		t.Errorf("%v != %v", expectPerson, actualPerson)
+	}
+}
