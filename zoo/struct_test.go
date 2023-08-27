@@ -356,3 +356,17 @@ func TestStructMethod(t *testing.T) {
 		t.Errorf("%f != %f", expectFloat, distanceFloat)
 	}
 }
+
+type MyInt int
+
+func (m MyInt) Plus(i int) int {
+	return int(m) + i
+}
+
+func TestPlusMyInt(t *testing.T) {
+	expect := 6
+	actual := MyInt(4).Plus(2)
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+}
