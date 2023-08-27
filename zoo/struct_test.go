@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -248,4 +249,7 @@ func TestAnonymousStruct(t *testing.T) {
 	showStruct(s)
 	p := Point{X: 1, Y: 2}
 	showStruct(p) // 互換性はあるのでPointを渡してもOK
+	if reflect.DeepEqual(s, p) {
+		t.Errorf("%v != %v", s, p)
+	}
 }
