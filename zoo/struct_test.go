@@ -243,6 +243,13 @@ type Point struct {
 	X, Y int
 }
 
+func swap(p Point) {
+	/* フィールドXとYを入れ替える */
+	x, y := p.Y, p.X
+	p.X = x
+	p.Y = y
+}
+
 func TestAnonymousStruct(t *testing.T) {
 	// 無名構造体。あえてこの書き方にする必要はない
 	s := struct{ X, Y int }{X: 1, Y: 2}
@@ -252,4 +259,11 @@ func TestAnonymousStruct(t *testing.T) {
 	if reflect.DeepEqual(s, p) {
 		t.Errorf("%v != %v", s, p)
 	}
+}
+
+func TestStructValue(t *testing.T) {
+	p := Point{X: 1, Y: 2}
+	swap(p)
+	// 構造体は値渡しなので、swap関数内での変更は反映されない
+	fmt.Println(p) // {1 2}
 }
