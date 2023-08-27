@@ -243,6 +243,9 @@ func showStruct(s struct{ X, Y int }) {
 type Point struct {
 	X, Y int
 }
+type FloatPoint struct {
+	X, Y float64
+}
 
 func swap(p Point) {
 	/* フィールドXとYを入れ替える */
@@ -323,10 +326,16 @@ func (p *Point) Render() {
 	fmt.Printf("<%d, %d>\n", p.X, p.Y)
 }
 
-/* 2点間の距離を求めるメソッドDistance */
+/* IntPoint型の2点間の距離を求めるメソッドDistance */
 func (p *Point) Distance(dp *Point) float64 {
 	x, y := p.X-dp.X, p.Y-dp.Y
 	return math.Sqrt(float64(x*x + y*y))
+}
+
+/* FloatPoint型の2点間の距離を求めるメソッドDistance */
+func (p *FloatPoint) Distance(dp *FloatPoint) float64 {
+	x, y := p.X-dp.X, p.Y-dp.Y
+	return math.Sqrt(x*x + y*y)
 }
 
 func TestStructMethod(t *testing.T) {
@@ -337,5 +346,13 @@ func TestStructMethod(t *testing.T) {
 	expect := 1.4142135623730951
 	if expect != distance {
 		t.Errorf("%f != %f", expect, distance)
+	}
+
+	fp := FloatPoint{X: 0.0, Y: 0.0}
+
+	distanceFloat := fp.Distance(&FloatPoint{X: 1.0, Y: 1.0}) // メソッド呼び出し
+	expectFloat := 1.4142135623730951
+	if expectFloat != distanceFloat {
+		t.Errorf("%f != %f", expectFloat, distanceFloat)
 	}
 }
