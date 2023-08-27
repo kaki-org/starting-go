@@ -233,3 +233,12 @@ func TestStructInStruct4(t *testing.T) {
 	fmt.Println(b.Id)
 	fmt.Println(b.Owner)
 }
+
+func showStruct(s struct{ X, Y int }) {
+	fmt.Println(s)
+}
+func TestAnonymousStruct(t *testing.T) {
+	// 無名構造体。あえてこの書き方にする必要はない
+	s := struct{ X, Y int }{X: 1, Y: 2}
+	showStruct(s)
+}
