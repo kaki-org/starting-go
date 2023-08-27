@@ -370,3 +370,52 @@ func TestPlusMyInt(t *testing.T) {
 		t.Errorf("%d != %d", expect, actual)
 	}
 }
+
+/* [2]intへのエイリアスIntPair */
+type IntPair [2]int
+
+/* ペアの先頭を返すメソッドFirst */
+func (ip IntPair) First() int {
+	return ip[0]
+}
+
+/* ペアの末尾を返すメソッドLast*/
+func (ip IntPair) Last() int {
+	return ip[1]
+}
+
+/* []stringへのエイリアスStrings */
+type Strings []string
+
+/* 文字列のスライスを区切り文字で連結するメソッドJoin */
+func (s Strings) Join(d string) string {
+	sum := ""
+	for _, v := range s {
+		if sum != "" {
+			sum += d
+		}
+		sum += v
+	}
+	return sum
+}
+
+func TestAliasMethods(t *testing.T) {
+	ip := IntPair{1, 2}
+	expectFirst := 1
+	actualFirst := ip.First()
+	if expectFirst != actualFirst {
+		t.Errorf("%d != %d", expectFirst, actualFirst)
+	}
+	expectLast := 2
+	actualLast := ip.Last()
+	if expectLast != actualLast {
+		t.Errorf("%d != %d", expectLast, actualLast)
+	}
+
+	strs := Strings{"Apple", "Banana", "Cherry"}
+	expectJoin := "Apple,Banana,Cherry"
+	actualJoin := strs.Join(",")
+	if expectJoin != actualJoin {
+		t.Errorf("%s != %s", expectJoin, actualJoin)
+	}
+}
