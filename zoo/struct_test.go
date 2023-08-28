@@ -578,3 +578,48 @@ func TestStructSlice2(t *testing.T) {
 		t.Errorf("%s != %s", expect, actual)
 	}
 }
+
+func TestStructMap(t *testing.T) {
+	/* キーが構造体型のマップ */
+	m1 := map[User]string{
+		{Id: 1, Name: "Taro"}:   "Tokyo",
+		{Id: 2, Name: "Hanako"}: "Osaka",
+	}
+	/* 値が構造体型のマップ */
+	m2 := map[int]User{
+		1: {Id: 1, Name: "Taro"},
+		2: {Id: 2, Name: "Hanako"},
+	}
+	/* 値がスライスのマップ */
+	ms := map[int][]string{
+		1: {"A", "B", "C"},
+	}
+	/* 値がマップのマップ */
+	mm := map[int]map[int]string{
+		1: {1: "Apple", 2: "Banana", 3: "Cherry"},
+	}
+
+	expect1 := "Tokyo"
+	actual1 := m1[User{Id: 1, Name: "Taro"}]
+	if expect1 != actual1 {
+		t.Errorf("%s != %s", expect1, actual1)
+	}
+
+	expect2 := "Taro"
+	actual2 := m2[1].Name
+	if expect2 != actual2 {
+		t.Errorf("%s != %s", expect2, actual2)
+	}
+
+	expect3 := "B"
+	actual3 := ms[1][1]
+	if expect3 != actual3 {
+		t.Errorf("%s != %s", expect3, actual3)
+	}
+
+	expect4 := "Banana"
+	actual4 := mm[1][2]
+	if expect4 != actual4 {
+		t.Errorf("%s != %s", expect4, actual4)
+	}
+}
