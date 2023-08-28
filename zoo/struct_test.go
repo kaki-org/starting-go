@@ -540,3 +540,41 @@ func TestAnimalPackage(t *testing.T) {
 		t.Errorf("%d != %d", expect, actual)
 	}
 }
+
+func TestStructSlice(t *testing.T) {
+	ps := make([]Point, 5)
+	for _, p := range ps {
+		fmt.Println(p) // {0 0}が5回表示される
+	}
+}
+
+/* 複雑な構造体にはtypeをつかってエイリアスをつける */
+type Points []*Point
+
+func (ps Points) ToString() string {
+	str := ""
+	for _, p := range ps {
+		if str != "" {
+			str += ","
+		}
+		if p == nil {
+			str += "<nil>"
+		} else {
+			str += fmt.Sprintf("[%d, %d]", p.X, p.Y)
+		}
+	}
+	return str
+}
+
+func TestStructSlice2(t *testing.T) {
+	ps := Points{}
+	ps = append(ps, &Point{X: 1, Y: 2})
+	ps = append(ps, nil)
+	ps = append(ps, &Point{X: 3, Y: 4})
+
+	expect := "[1, 2],<nil>,[3, 4]"
+	actual := ps.ToString()
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+}
