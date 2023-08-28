@@ -129,3 +129,26 @@ type I3 interface {
 	I1 // インターフェースI1を含む
 	Method3() int
 }
+
+type T4 struct{ Id int }
+
+func (t *T4) GetId() int { return t.Id }
+
+type I5 interface {
+	GetId() int
+}
+
+func ShowId(id interface{ GetId() int }) {
+	// 変数idは「GetId() int」というメソッドを持つ型
+	fmt.Println("ID:", id.GetId())
+}
+func ShowId5(id I5) {
+	// もちろんこの書き方も大丈夫
+	fmt.Println("ID:", id.GetId())
+}
+
+func TestInterface(t *testing.T) {
+	t4 := &T4{Id: 999}
+	ShowId(t4)
+	ShowId5(t4)
+}
