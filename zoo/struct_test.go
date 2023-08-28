@@ -476,3 +476,48 @@ func TestStructToString(t *testing.T) {
 		t.Errorf("%s != %s", expect, actual)
 	}
 }
+
+/* Point型のレシーバー */
+func (p Point) Set(x, y int) {
+	p.X = x
+	p.Y = y
+}
+
+/* *Point型のレシーバー */
+func (p *Point) Set2(x, y int) {
+	p.X = x
+	p.Y = y
+}
+func TestPointReceiver(t *testing.T) {
+	// レシーバが値渡しのため、値は変更されない
+	p1 := Point{}
+	p1.Set(1, 2)
+	expect := Point{0, 0}
+	actual := p1
+	if expect != actual {
+		t.Errorf("%v != %v", expect, actual)
+	}
+	p2 := &Point{} // ポインタ型のレシーバ
+	p2.Set(3, 4)
+	expect2 := Point{0, 0} // それでも値は変更されない
+	actual2 := *p2
+	if expect2 != actual2 {
+		t.Errorf("%v != %v", expect2, actual2)
+	}
+
+	// レシーバがポインタ型の場合は、値が変更される
+	p3 := Point{}
+	p3.Set2(1, 2)
+	expect3 := Point{1, 2}
+	actual3 := p3
+	if expect3 != actual3 {
+		t.Errorf("%v != %v", expect3, actual3)
+	}
+	p4 := &Point{}
+	p4.Set2(3, 4)
+	expect4 := Point{3, 4}
+	actual4 := *p4
+	if expect4 != actual4 {
+		t.Errorf("%v != %v", expect4, actual4)
+	}
+}
