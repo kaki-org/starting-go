@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"math"
 	"reflect"
@@ -644,6 +645,26 @@ func TestStructTag(t *testing.T) {
 	}
 	expect := "ユーザID,名前,年齢"
 	actual := str
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+}
+
+type UserJ struct {
+	Id   int    `json:"user_id"`
+	Name string `json:"user_name"`
+	Age  uint   `json:"user_age"`
+}
+
+func TestJsonMarshal(t *testing.T) {
+	u := UserJ{Id: 1, Name: "Taro", Age: 32}
+	/* JSON形式に変換 */
+	bs, err := json.Marshal(u)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expect := `{"user_id":1,"user_name":"Taro","user_age":32}`
+	actual := string(bs)
 	if expect != actual {
 		t.Errorf("%s != %s", expect, actual)
 	}
