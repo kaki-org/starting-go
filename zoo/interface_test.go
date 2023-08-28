@@ -86,3 +86,17 @@ func TestStringify(t *testing.T) {
 	Println(&Person2{Name: "Hanako", Age: 30})
 	Println(&Car{Number: "YYY-0123", Model: "PX513"})
 }
+
+type TS struct {
+	Id   int
+	Name string
+}
+
+func (t *TS) String() string {
+	return fmt.Sprintf("<<%d, %s>>", t.Id, t.Name)
+}
+
+func TestStringer(t *testing.T) {
+	ts := &TS{Id: 1, Name: "Taro"}
+	fmt.Println(ts)
+}
