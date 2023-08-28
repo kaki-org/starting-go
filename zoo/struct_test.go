@@ -423,8 +423,9 @@ func TestAliasMethods(t *testing.T) {
 }
 
 type User struct {
-	Id   int
-	Name string
+	Id   int    "ユーザID"
+	Name string "名前"
+	Age  uint   "年齢"
 }
 
 // 型コンストラクタのパターン。ポインタ型を返すようにするのが望ましい
@@ -621,5 +622,29 @@ func TestStructMap(t *testing.T) {
 	actual4 := mm[1][2]
 	if expect4 != actual4 {
 		t.Errorf("%s != %s", expect4, actual4)
+	}
+}
+
+func TestStructTag(t *testing.T) {
+	u := User{Id: 1, Name: "Taro", Age: 32}
+
+	str := ""
+	/* 変数tpはreflect.Type型 */
+	tp := reflect.TypeOf(u)
+	/* 構造体の全フィールドを処理するループ */
+	for i := 0; i < tp.NumField(); i++ {
+		/* i番目のフィールドの情報を取得 */
+		f := tp.Field(i)
+		/* フィールドタグの値を表示 */
+		fmt.Println(f.Name, f.Tag)
+		if str != "" {
+			str += ","
+		}
+		str += string(f.Tag)
+	}
+	expect := "ユーザID,名前,年齢"
+	actual := str
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
 	}
 }
