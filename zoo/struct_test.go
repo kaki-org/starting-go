@@ -5,6 +5,8 @@ import (
 	"math"
 	"reflect"
 	"testing"
+
+	"github.com/kakikubo/starting-go/zoo/animals"
 )
 
 func TestType(t *testing.T) {
@@ -519,5 +521,22 @@ func TestPointReceiver(t *testing.T) {
 	actual4 := *p4
 	if expect4 != actual4 {
 		t.Errorf("%v != %v", expect4, actual4)
+	}
+}
+
+/* フィールドとメソッドの可視性 */
+func TestAnimalPackage(t *testing.T) {
+	// ./animals/animals.go参照
+	a := &animals.T{}
+	a.Field1 = 1
+	a.Method1()
+
+	// a.field2 = 1 // コンパイルエラー
+	// a.method2()  // コンパイルエラー
+
+	expect := 1
+	actual := a.Field1
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
 	}
 }
