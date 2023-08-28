@@ -115,3 +115,17 @@ func TestPackageInterface(t *testing.T) {
 
 	// i.method2() // コンパイルエラー
 }
+
+type I0 interface {
+	Method1() int
+}
+
+type I1 interface {
+	I0 // インターフェースI0を含む
+	Method2() int
+}
+
+type I3 interface {
+	I1 // インターフェースI1を含む
+	Method3() int
+}
