@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -39,4 +40,49 @@ func TestMyError(t *testing.T) {
 	} else {
 		t.Errorf("Type assertion error")
 	}
+}
+
+/* 文字列化できることを示すインターフェース */
+type Stringify interface {
+	ToString() string
+}
+
+/* 構造体型Personの定義 */
+type Person2 struct {
+	Name string
+	Age  int
+}
+
+func (p *Person2) ToString() string {
+	return fmt.Sprintf("%s(%d)", p.Name, p.Age)
+}
+
+/* 構造体型	Carの定義 */
+type Car struct {
+	Number string
+	Model  string
+}
+
+func (c *Car) ToString() string {
+	return fmt.Sprintf("[%s] %s", c.Number, c.Model)
+}
+
+func Println(s Stringify) {
+	fmt.Println(s.ToString())
+}
+
+func TestStringify(t *testing.T) {
+	vs := []Stringify{
+		&Person2{Name: "Taro", Age: 21},
+		&Car{Number: "XXX-0123", Model: "PX512"},
+	}
+
+	/* vsの要素それぞれに対して、ToString()を呼び出す */
+	for _, v := range vs {
+		// fmt.Println(v.ToString())
+		Println(v) // 上記と同じ
+	}
+
+	Println(&Person2{Name: "Hanako", Age: 30})
+	Println(&Car{Number: "YYY-0123", Model: "PX513"})
 }
