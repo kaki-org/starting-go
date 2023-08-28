@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"testing"
+
+	"github.com/kakikubo/starting-go/zoo/animals"
 )
 
 /* 独自定義のエラーを表す型 */
@@ -99,4 +101,17 @@ func (t *TS) String() string {
 func TestStringer(t *testing.T) {
 	ts := &TS{Id: 1, Name: "Taro"}
 	fmt.Println(ts)
+}
+
+func TestPackageInterface(t *testing.T) {
+	// animals.go参照
+	i := animals.NewI()
+
+	expect := "Method1()"
+	actual := i.Method1()
+	if actual != expect {
+		t.Errorf("%s != %s", actual, expect)
+	}
+
+	// i.method2() // コンパイルエラー
 }

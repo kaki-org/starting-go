@@ -22,3 +22,22 @@ func FooFunc(n int) int {
 func internalFunc(n int) int {
 	return n + 1
 }
+
+type I interface {
+	Method1() string
+	method2() string
+}
+
+type T3 struct{}
+
+func (t *T3) Method1() string {
+	return "Method1()"
+}
+
+func (t *T3) method2() string {
+	return "method2()"
+}
+
+func NewI() I {
+	return &T3{}
+}
