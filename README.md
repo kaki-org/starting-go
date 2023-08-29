@@ -74,3 +74,22 @@ go get github.com/nsf/gocode # 入力補完に
 go get github.com/k0kubun/pp # プリティプリントに
 go get github.com/x/tools/cmd/godoc # ドキュメントに
 ```
+
+### goコマンド
+
+### `go env`
+
+Goのビルドシステムに関係する環境変数の内容を表示する。
+
+```zsh
+go env
+```
+
+環境変数 | 値 | 内容
+--- | --- | ---
+GOARCH | amd64, 386, arm, ppc64 | コンパイラが対象とするCPUアーキテクチャ
+GOBIN | ディレクトリ | `go install`によってインストールされるコマンドの格納ディレクトリ。指定がない場合は `$GOPATH/bin`
+GOOS | linux, darwin, windows, netbsd | コンパイラが対象とするOS環境
+GOPATH | ディレクトリ | パッケージのソースコードとオブジェクトファイル、実行ファイルなどが格納されるディレクトリ
+GORACE | 文字列 | レースコンディションの問題を検出するツールに指定するオプション
+GOROOT | ディレクトリ | Go本体のインストールディレクトリ
