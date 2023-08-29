@@ -138,3 +138,18 @@ go doc animals.ElephantFeed
 ```zsh
 go build [-o output] [-i] [build flags] [packages]
 ```
+
+オプション | 効果
+--- | ---
+`-i` | インポートパッケージの依存関係を更新する
+`-o` | 出力ファイル名を指定する
+`-x` | 実行されるコマンドの表示(ファイルは書き換える)
+
+zooのビルドを実行
+
+```zsh
+go build zoo 
+go build -x -o zoo.a zoo 
+cd zoo
+go build main.go app.go f.go # => main.go が生成される
+```
