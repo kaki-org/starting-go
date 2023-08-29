@@ -10,6 +10,6 @@ func main() {
 	fmt.Println("Hello, World!")
 	_, err := os.Open("no-such-file")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err) // os.Exit(1)も呼び出される
 	}
 }
