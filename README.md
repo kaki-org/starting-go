@@ -153,3 +153,14 @@ go build -x -o zoo.a zoo
 cd zoo
 go build main.go app.go f.go # => main.go が生成される
 ```
+
+### `go install`
+
+```zsh
+go install [-i] [build flags] [packages]
+```
+
+オプション | 効果
+--- | ---
+`-i` | インポートパッケージの依存関係を更新する
+`-x` | 実行されるコマンドの表示(ファイルは書き換える)
