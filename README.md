@@ -93,3 +93,42 @@ GOOS | linux, darwin, windows, netbsd | コンパイラが対象とするOS環�
 GOPATH | ディレクトリ | パッケージのソースコードとオブジェクトファイル、実行ファイルなどが格納されるディレクトリ
 GORACE | 文字列 | レースコンディションの問題を検出するツールに指定するオプション
 GOROOT | ディレクトリ | Go本体のインストールディレクトリ
+
+### `go fmt`
+
+Goのソースコードを整形する。内部的には`gofmt`を呼び出している。
+
+```zsh
+go fmt [-n] [-x] [packages]
+```
+
+オプション | 効果
+--- | ---
+`-n` | 実行されるコマンドの表示(ファイルは書き換えない)
+`-x` | 実行されるコマンドの表示(ファイルは書き換える)
+
+### `go doc`
+
+```zsh
+go doc [-u] [-c] [package|[package.]symbol[.methodOrField]]
+```
+
+オプション | 効果
+--- | ---
+`-c` | 識別子のマッチングで「大文字小文字」を厳密に区別する
+`-u` | 非公開な識別子やメソッドについてもドキュメントを表示する
+
+利用例
+
+```zsh
+go doc math/rand
+go doc math/rand.Intn
+go doc time.Time.Unix
+```
+
+パッケージのドキュメント生成
+
+```zsh
+go doc animals
+go doc animals.ElephantFeed
+```
