@@ -191,3 +191,27 @@ go get golang.org/x/net/http2
 ```zsh
 go test [-c] [-i] [build flags] [packages] [flags for test binary]
 ```
+
+カバレッジ率の計測
+
+```zsh
+go test -cover ./...
+.
+.
+PASS
+coverage: 50.0% of statements
+ok      github.com/kakikubo/starting-go/zoo/animals     0.495s  coverage: 50.0% of statements
+```
+
+組み込みパッケージのテストも行える
+
+```zsh
+go test -cover fmt
+```
+
+オプション | 効果
+--- | ---
+`-c` | パッケージのテストのビルドのみを実行し、テストは実行しない
+`-i` | インポートパッケージの依存関係を更新する
+`-o` | ビルドしたテストの実行ファイルを任意のファイル名で出力する
+`-x` | 実行されるコマンドの表示(ファイルは書き換える)
