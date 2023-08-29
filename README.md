@@ -132,3 +132,9 @@ go doc time.Time.Unix
 go doc animals
 go doc animals.ElephantFeed
 ```
+
+### `go build`
+
+```zsh
+go build [-o output] [-i] [build flags] [packages]
+```
