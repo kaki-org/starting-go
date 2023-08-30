@@ -27,6 +27,8 @@ func main() {
 	fmt.Println(string(bs))
 
 	createHelloText("./hello.txt")
+
+	openFile("./hello.txt")
 }
 
 // os.Open()でファイルを開き、その内容を読み込む
@@ -79,4 +81,17 @@ func createHelloText(filename string) {
 	f.WriteAt([]byte("Golang!"), 7)    // ファイルの7バイト目から[]byte型のスライスを書き込む
 	f.Seek(0, io.SeekEnd)              // ファイルの末尾にシーク
 	f.WriteString("Yeah!\n")           // ファイルに文字列を書き込む
+}
+
+func openFile(filename string) {
+	/* ファイルを読み込み専用でオープン */
+	f, err := os.OpenFile(filename, os.O_RDONLY, 0666)
+	fmt.Printf("err=%v\n", err)
+	defer f.Close()
+	bs := make([]byte, 128)
+	n, err := f.Read(bs)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("%d bytes read\n", n)
 }
