@@ -24,6 +24,8 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(string(bs))
+
+	createHelloText("./hello.txt")
 }
 
 func readFile(filename string) ([]byte, error) {
@@ -49,16 +51,28 @@ func readFile(filename string) ([]byte, error) {
 	fmt.Printf("offset = %d\n", offset)
 
 	/* ファイルのステータスを取得 */
-	fi, err := f.Stat() // fiはos.FileInfo型
-	fi.Name()           // ファイル名(string型)
-	fi.Size()           // ファイルサイズ(int64型)
-	fi.Mode()           // ファイルのモード(os.FileMode型)
-	fi.ModTime()        // 最終更新日時(time.Time型)
-	fi.IsDir()          // ディレクトリかどうか(bool型)
-	fmt.Printf("name = %s\n", fi.Name())
-	fmt.Printf("size = %d\n", fi.Size())
-	fmt.Printf("mode = %v\n", fi.Mode())
-	fmt.Printf("modtime = %v\n", fi.ModTime())
-	fmt.Printf("isdir = %v\n", fi.IsDir())
+	fi, err := f.Stat()                        // fiはos.FileInfo型
+	fmt.Printf("name = %s\n", fi.Name())       // ファイル名(string型)
+	fmt.Printf("size = %d\n", fi.Size())       // ファイルサイズ(int64型)
+	fmt.Printf("mode = %v\n", fi.Mode())       // ファイルのモード(os.FileMode型)
+	fmt.Printf("modtime = %v\n", fi.ModTime()) // 最終更新日時(time.Time型)
+	fmt.Printf("isdir = %v\n", fi.IsDir())     // ディレクトリかどうか(bool型)
 	return bs, err
+}
+
+// hello.txtを作成して文字列を書き込む
+func createHelloText(filename string) {
+	f, _ := os.Create(filename)
+	defer f.Close()
+
+	/* 新規作成したファイルのステータス */
+	fi, _ := f.Stat()
+	fmt.Printf("name = %s\n", fi.Name())   // ファイル名(string型)
+	fmt.Printf("size = %d\n", fi.Size())   // ファイルサイズ(int64型)
+	fmt.Printf("isdir = %v\n", fi.IsDir()) // ディレクトリかどうか(bool型)
+
+	f.Write([]byte("Hello, World!\n")) // ファイルに[]byte型のスライスを書き込む
+	f.WriteAt([]byte("Golang!"), 7)    // ファイルの7バイト目から[]byte型のスライスを書き込む
+	f.Seek(0, os.SEEK_END)             // ファイルの末尾にシーク
+	f.WriteString("Yeah!\n")           // ファイルに文字列を書き込む
 }
