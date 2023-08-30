@@ -29,6 +29,7 @@ func main() {
 	createHelloText("./hello.txt")
 }
 
+// os.Open()でファイルを開き、その内容を読み込む
 func readFile(filename string) ([]byte, error) {
 	/* 変数fは*os.File型 */
 	f, err := os.Open(filename)
