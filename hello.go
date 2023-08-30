@@ -29,6 +29,8 @@ func main() {
 	createHelloText("./hello.txt")
 
 	openFile("./hello.txt")
+
+	removeFile("./hello.txt")
 }
 
 // os.Open()でファイルを開き、その内容を読み込む
@@ -94,4 +96,11 @@ func openFile(filename string) {
 		log.Fatal(err)
 	}
 	fmt.Printf("%d bytes read\n", n)
+}
+
+func removeFile(filename string) {
+	err := os.Remove(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
