@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"os"
 )
@@ -45,10 +46,12 @@ func readFile(filename string) ([]byte, error) {
 	// n, err := f.ReadAt(bs, 10) // 10バイト目から読み込む
 
 	/* ファイル内のシーク */
-	offset, err := f.Seek(10, os.SEEK_SET) // ファイルの先頭から10バイト目にシーク
-	offset, err = f.Seek(-2, os.SEEK_CUR)  // 現在位置から-2バイト先にシーク
-	offset, err = f.Seek(0, os.SEEK_END)   // ファイルの末尾から0バイト目にシーク
-	fmt.Printf("offset = %d\n", offset)
+	offset, err := f.Seek(10, io.SeekStart) // ファイルの先頭から10バイト目にシーク
+	fmt.Printf("offset = %d err=%v\n", offset, err)
+	offset, err = f.Seek(-2, io.SeekCurrent) // 現在位置から-2バイト先にシーク
+	fmt.Printf("offset = %d err=%v\n", offset, err)
+	offset, err = f.Seek(0, io.SeekEnd) // ファイルの末尾から0バイト目にシーク
+	fmt.Printf("offset = %d err=%v\n", offset, err)
 
 	/* ファイルのステータスを取得 */
 	fi, err := f.Stat()                        // fiはos.FileInfo型
@@ -73,6 +76,6 @@ func createHelloText(filename string) {
 
 	f.Write([]byte("Hello, World!\n")) // ファイルに[]byte型のスライスを書き込む
 	f.WriteAt([]byte("Golang!"), 7)    // ファイルの7バイト目から[]byte型のスライスを書き込む
-	f.Seek(0, os.SEEK_END)             // ファイルの末尾にシーク
+	f.Seek(0, io.SeekEnd)              // ファイルの末尾にシーク
 	f.WriteString("Yeah!\n")           // ファイルに文字列を書き込む
 }
