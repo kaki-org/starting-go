@@ -26,11 +26,17 @@ func main() {
 	}
 	fmt.Println(string(bs))
 
+	cdZooAndBack()
+
+	currentDirs()
+
 	createHelloText("./hello.txt")
 
-	openFile("./hello.txt")
+	moveFile("./hello.txt", "./hellotmp/hello.txt")
 
-	removeFile("./hello.txt")
+	openFile("./hellotmp/hello.txt")
+
+	removeFile("./hellotmp")
 }
 
 // os.Open()でファイルを開き、その内容を読み込む
@@ -99,8 +105,73 @@ func openFile(filename string) {
 }
 
 func removeFile(filename string) {
-	err := os.Remove(filename)
+	err := os.RemoveAll(filename)
 	if err != nil {
 		log.Fatal(err)
+	}
+}
+
+func moveFile(from, to string) {
+	/* カレントディレクトリ下にhellotmpディレクトリを作成 */
+	err := os.Mkdir("hellotmp", 0777)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = os.Rename(from, to)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func cdZooAndBack() {
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(dir)
+
+	err = os.Chdir("zoo")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dir, err = os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(dir)
+
+	err = os.Chdir("..")
+	if err != nil {
+		log.Fatal(err)
+	}
+	dir, err = os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(dir)
+}
+
+func currentDirs() {
+	/* カレントディレクトリのオープン */
+	f, err := os.Open(".")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	/* カレントディレクトリ下のディレクトリを列挙 */
+	fis, err := f.Readdir(0) // 0はすべてのファイルを表す
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("-----")
+	for _, fi := range fis {
+		if fi.IsDir() {
+			fmt.Printf("[%s]\n", fi.Name())
+		} else {
+			fmt.Printf("%s\n", fi.Name())
+		}
 	}
 }
