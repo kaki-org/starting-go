@@ -37,6 +37,12 @@ func main() {
 	openFile("./hellotmp/hello.txt")
 
 	removeFile("./hellotmp")
+
+	printTempDir()
+
+	symlinkUsage()
+
+	osName()
 }
 
 // os.Open()でファイルを開き、その内容を読み込む
@@ -174,4 +180,40 @@ func currentDirs() {
 			fmt.Printf("%s\n", fi.Name())
 		}
 	}
+}
+
+func printTempDir() {
+	fmt.Println(os.TempDir())
+}
+
+func symlinkUsage() {
+	/* シンボリックリンクの作成 */
+	err := os.Symlink("zoo", "zoo2")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	/* シンボリックリンクの読み込み */
+	fi, err := os.Lstat("zoo2")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("name = %s\n", fi.Name())   // ファイル名(string型)
+	fmt.Printf("size = %d\n", fi.Size())   // ファイルサイズ(int64型)
+	fmt.Printf("isdir = %v\n", fi.IsDir()) // ディレクトリかどうか(bool型)
+	fmt.Printf("mode = %v\n", fi.Mode())   // ファイルのモード(os.FileMode型)
+
+	/* シンボリックリンクの削除 */
+	err = os.Remove("zoo2")
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func osName() {
+	host, err := os.Hostname()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("os.Hostname() = ", host)
 }
