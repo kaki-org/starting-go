@@ -43,6 +43,10 @@ func main() {
 	symlinkUsage()
 
 	osName()
+
+	environmentVariables()
+
+	lookupMysqlenv()
 }
 
 // os.Open()でファイルを開き、その内容を読み込む
@@ -216,4 +220,22 @@ func osName() {
 		log.Fatal(err)
 	}
 	fmt.Println("os.Hostname() = ", host)
+}
+
+func environmentVariables() {
+	for _, v := range os.Environ() {
+		fmt.Println(v)
+	}
+
+	home := os.Getenv("HOME")
+	fmt.Println("os.Getenv(\"HOME\") = ", home)
+}
+
+func lookupMysqlenv() {
+	// MYSQL_HOME環境変数が設定されているかどうかを調べる
+	if home, ok := os.LookupEnv("MYSQL_HOME"); ok {
+		fmt.Println("MYSQL_HOME = ", home)
+	} else {
+		fmt.Println("MYSQL_HOME is not set")
+	}
 }
