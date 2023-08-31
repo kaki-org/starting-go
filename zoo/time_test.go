@@ -257,3 +257,18 @@ func TestTimeSleep(t *testing.T) {
 	time.Sleep(3 * time.Second)
 	fmt.Println("end")
 }
+
+func TestTimeTicker(t *testing.T) {
+	// https://devlights.hatenablog.com/entry/2020/11/13/135630
+	// time.Tick だとgarbage collectionで回収されないのでtime.NewTickerを使う
+	ticker := time.NewTicker(1 * time.Second)
+	go func() {
+		for t := range ticker.C {
+			fmt.Println(t)
+		}
+	}()
+
+	time.Sleep(3 * time.Second)
+	ticker.Stop()
+	fmt.Println("Ticker stopped")
+}
