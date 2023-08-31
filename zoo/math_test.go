@@ -138,3 +138,22 @@ func TestAbs(t *testing.T) {
 		t.Errorf("Abs(-3.14) = %f, want %f", actual, expect)
 	}
 }
+
+func TestPow(t *testing.T) {
+	expect := 0
+	actual := int(math.Pow(0, 2))
+	if actual != expect {
+		t.Errorf("Pow(0, 2) = %d, want %d", actual, expect)
+	}
+	expect = 1
+	actual = int(math.Pow(1, 2))
+	if actual != expect {
+		t.Errorf("Pow(1, 2) = %d, want %d", actual, expect)
+	}
+	expect = 256
+	actual = int(math.Pow(2, 8))
+	if actual != expect {
+		t.Errorf("Pow(2, 8) = %d, want %d", actual, expect)
+	}
+
+}
