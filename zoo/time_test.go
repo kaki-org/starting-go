@@ -29,3 +29,27 @@ func TestTimeStandard(t *testing.T) {
 	fmt.Println(time.July.String())
 	fmt.Println(time.Sunday.String())
 }
+
+func TestTimeDuration(t *testing.T) {
+	fmt.Println(time.Hour)
+	fmt.Println(time.Minute)
+	fmt.Println(time.Second)
+	fmt.Println(time.Millisecond)
+	fmt.Println(time.Microsecond)
+	fmt.Println(time.Nanosecond)
+	/* 「2時間30分」を表すDurationを文字列から作成 */
+	d, _ := time.ParseDuration("2h30m")
+	fmt.Println(d)
+
+	/* 特定の日時を表すTimeを作成 */
+	tm := time.Date(2023, 9, 1, 4, 44, 30, 0, time.Local)
+	tm = tm.Add(2*time.Hour + 15*time.Minute + 30*time.Second)
+
+	expect := "2023-09-01 07:00:00"
+	actual := tm.Format("2006-01-02 15:04:05")
+
+	// 日本時間2023/09/01 7:00:00を表すTimeが生成された事を確認
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+}
