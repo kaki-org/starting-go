@@ -204,3 +204,17 @@ func TestGenerateStringFromTime(t *testing.T) {
 		t.Errorf("%s != %s", expect, actual)
 	}
 }
+
+func TestTimeUTC(t *testing.T) {
+	// JSTを生成する
+	time.Local = time.FixedZone("JST", 9*60*60)
+
+	tm := time.Date(2023, 9, 1, 9, 0, 0, 0, time.Local)
+	tmUTC := tm.UTC()
+
+	expect := "2023-09-01 00:00:00 +0000 UTC"
+	actual := tmUTC.String()
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+}
