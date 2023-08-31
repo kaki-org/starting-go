@@ -66,7 +66,7 @@ func TestTimeDurationSub(t *testing.T) {
 	}
 }
 
-func TestTimeBefore(t *testing.T) {
+func TestTimeBeforeAfterEqual(t *testing.T) {
 	t0 := time.Date(2015, 10, 1, 0, 0, 0, 0, time.Local)
 	t1 := time.Date(2015, 11, 1, 0, 0, 0, 0, time.Local)
 
@@ -92,5 +92,21 @@ func TestTimeBefore(t *testing.T) {
 
 	if !jst9.Equal(utc0) {
 		t.Errorf("!jst9.Equal(utc0) is false")
+	}
+}
+
+func TestTimeAddDate(t *testing.T) {
+	tm := time.Date(2023, 9, 1, 7, 0, 0, 0, time.Local)
+	tm2 := tm.AddDate(1, 2, 3)
+
+	expect := "2024-11-04 07:00:00"
+	actual := tm2.Format("2006-01-02 15:04:05")
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+
+	tm3 := tm2.AddDate(-1, -2, -3)
+	if tm != tm3 {
+		t.Errorf("tm != tm3")
 	}
 }
