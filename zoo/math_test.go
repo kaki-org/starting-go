@@ -201,3 +201,11 @@ func TestFloorCeil(t *testing.T) {
 		t.Errorf("Ceil(3.14) = %f, want %f", actualCeil, expectCeil)
 	}
 }
+
+func TestNaN(t *testing.T) {
+	// -1の平方根はNaN(非数)
+	actual := math.Sqrt(-1)
+	if !math.IsNaN(actual) {
+		t.Errorf("Sqrt(-1) = %f, want NaN", actual)
+	}
+}
