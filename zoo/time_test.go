@@ -232,3 +232,12 @@ func TestTimeJST(t *testing.T) {
 		t.Errorf("%s != %s", expect, actual)
 	}
 }
+
+func TestTimeUnix(t *testing.T) {
+	tm := time.Date(2015, 11, 27, 15, 0, 0, 0, time.UTC)
+	expect := int64(1448636400)
+	actual := tm.Unix()
+	if expect != actual {
+		t.Errorf("%d != %d", expect, actual)
+	}
+}
