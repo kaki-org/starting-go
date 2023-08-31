@@ -155,5 +155,18 @@ func TestPow(t *testing.T) {
 	if actual != expect {
 		t.Errorf("Pow(2, 8) = %d, want %d", actual, expect)
 	}
+}
 
+func TestSqrtCbrt(t *testing.T) {
+	expectSqrt := 1.4142135623730951
+	actualSqrt := math.Sqrt(2)
+	if actualSqrt != expectSqrt {
+		t.Errorf("Sqrt(2) = %f, want %f", actualSqrt, expectSqrt)
+	}
+
+	expectCbrt := 2.0
+	actualCbrt := math.Cbrt(8)
+	if actualCbrt != expectCbrt {
+		t.Errorf("Cbrt(8) = %f, want %f", actualCbrt, expectCbrt)
+	}
 }
