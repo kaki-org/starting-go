@@ -65,3 +65,32 @@ func TestTimeDurationSub(t *testing.T) {
 		t.Errorf("%s != %s", expect, actual)
 	}
 }
+
+func TestTimeBefore(t *testing.T) {
+	t0 := time.Date(2015, 10, 1, 0, 0, 0, 0, time.Local)
+	t1 := time.Date(2015, 11, 1, 0, 0, 0, 0, time.Local)
+
+	// t0 < t1 → true
+	if t1.Before(t0) {
+		t.Errorf("t1.Before(t0) is false")
+	}
+	// t1 < t0 → false
+	if !t1.After(t0) {
+		t.Errorf("!t1.After(t0) is false")
+	}
+	// t0 > t1 → false
+	if !t0.Before(t1) {
+		t.Errorf("!t0.Before(t1) is false")
+	}
+	// t0 < t1 → true
+	if t0.After(t1) {
+		t.Errorf("t0.After(t1) is false")
+	}
+
+	jst9 := time.Date(2015, 10, 1, 9, 0, 0, 0, time.Local) // 2015/10/1 9:00:00(JST)
+	utc0 := time.Date(2015, 10, 1, 0, 0, 0, 0, time.UTC)   // 2015/10/1 0:00:00(UTC)
+
+	if !jst9.Equal(utc0) {
+		t.Errorf("!jst9.Equal(utc0) is false")
+	}
+}
