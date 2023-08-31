@@ -173,3 +173,13 @@ func TestTimeFormat(t *testing.T) {
 		t.Errorf("tm3.Minute() != 0")
 	}
 }
+
+func TestGenerateStringFromTime(t *testing.T) {
+	tm := time.Date(2023, 9, 1, 7, 0, 0, 0, time.Local)
+
+	expectRFC822 := "01 Sep 23 07:00 JST"
+	actualRFC822 := tm.Format(time.RFC822)
+	if expectRFC822 != actualRFC822 {
+		t.Errorf("%s != %s", expectRFC822, actualRFC822)
+	}
+}
