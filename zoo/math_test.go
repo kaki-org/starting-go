@@ -186,3 +186,18 @@ func TestMin(t *testing.T) {
 		t.Errorf("Min(1, 2) = %d, want %d", actual, expect)
 	}
 }
+
+// 小数点以下の切り捨てと切り上げ
+func TestFloorCeil(t *testing.T) {
+	expectFloor := 3.0
+	actualFloor := math.Floor(3.14)
+	if actualFloor != expectFloor {
+		t.Errorf("Floor(3.14) = %f, want %f", actualFloor, expectFloor)
+	}
+
+	expectCeil := 4.0
+	actualCeil := math.Ceil(3.14)
+	if actualCeil != expectCeil {
+		t.Errorf("Ceil(3.14) = %f, want %f", actualCeil, expectCeil)
+	}
+}
