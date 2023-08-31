@@ -185,4 +185,22 @@ func TestGenerateStringFromTime(t *testing.T) {
 	if expectRFC822 != actualRFC822 {
 		t.Errorf("%s != %s", expectRFC822, actualRFC822)
 	}
+
+	expectRFC3339Nano := "2023-09-01T07:00:00+09:00"
+	actualRFC3339Nano := tm.Format(time.RFC3339Nano)
+	if expectRFC3339Nano != actualRFC3339Nano {
+		t.Errorf("%s != %s", expectRFC3339Nano, actualRFC3339Nano)
+	}
+
+	expectTokyo := "2023年9月1日 07時00分00秒"
+	actualTokyo := tm.Format("2006年1月2日 15時04分05秒")
+	if expectTokyo != actualTokyo {
+		t.Errorf("%s != %s", expectTokyo, actualTokyo)
+	}
+
+	expect := "2023/09/01"
+	actual := tm.Format("2006/01/02")
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
 }
