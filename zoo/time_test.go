@@ -53,3 +53,15 @@ func TestTimeDuration(t *testing.T) {
 		t.Errorf("%s != %s", expect, actual)
 	}
 }
+
+func TestTimeDurationSub(t *testing.T) {
+	tm := time.Date(2023, 9, 1, 7, 0, 0, 0, time.Local)
+	tm2 := time.Date(2018, 8, 8, 7, 0, 0, 0, time.Local)
+	d := tm.Sub(tm2)
+
+	expect := "44400h0m0s"
+	actual := d.String()
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+}
