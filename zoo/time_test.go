@@ -110,3 +110,63 @@ func TestTimeAddDate(t *testing.T) {
 		t.Errorf("tm != tm3")
 	}
 }
+
+func TestTimeFormat(t *testing.T) {
+	tm, err := time.Parse("2006/01/02", "2015/10/01")
+	if err != nil {
+		t.Errorf("err != nil")
+	}
+	expect := "2015-10-01 00:00:00"
+	actual := tm.Format("2006-01-02 15:04:05")
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+
+	// tm.Format で生成したtimeはUTCで生成される
+	expect = "UTC"
+	actual, _ = tm.Zone()
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+
+	// time.ParseでRFC822形式の文字列をパースする
+	tm2, err := time.Parse(time.RFC822, "01 Oct 15 00:00 JST")
+	if err != nil {
+		t.Errorf("err != nil")
+	}
+
+	expect = "2015-10-01 00:00:00"
+	actual = tm2.Format("2006-01-02 15:04:05") // 時刻形式に%Yなどは使わない
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+
+	// 日本語を混ぜた文字列もパース可能
+	jt, _ := time.Parse("2006年01月02日", "2015年10月01日")
+	expect = "2015-10-01 00:00:00"
+	actual = jt.Format("2006-01-02 15:04:05")
+	if expect != actual {
+		t.Errorf("%s != %s", expect, actual)
+	}
+
+	// Parseに足りない要素(時,分,秒)は初期値が入る
+	tm3, _ := time.Parse("2006/01/02", "2015/10/01")
+
+	// ここは与えられた文字列からパースした部分
+	if tm3.Year() != 2015 {
+		t.Errorf("tm3.Year() != 2015")
+	}
+	if tm3.Month() != time.October {
+		t.Errorf("tm3.Month() != time.October")
+	}
+	if tm3.Day() != 1 {
+		t.Errorf("tm3.Day() != 1")
+	}
+	// ここからは初期値
+	if tm3.Hour() != 0 {
+		t.Errorf("tm3.Hour() != 0")
+	}
+	if tm3.Minute() != 0 {
+		t.Errorf("tm3.Minute() != 0")
+	}
+}
