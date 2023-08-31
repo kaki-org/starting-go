@@ -236,8 +236,18 @@ func TestTimeJST(t *testing.T) {
 func TestTimeUnix(t *testing.T) {
 	tm := time.Date(2015, 11, 27, 15, 0, 0, 0, time.UTC)
 	expect := int64(1448636400)
+	// timeからUnix時間を取得
 	actual := tm.Unix()
 	if expect != actual {
 		t.Errorf("%d != %d", expect, actual)
+	}
+
+	tm2 := time.Unix(1448636400, 0)
+
+	// Unix時間からtimeを生成
+	expect2 := "2015-11-27 15:00:00 +0000 UTC"
+	actual2 := tm2.UTC().String()
+	if expect2 != actual2 {
+		t.Errorf("%s != %s", expect2, actual2)
 	}
 }
