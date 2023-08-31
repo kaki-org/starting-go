@@ -175,6 +175,9 @@ func TestTimeFormat(t *testing.T) {
 }
 
 func TestGenerateStringFromTime(t *testing.T) {
+	// JSTを生成する
+	time.Local = time.FixedZone("JST", 9*60*60)
+
 	tm := time.Date(2023, 9, 1, 7, 0, 0, 0, time.Local)
 
 	expectRFC822 := "01 Sep 23 07:00 JST"
