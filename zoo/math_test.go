@@ -124,8 +124,8 @@ func TestNumericFixedNumber(t *testing.T) {
 	if actualMaxUint32 != expectMaxUint32 {
 		t.Errorf("MaxUint32 = %d, want %d", actualMaxUint32, expectMaxUint32)
 	}
-	expectMaxUint64 := 18446744073709551615
-	actualMaxUint64 := math.MaxUint64
+	expectMaxUint64 := uint64(18446744073709551615)
+	actualMaxUint64 := uint64(math.MaxUint64)
 	if actualMaxUint64 != expectMaxUint64 {
 		t.Errorf("MaxUint64 = %d, want %d", actualMaxUint64, expectMaxUint64)
 	}
