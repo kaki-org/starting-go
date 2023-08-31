@@ -170,3 +170,19 @@ func TestSqrtCbrt(t *testing.T) {
 		t.Errorf("Cbrt(8) = %f, want %f", actualCbrt, expectCbrt)
 	}
 }
+
+func TestMax(t *testing.T) {
+	expect := 2
+	actual := int(math.Max(1, 2))
+	if actual != expect {
+		t.Errorf("Max(1, 2) = %d, want %d", actual, expect)
+	}
+}
+
+func TestMin(t *testing.T) {
+	expect := 1
+	actual := int(math.Min(1, 2))
+	if actual != expect {
+		t.Errorf("Min(1, 2) = %d, want %d", actual, expect)
+	}
+}
