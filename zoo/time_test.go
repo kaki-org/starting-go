@@ -251,3 +251,9 @@ func TestTimeUnix(t *testing.T) {
 		t.Errorf("%s != %s", expect2, actual2)
 	}
 }
+
+func TestTimeSleep(t *testing.T) {
+	fmt.Println("start")
+	time.Sleep(3 * time.Second)
+	fmt.Println("end")
+}
