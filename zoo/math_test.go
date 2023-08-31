@@ -130,3 +130,11 @@ func TestNumericFixedNumber(t *testing.T) {
 		t.Errorf("MaxUint64 = %d, want %d", actualMaxUint64, expectMaxUint64)
 	}
 }
+
+func TestAbs(t *testing.T) {
+	expect := 3.14
+	actual := math.Abs(-3.14)
+	if actual != expect {
+		t.Errorf("Abs(-3.14) = %f, want %f", actual, expect)
+	}
+}
