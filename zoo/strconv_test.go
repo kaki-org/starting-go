@@ -117,11 +117,46 @@ func TestParseBool(t *testing.T) {
 	cmp(b, expect, t)
 }
 
+func TestParseInt(t *testing.T) {
+	intValue, _ := strconv.ParseInt("12345", 10, 0)
+	cmp(intValue, int64(12345), t)
+
+	uIntValue, _ := strconv.ParseUint("12345", 10, 0)
+	cmp(uIntValue, uint64(12345), t)
+
+	intValue, _ = strconv.ParseInt("-12", 10, 0)
+	cmp(intValue, int64(-12), t)
+
+	// 8進数
+	intValue, _ = strconv.ParseInt("740", 8, 0)
+	cmp(intValue, int64(480), t)
+	// 16進数
+	intValue, _ = strconv.ParseInt("7F4D", 16, 0)
+	cmp(intValue, int64(32589), t)
+
+	//負の値はエラー
+	_, err := strconv.ParseUint("-1", 10, 0)
+	if err != nil {
+		t.Logf("err = %v", err)
+	}
+	//指定した精度を超える整数表現はエラー
+	_, err = strconv.ParseInt("123456", 10, 16)
+	if err != nil {
+		t.Logf("err = %v", err)
+	}
+
+	// 0が指定された場合は文字列のプリフィックスが作用する
+	oValue, _ := strconv.ParseInt("0123", 0, 0)
+	cmp(oValue, int64(83), t)
+	hValue, _ := strconv.ParseInt("0x123", 0, 0)
+	cmp(hValue, int64(291), t)
+}
+
 func cmp(v1, v2 interface{}, t *testing.T) bool {
 	if v1 == v2 {
 		return true
 	} else {
-		t.Errorf("expect %s, but got %s", v1, v2)
+		t.Errorf("expect %v, but got %v", v1, v2)
 	}
 	return false
 }
