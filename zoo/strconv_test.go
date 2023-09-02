@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math"
 	"strconv"
 	"testing"
 )
@@ -150,6 +151,37 @@ func TestParseInt(t *testing.T) {
 	cmp(oValue, int64(83), t)
 	hValue, _ := strconv.ParseInt("0x123", 0, 0)
 	cmp(hValue, int64(291), t)
+}
+
+func TestParseFloat(t *testing.T) {
+	floatValue, _ := strconv.ParseFloat("3.14", 64)
+	cmp(floatValue, 3.14, t)
+	floatValue, _ = strconv.ParseFloat("0.2", 64)
+	cmp(floatValue, 0.2, t)
+	floatValue, _ = strconv.ParseFloat("-2", 64)
+	cmp(floatValue, float64(-2), t)
+	floatValue, _ = strconv.ParseFloat("1.2345e8", 64)
+	cmp(floatValue, float64(1.2345e+08), t)
+	floatValue, _ = strconv.ParseFloat("1.2345E8", 64)
+	cmp(floatValue, float64(1.2345e+08), t) // Eでもeでも同じ
+
+	// 指定した精度に合わせて丸められる
+	floatValue, _ = strconv.ParseFloat("1.000000000001", 32)
+	cmp(floatValue, float64(1), t)
+	floatValue, _ = strconv.ParseFloat("1.000000000001", 64)
+	cmp(floatValue, float64(1.000000000001), t)
+	// 精度を超過する範囲の表現は無限大とエラーを返す
+	floatValue, err := strconv.ParseFloat("1E500", 64)
+	cmp(floatValue, math.Inf(0), t)
+	if err != nil {
+		t.Logf("err = %v", err)
+	}
+	floatValue, err = strconv.ParseFloat("-1E500", 64)
+	cmp(floatValue, math.Inf(-1), t)
+	if err != nil {
+		t.Logf("err = %v", err)
+	}
+
 }
 
 func cmp(v1, v2 interface{}, t *testing.T) bool {
