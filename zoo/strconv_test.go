@@ -75,7 +75,10 @@ func TestFormatFloat(t *testing.T) {
 func TestParseBool(t *testing.T) {
 	// trueへ変換できる文字列
 	expect := true
-	b, _ := strconv.ParseBool("true")
+	b, err := strconv.ParseBool("true")
+	if err != nil {
+		t.Errorf("%v\n", err)
+	}
 	cmp(b, expect, t)
 
 	b, _ = strconv.ParseBool("1")
