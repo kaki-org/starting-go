@@ -18,7 +18,8 @@ func main() {
 			log.Fatal(err)
 		}
 		// 入力されたファイルをすべて読み込む
-		bs, err := ioutil.ReadAll(f)
+		// bs, err := ioutil.ReadAll(f)
+		bs, err := ioutil.ReadFile(f.Name())
 		if err != nil {
 			log.Fatal(err)
 		}
