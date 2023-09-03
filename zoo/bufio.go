@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+	// strings.Readerの例 {{{
 	s := `このプログラムはstrings.NewReader()関数を使って与えられた文字列を
 io.Readerインターフェースと互換性のあるstrings.Reader型を生成します
 なにか文字列を入力してEnterキーをおしてみてください。終了はCtrl+Dです`
@@ -19,6 +20,28 @@ io.Readerインターフェースと互換性のあるstrings.Reader型を生成
 	for scanner.Scan() {
 		fmt.Println(scanner.Text())
 	}
+	// }}}
+
+	// スキャン方法を切り替える例 {{{
+	osTypes := `Linux Unix 
+macOS Windows Solaris
+FreeBSD OpenBSD Ubuntu`
+
+	osReader := strings.NewReader(osTypes)
+	scanner = bufio.NewScanner(osReader)
+	/* スキャン関数をbufio.ScanWordsに変更 */
+	scanner.Split(bufio.ScanWords)
+	/* 他のスキャン方法は以下の通り
+	 * bufio.ScanBytes
+	 * bufio.ScanRunes
+	 * bufio.ScanLines (デフォルト)
+	 * bufio.ScanStrings
+	 */
+
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+	// }}}
 
 	/* 標準入力をソースにしたスキャナの生成 */
 	scanner = bufio.NewScanner(os.Stdin)
