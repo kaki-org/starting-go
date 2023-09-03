@@ -55,4 +55,18 @@ FreeBSD OpenBSD Ubuntu`
 	if err := scanner.Err(); err != nil {
 		fmt.Fprintln(os.Stderr, "読み込みエラー:", err)
 	}
+
+	defer outputBuffer()
+}
+
+func outputBuffer() {
+	// 効率的にバッファリングして扱う。高速化をはかる場合などに利用
+	/* rはio.Reader型 wはio.Writer型 */
+	// br := bufio.NewReader(r)
+	// br := bufio.NewReaderSize(r, 8192)
+	// bw := bufio.NewWriter(w)
+	// bw := bufio.NewWriterSize(w, 8192)
+	w := bufio.NewWriterSize(os.Stdout, 8192)
+	w.WriteString("Hello, String")
+	w.Flush()
 }
