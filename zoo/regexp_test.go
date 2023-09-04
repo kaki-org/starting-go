@@ -96,3 +96,11 @@ func TestRegexpCharacterClass(t *testing.T) {
 	expect(t, re.MatchString("x01"), false)
 	expect(t, re.MatchString("あいう"), true)
 }
+
+func TestRegexpPerl(t *testing.T) {
+	// Perlの正規表現のような記法
+	re := regexp.MustCompile(`\d+`)
+	expect(t, re.MatchString("123456"), true)
+	expect(t, re.MatchString("X=1"), true)
+	expect(t, re.MatchString("abcde"), false)
+}
