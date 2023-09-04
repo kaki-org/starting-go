@@ -25,4 +25,18 @@ func TestRegexpMustCompile(t *testing.T) {
 	r := regexp.MustCompile("AB")
 	expect(t, r.MatchString("ABC"), true)
 	expect(t, r.MatchString("XYZ"), false)
+
+	r = regexp.MustCompile("\\d") // バックスラッシュをエスケープしないといけない
+
+	expect(t, r.MatchString("123"), true)
+	expect(t, r.MatchString("XYZ"), false)
+
+	r = regexp.MustCompile(`\d`) // RAW文字列ならバックスラッシュのエスケープが不要
+	expect(t, r.MatchString("123"), true)
+	expect(t, r.MatchString("XYZ"), false)
+
+	/* (?i)は大文字小文字を区別しない。 Perlなどでいう、/str/iのようなオプション */
+	r = regexp.MustCompile(`(?i)abc`)
+	expect(t, r.MatchString("ABC"), true)
+	expect(t, r.MatchString("aBc"), true)
 }
