@@ -75,3 +75,24 @@ func TestRegexpRepeat(t *testing.T) {
 	expect(t, re.MatchString("AAAX"), true)
 	expect(t, re.MatchString("AAAAAX"), true)
 }
+
+func TestRegexpCharacterClass(t *testing.T) {
+	re := regexp.MustCompile(`[XYZ]`)
+	expect(t, re.MatchString("X"), true)
+	expect(t, re.MatchString("Y"), true)
+	expect(t, re.MatchString("Z"), true)
+	expect(t, re.MatchString("A"), false)
+
+	// 英数字とアンダースコア3文字を表す正規表現
+	re = regexp.MustCompile(`^[0-9A-Za-z_]{3}$`)
+	expect(t, re.MatchString("ABC"), true)
+	expect(t, re.MatchString("x01"), true)
+	expect(t, re.MatchString("abcdefg"), false)
+	expect(t, re.MatchString("あいう"), false)
+
+	// 英数字とアンダースコア「以外」を表す正規表現
+	re = regexp.MustCompile(`[^0-9A-Za-z_]`)
+	expect(t, re.MatchString("ABC"), false)
+	expect(t, re.MatchString("x01"), false)
+	expect(t, re.MatchString("あいう"), true)
+}
