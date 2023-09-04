@@ -18,3 +18,11 @@ func TestRegexpCompile(t *testing.T) {
 	expect(t, r.MatchString("ABC"), true)
 	expect(t, r.MatchString("XYZ"), false)
 }
+
+func TestRegexpMustCompile(t *testing.T) {
+	// 正規表現のパターンをコンパイルする(エラー時はランタイムパニックが発生する)
+	// 返り値は*Regexp型を一つだけ返す
+	r := regexp.MustCompile("AB")
+	expect(t, r.MatchString("ABC"), true)
+	expect(t, r.MatchString("XYZ"), false)
+}
