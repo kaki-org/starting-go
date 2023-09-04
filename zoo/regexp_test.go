@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"regexp"
 	"testing"
 )
@@ -145,4 +146,28 @@ func TestRegexpReplaceAllString(t *testing.T) {
 
 	expect(t, re.ReplaceAllString("佐藤太郎", "鈴木"), "鈴木太郎")
 	expect(t, re.ReplaceAllString("XYZ", "鈴木"), "XYZ")
+}
+
+func TestRegexpFindAllStringSubmatch(t *testing.T) {
+	// 「000-1111-2222」のような形式にマッチする正規表現
+	re := regexp.MustCompile(`(\d+)-(\d+)-(\d+)`)
+
+	s := `
+	00-1111-2222
+	3333-44-55
+	666-777-888
+	9-9-9
+	`
+
+	// 正規表現のグルーピングも含めて取得
+	ms := re.FindAllStringSubmatch(s, -1)
+
+	for _, v := range ms {
+		// fmt.Println(i) // インデックス
+		fmt.Println(v)
+	}
+
+	expect(t,
+		re.ReplaceAllString("Tel: 000-111-222", "$3-$2-$1"),
+		"Tel: 222-111-000")
 }
