@@ -104,3 +104,11 @@ func TestRegexpPerl(t *testing.T) {
 	expect(t, re.MatchString("X=1"), true)
 	expect(t, re.MatchString("abcde"), false)
 }
+
+func TestRegexpUnicode(t *testing.T) {
+	// Unicodeにおける「カタカナ」にマッチする正規表現
+	re := regexp.MustCompile(`\p{Katakana}`)
+	expect(t, re.MatchString("ア"), true)
+	expect(t, re.MatchString("ｱ"), true)
+	expect(t, re.MatchString("あ"), false)
+}
