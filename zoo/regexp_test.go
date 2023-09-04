@@ -138,3 +138,11 @@ func TestRegexpSplit(t *testing.T) {
 	expectEqual(t, re.Split("A B  C   D\tE", 3), []string{"A", "B", "C   D\tE"})
 	expectEqual(t, re.Split("A B  C   D\tE", -1), []string{"A", "B", "C", "D", "E"}) // \tはなくなる
 }
+
+func TestRegexpReplaceAllString(t *testing.T) {
+	// 「佐藤」にマッチする正規表現
+	re := regexp.MustCompile(`佐藤`)
+
+	expect(t, re.ReplaceAllString("佐藤太郎", "鈴木"), "鈴木太郎")
+	expect(t, re.ReplaceAllString("XYZ", "鈴木"), "XYZ")
+}
