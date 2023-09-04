@@ -130,3 +130,11 @@ func TestRegexpFindString(t *testing.T) {
 	expectEqual(t, re.FindAllString("abc xyz 999", 2), []string{"abc", "xyz"})
 	expectEqual(t, re.FindAllString("abc xyz 999", -1), []string{"abc", "xyz", "999"})
 }
+
+func TestRegexpSplit(t *testing.T) {
+	// タブやスペースなどの空白にマッチ
+	re := regexp.MustCompile(`\s+`)
+
+	expectEqual(t, re.Split("A B  C   D\tE", 3), []string{"A", "B", "C   D\tE"})
+	expectEqual(t, re.Split("A B  C   D\tE", -1), []string{"A", "B", "C", "D", "E"}) // \tはなくなる
+}
