@@ -112,3 +112,11 @@ func TestRegexpUnicode(t *testing.T) {
 	expect(t, re.MatchString("ｱ"), true)
 	expect(t, re.MatchString("あ"), false)
 }
+
+func TestRegexpGroup(t *testing.T) {
+	/* グルーピングを利用した正規表現 */
+	re := regexp.MustCompile(`(佐藤|鈴木)(太郎|花子)`)
+	expect(t, re.MatchString("佐藤太郎"), true)
+	expect(t, re.MatchString("鈴木花子"), true)
+	expect(t, re.MatchString("佐藤一郎"), false)
+}
