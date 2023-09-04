@@ -39,4 +39,9 @@ func TestRegexpMustCompile(t *testing.T) {
 	r = regexp.MustCompile(`(?i)abc`)
 	expect(t, r.MatchString("ABC"), true)
 	expect(t, r.MatchString("aBc"), true)
+
+	// 幅を持たない正規表現のパターン
+	r = regexp.MustCompile(`^XYZ$`)
+	expect(t, r.MatchString("XYZ"), true)
+	expect(t, r.MatchString(" XYZ "), false)
 }
