@@ -44,4 +44,34 @@ func TestRegexpMustCompile(t *testing.T) {
 	r = regexp.MustCompile(`^XYZ$`)
 	expect(t, r.MatchString("XYZ"), true)
 	expect(t, r.MatchString(" XYZ "), false)
+
+	// 基本的な正規表現のパターン(並びがそのまま適用される)
+	r = regexp.MustCompile(`bc`)
+	expect(t, r.MatchString("abcd"), true)
+	expect(t, r.MatchString("acbd"), false)
+
+	// .は任意の一文字にマッチする
+	r = regexp.MustCompile(`.`)
+	expect(t, r.MatchString("ABC"), true)
+	expect(t, r.MatchString("日本語"), true)
+	expect(t, r.MatchString("\n"), false)
+
+	// |は正規表現パターンのORを表す
+	r = regexp.MustCompile(`abc|xyz`)
+	expect(t, r.MatchString("abc"), true)
+	expect(t, r.MatchString("xyz"), true)
+}
+
+func TestRegexpRepeat(t *testing.T) {
+	re := regexp.MustCompile(`a+b*`)
+	expect(t, re.MatchString("ab"), true)
+	expect(t, re.MatchString("a"), true)
+	expect(t, re.MatchString("aaaaaaabbb"), true)
+	expect(t, re.MatchString("b"), false)
+
+	re = regexp.MustCompile(`A+?A+?X`)
+	expect(t, re.MatchString("AX"), false)
+	expect(t, re.MatchString("AAX"), true)
+	expect(t, re.MatchString("AAAX"), true)
+	expect(t, re.MatchString("AAAAAX"), true)
 }
