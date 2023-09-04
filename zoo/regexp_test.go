@@ -120,3 +120,13 @@ func TestRegexpGroup(t *testing.T) {
 	expect(t, re.MatchString("鈴木花子"), true)
 	expect(t, re.MatchString("佐藤一郎"), false)
 }
+
+func TestRegexpFindString(t *testing.T) {
+	/* 連続した英数字かアンダースコアの繰り返し */
+	re := regexp.MustCompile(`\w+`)
+	// マッチした最初の文字列を取得
+	expect(t, re.FindString("abc xyz 999"), "abc")
+	// マッチした文字列を指定した数だけ取得
+	expectEqual(t, re.FindAllString("abc xyz 999", 2), []string{"abc", "xyz"})
+	expectEqual(t, re.FindAllString("abc xyz 999", -1), []string{"abc", "xyz", "999"})
+}
