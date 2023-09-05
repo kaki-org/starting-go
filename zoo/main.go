@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"os"
 
 	"github.com/kakikubo/starting-go/zoo/animals"
 )
@@ -316,6 +317,10 @@ func main() {
 	testRecover(128)
 	testRecover("hogehoge")
 	testRecover([...]int{1, 2, 3})
+	defer fmt.Println("!")
+
+	fmt.Println("os.Exit")
+	os.Exit(0)
 }
 
 func one() int {
