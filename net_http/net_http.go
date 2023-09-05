@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
+	"os"
 )
 
 func main() {
@@ -28,5 +30,47 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(string(body))
+	htmlContents := string(body)
+
+	f, err := os.Create("example.com.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+	f.WriteString(htmlContents)
+
+	postRequest()
+	upload()
+}
+
+func postRequest() {
+	// POSTに送信するデータを生成
+	vs := url.Values{}
+	vs.Add("id", "1")
+	vs.Add("message", "メッセージ")
+	fmt.Println(vs.Encode()) // id=1&message=%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8
+
+	// POSTメソッドを実行
+	res, err := http.PostForm("https://example.com/comments/post", vs)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer res.Body.Close()
+	fmt.Println(res.StatusCode) // 404
+
+}
+
+func upload() {
+	// 画像ファイルをオープン
+	f, err := os.Open("../unnamed.jpg")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+	// POSTメソッドによる画像ファイルのアップロード
+	res, err := http.Post("https://example.com/upload", "image/jpeg", f)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(res.StatusCode) // 404
 }
