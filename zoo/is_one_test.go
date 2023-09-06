@@ -5,17 +5,11 @@ import (
 )
 
 func TestIsOne(t *testing.T) {
-	n := 1
-	b := IsOne(n)
-	if b != true {
-		t.Errorf("%d is not one.", n)
-	}
+	b := IsOne(1)
+	expect(t, b, true)
 }
 
 func TestIsOneFalse(t *testing.T) {
-	n := 100
-	b := IsOne(n)
-	if b == true {
-		t.Errorf("%d is not one.", n)
-	}
+	b := IsOne(100)
+	expect(t, b, false)
 }
