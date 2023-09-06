@@ -16,22 +16,6 @@ func main() {
 	fmt.Println(animals.ElephantFeed())
 	fmt.Println(animals.MonkeyFeed())
 	fmt.Println(animals.RabbitFeed())
-	// 関数の戻り値を元に型推論を行って変数を定義、初期化
-	n2 := one()
-	fmt.Println(n2)
-
-	// varで変数定義をまとめる書き方
-	var (
-		n3 = 1
-		s3 = "string value"
-		b3 = true
-	)
-	// 暗黙的な定義を並べる書き方だと以下
-	// n3 := 1
-	// s3 := "string value"
-	// b3 := true
-	fmt.Println(n3, s3, b3)
-
 	// パッケージ変数n1の値を用いて計算
 	n := n1 + 1
 	fmt.Printf("n=%d\n", n)
