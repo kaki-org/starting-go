@@ -16,10 +16,6 @@ func main() {
 	fmt.Println(animals.ElephantFeed())
 	fmt.Println(animals.MonkeyFeed())
 	fmt.Println(animals.RabbitFeed())
-	// パッケージ変数n1の値を用いて計算
-	n := n1 + 1
-	fmt.Printf("n=%d\n", n)
-
 	var_sample()
 	var_sample3()
 	var_sample4()

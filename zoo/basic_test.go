@@ -97,3 +97,11 @@ func ExampleDefineVariables() {
 	// Output:
 	// 1 string value true
 }
+
+func ExamplePackageVariables() {
+	// パッケージ変数n1の値を用いて計算
+	n := n1 + 1
+	fmt.Printf("n=%d\n", n)
+	// Output:
+	// n=101
+}
