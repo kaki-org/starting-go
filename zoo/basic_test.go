@@ -290,3 +290,9 @@ func ExampleDoubleCast() {
 	// 0.33333334
 	// 0.3333333333333333
 }
+
+func ExampleFmain() {
+	fmain()
+	// Output:
+	// Hello, World! fmain
+}
