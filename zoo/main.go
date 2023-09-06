@@ -16,27 +16,7 @@ func main() {
 	fmt.Println(animals.ElephantFeed())
 	fmt.Println(animals.MonkeyFeed())
 	fmt.Println(animals.RabbitFeed())
-	var_sample()
-	var_sample3()
-	var_sample4()
-	var_sample5()
-	var_sample6()
-	wrap_around()
 
-	fmt.Printf("uint32 max value = %d\n", math.MaxUint32)
-
-	// 浮動小数点数
-	zero := 0.0
-	pinf := 1.0 / zero
-	ninf := -1.0 / zero
-	nan := zero / zero
-	fmt.Println(pinf, ninf, nan)
-
-	fmt.Println(1.0e2)  // 1.0 * 10^2
-	fmt.Println(1.0e+2) // 1.0 * 10^2
-	fmt.Println(1.0e-2) // 1.0 / 10^2
-
-	doubleValueSample()
 	complexSomething()
 	runeSomething()
 	someString()
@@ -259,75 +239,9 @@ func one() int {
 	return 1
 }
 
-func var_sample() {
-	a := 1
-	// 以下を定義しているとエラーになってしまう
-	// b := 2
-	// c := 3
-	// # command-line-arguments
-	// ./main.go:93:2: b declared and not used
-	// ./main.go:94:2: c declared and not used
-
-	fmt.Println(a)
-}
-
-func var_sample2() {
-	n4 := 9223372036854775807 // 符号付き64ビット整数で表現可能である最大値
-	fmt.Println(n4)
-
-	// var (
-	// 	n1 int
-	// 	n2 int64
-	// )
-	// n1 = 1
-	// n2 = n1 // コンパイルエラー
-	// fmt.Println(n1, n2)
-
-}
-
-func var_sample3() {
-	// n := uint(17)
-	n := 1
-	b := byte(n)
-	i64 := int64(n)
-	u32 := uint32(n)
-	fmt.Println(b, i64, u32)
-	fmt.Printf("%T %T %T\n", b, i64, u32)
-}
-
-func var_sample4() {
-	n := 256
-	b := byte(n)
-	fmt.Printf("b = %b\n", b)
-}
-
-func var_sample5() {
-	b := byte(255)
-	b = b + 1
-	fmt.Println(b)
-}
-
-func var_sample6() {
-	n := -1
-	b := byte(n)
-	fmt.Println(b)
-}
-
-func wrap_around() {
-	ui_1 := uint32(400000000)
-	ui_2 := uint32(4000000000)
-	if !doSomething(ui_1, ui_2) {
-		fmt.Println("エラーが発生しました")
-		return
-	}
-
-	sum := ui_1 + ui_2
-	fmt.Printf("%d + %d = %d\n", ui_1, ui_2, sum)
-	// 400000000 + 4000000000 = 105032704 オーバーフローして1億弱になってしまう
-}
-
-func doSomething(a, b uint32) bool {
+func validateOverflow(a, b uint32) bool {
 	if (math.MaxInt32 - a) < b {
+		// オーバーフローするのでfalse
 		return false
 	} else {
 		// チェック済みの為、問題なし
@@ -335,39 +249,6 @@ func doSomething(a, b uint32) bool {
 		fmt.Println(sum)
 		return true
 	}
-}
-
-func doubleValueSample() {
-	fmt.Printf("value = %v\n", 1.0000000000000000)
-	fmt.Printf("value = %v\n", 1.0000000000000001)
-	fmt.Printf("value = %v\n", 1.0000000000000002)
-	fmt.Printf("value = %v\n", 1.0000000000000003)
-	fmt.Printf("value = %v\n", 1.0000000000000004)
-	fmt.Printf("value = %v\n", 1.0000000000000005)
-	fmt.Printf("value = %v\n", 1.0000000000000006)
-	fmt.Printf("value = %v\n", 1.0000000000000007)
-	fmt.Printf("value = %v\n", 1.0000000000000008)
-	fmt.Printf("value = %v\n", 1.0000000000000009)
-	fmt.Printf("value = %v\n", float32(1.0000000000000000))
-	fmt.Printf("value = %v\n", float32(1.0000000000000001))
-	fmt.Printf("value = %v\n", float32(1.0000000000000002))
-	fmt.Printf("value = %v\n", float32(1.0000000000000003))
-	fmt.Printf("value = %v\n", float32(1.0000000000000004))
-	fmt.Printf("value = %v\n", float32(1.0000000000000005))
-	fmt.Printf("value = %v\n", float32(1.0000000000000006))
-	fmt.Printf("value = %v\n", float32(1.0000000000000007))
-	fmt.Printf("value = %v\n", float32(1.0000000000000008))
-	fmt.Printf("value = %v\n", float32(1.0000000000000009))
-	fmt.Println(float32(1.0) / float32(3.0))
-	fmt.Println(float64(1.0) / float64(3.0))
-
-	f := 3.14
-	n := int(f)
-	fmt.Println(n)
-
-	nf := -3.14
-	nn := int(nf)
-	fmt.Println(nn)
 }
 
 func complexSomething() {

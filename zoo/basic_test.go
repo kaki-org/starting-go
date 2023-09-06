@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func ExampleArray() {
 	// コメントです。
@@ -104,4 +107,186 @@ func ExamplePackageVariables() {
 	fmt.Printf("n=%d\n", n)
 	// Output:
 	// n=101
+}
+
+func ExampleVar1() {
+	a := 1
+	// 以下を定義しているとエラーになってしまう
+	// b := 2
+	// c := 3
+	// # command-line-arguments
+	// ./main.go:93:2: b declared and not used
+	// ./main.go:94:2: c declared and not used
+	fmt.Println(a)
+	// Output:
+	// 1
+}
+
+func ExampleVar2() {
+	n4 := 9223372036854775807 // 符号付き64ビット整数で表現可能である最大値
+	// var (
+	// 	n1 int
+	// 	n2 int64
+	// )
+	// n1 = 1
+	// n2 = n1 // コンパイルエラー
+	// fmt.Println(n1, n2)
+	fmt.Println(n4)
+	// Output:
+	// 9223372036854775807
+}
+
+func ExampleVar3() {
+	// n := uint(17)
+	n := 1
+	b := byte(n)
+	i64 := int64(n)
+	u32 := uint32(n)
+	fmt.Println(b, i64, u32)
+	fmt.Printf("%T %T %T\n", b, i64, u32)
+	// Output:
+	// 1 1 1
+	// uint8 int64 uint32
+}
+
+func ExampleVar4() {
+	// byte型に256を代入するとラップアラウンドして0になる
+	n := 256
+	b := byte(n)
+	fmt.Printf("b = %b\n", b)
+	// Output:
+	// b = 0
+}
+
+func ExampleVar5() {
+	// byte型255に1を足すとラップアラウンドして0になる
+	b := byte(255)
+	b = b + 1
+	fmt.Println(b)
+	// Output:
+	// 0
+}
+
+func ExampleVar6() {
+	// byte型-1は255になる
+	n := -1
+	b := byte(n)
+	fmt.Println(b)
+	// Output:
+	// 255
+}
+
+func ExampleMaxUint32() {
+	fmt.Printf("uint32 max value = %d\n", math.MaxUint32)
+	// Output:
+	// uint32 max value = 4294967295
+}
+
+func ExampleWrapAround() {
+	ui_1 := uint32(400000000)
+	ui_2 := uint32(4000000000)
+	if !validateOverflow(ui_1, ui_2) {
+		fmt.Println(math.MaxUint32)
+		fmt.Println("エラーが発生しました")
+		return
+	}
+
+	sum := ui_1 + ui_2
+	fmt.Printf("%d + %d = %d\n", ui_1, ui_2, sum)
+	// Output:
+	// 4294967295
+	// エラーが発生しました
+}
+
+func ExampleWrapAround2() {
+	ui_1 := uint32(400000000)
+	ui_2 := uint32(4000000000)
+	// ここでvalidateOverflowを呼び出さないとおかしな事になる
+	sum := ui_1 + ui_2
+	fmt.Printf("%d + %d = %d\n", ui_1, ui_2, sum)
+	// 400000000 + 4000000000 = 105032704 オーバーフローして1億弱になってしまう
+	// Output:
+	// 400000000 + 4000000000 = 105032704
+}
+
+func ExampleFloat() {
+	// 浮動小数点数
+	zero := 0.0
+	pinf := 1.0 / zero
+	ninf := -1.0 / zero
+	nan := zero / zero
+	fmt.Println(pinf, ninf, nan)
+
+	fmt.Println(1.0e2)  // 1.0 * 10^2
+	fmt.Println(1.0e+2) // 1.0 * 10^2
+	fmt.Println(1.0e-2) // 1.0 / 10^2
+	// Output:
+	// +Inf -Inf NaN
+	// 100
+	// 100
+	// 0.01
+}
+
+func ExampleDouble() {
+	fmt.Printf("value = %v\n", 1.0000000000000000)
+	fmt.Printf("value = %v\n", 1.0000000000000001)
+	fmt.Printf("value = %v\n", 1.0000000000000002)
+	fmt.Printf("value = %v\n", 1.0000000000000003)
+	fmt.Printf("value = %v\n", 1.0000000000000004)
+	fmt.Printf("value = %v\n", 1.0000000000000005)
+	fmt.Printf("value = %v\n", 1.0000000000000006)
+	fmt.Printf("value = %v\n", 1.0000000000000007)
+	fmt.Printf("value = %v\n", 1.0000000000000008)
+	fmt.Printf("value = %v\n", 1.0000000000000009)
+	// Output:
+	// value = 1
+	// value = 1
+	// value = 1.0000000000000002
+	// value = 1.0000000000000002
+	// value = 1.0000000000000004
+	// value = 1.0000000000000004
+	// value = 1.0000000000000007
+	// value = 1.0000000000000007
+	// value = 1.0000000000000009
+	// value = 1.0000000000000009
+}
+
+func ExampleDouble2() {
+	f := 3.14
+	n := int(f)
+	fmt.Println(n)
+	nf := -3.14
+	nn := int(nf)
+	fmt.Println(nn)
+	// Output:
+	// 3
+	// -3
+}
+
+func ExampleDoubleCast() {
+	fmt.Printf("value = %v\n", float32(1.0000000000000000))
+	fmt.Printf("value = %v\n", float32(1.0000000000000001))
+	fmt.Printf("value = %v\n", float32(1.0000000000000002))
+	fmt.Printf("value = %v\n", float32(1.0000000000000003))
+	fmt.Printf("value = %v\n", float32(1.0000000000000004))
+	fmt.Printf("value = %v\n", float32(1.0000000000000005))
+	fmt.Printf("value = %v\n", float32(1.0000000000000006))
+	fmt.Printf("value = %v\n", float32(1.0000000000000007))
+	fmt.Printf("value = %v\n", float32(1.0000000000000008))
+	fmt.Printf("value = %v\n", float32(1.0000000000000009))
+	fmt.Println(float32(1.0) / float32(3.0))
+	fmt.Println(float64(1.0) / float64(3.0))
+	// Output:
+	// value = 1
+	// value = 1
+	// value = 1
+	// value = 1
+	// value = 1
+	// value = 1
+	// value = 1
+	// value = 1
+	// value = 1
+	// value = 1
+	// 0.33333334
+	// 0.3333333333333333
 }
