@@ -47,3 +47,29 @@ func ExamplePrint() {
 	print(1, 2, 3, "\n")     // => "123\n" を標準エラー出力へ出力
 	println(1, 2, 3)         // => "1 2 3\n" を標準エラー出力へ出力
 }
+
+func ExampleTypeInference() {
+	var n int
+	n = 5
+	// n == 5
+	// n = "string value" // コンパイルエラー
+	fmt.Println(n)
+	// int型の変数iを定義して1を代入(型推論)
+	i := 1
+	fmt.Println(i)
+	// bool型の変数bを定義して真偽値trueを代入(型推論)
+	b := true
+	fmt.Println(b)
+	// float64型の変数fを定義して浮動小数点数3.14を代入(型推論)
+	f := 3.14
+	fmt.Println(f)
+	// string型の変数sを定義して文字列"abc"を代入(型推論)
+	s := "abc"
+	fmt.Println(s)
+	// Output:
+	// 5
+	// 1
+	// true
+	// 3.14
+	// abc
+}

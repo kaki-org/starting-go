@@ -16,24 +16,6 @@ func main() {
 	fmt.Println(animals.ElephantFeed())
 	fmt.Println(animals.MonkeyFeed())
 	fmt.Println(animals.RabbitFeed())
-	var n int
-	n = 5
-	// n == 5
-	// n = "string value" // コンパイルエラー
-	fmt.Println(n)
-	// int型の変数iを定義して1を代入(型推論)
-	i := 1
-	fmt.Println(i)
-	// bool型の変数bを定義して真偽値trueを代入(型推論)
-	b := true
-	fmt.Println(b)
-	// float64型の変数fを定義して浮動小数点数3.14を代入(型推論)
-	f := 3.14
-	fmt.Println(f)
-	// string型の変数sを定義して文字列"abc"を代入(型推論)
-	s := "abc"
-	fmt.Println(s)
-
 	// 関数の戻り値を元に型推論を行って変数を定義、初期化
 	n2 := one()
 	fmt.Println(n2)
@@ -51,7 +33,7 @@ func main() {
 	fmt.Println(n3, s3, b3)
 
 	// パッケージ変数n1の値を用いて計算
-	n = n1 + 1
+	n := n1 + 1
 	fmt.Printf("n=%d\n", n)
 
 	var_sample()
