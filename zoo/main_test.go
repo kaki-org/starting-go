@@ -30,7 +30,7 @@ func ExampleArray() {
 	// 10進数=17 2進数=10001 8進数=21 16進数=11
 }
 
-func ExampleArray2() {
+func ExampleArray0() {
 	// %vはさまざまな型のデータを埋め込む
 	fmt.Printf("\n数値=%v 文字列=%v 配列=%v\n", 5, "Golang", [...]int{1, 2, 3}) // => "数値=5 文字列=Golang 配列=[1 2 3]"
 	// %#vはGoのリテラル表現でデータを埋め込む
@@ -295,4 +295,170 @@ func ExampleFmain() {
 	fmain()
 	// Output:
 	// Hello, World! fmain
+}
+
+func ExampleComplex1() {
+	// 複素数型のサンプル
+	c := 1.0 + 3i         // complex128型の変数cを定義して、1.0 + 3iを代入
+	fmt.Println(c)        // 出力: (1+3i)
+	c2 := complex(1.0, 3) // 別の定義方法
+	fmt.Println(c2 == c)  // 出力: true
+	// Output:
+	// (1+3i)
+	// true
+}
+func ExampleComplex2() {
+	// 複素数リテラル
+	fmt.Println(0i)
+	fmt.Println(11i)
+	fmt.Println(0.i)
+	fmt.Println(2.71828i)
+	fmt.Println(6.67428e-11i)
+	fmt.Println(1e6i)
+	fmt.Println(.25i)
+	fmt.Println(.12345e+5i)
+	// Output:
+	// (0+0i)
+	// (0+11i)
+	// (0+0i)
+	// (0+2.71828i)
+	// (0+6.67428e-11i)
+	// (0+1e+06i)
+	// (0+0.25i)
+	// (0+12345i)
+}
+
+func ExampleComplex3() {
+	// 複素数の実部と虚部
+	c3 := 1.3 + 4.2i
+	fmt.Println(real(c3)) // real number (実数)
+	fmt.Println(imag(c3)) // imaginary number (虚数)
+	// Output:
+	// 1.3
+	// 4.2
+}
+
+func ExampleRune() {
+	r := '松'
+	fmt.Printf("%v\n", r) // 出力: 26494
+	// Output:
+	// 26494
+}
+
+func ExampleString() {
+	s := "Goの文字列"
+	fmt.Printf("%v\n", s) // 出力: Goの文字列
+
+	s2 := `
+GOの
+RAW文字列リテラルによる
+複数行に渡る
+文字列
+`
+	fmt.Printf("%v\n", s2)
+	s3 := `abc`
+	fmt.Printf("%v\n", s3)
+	s4 := `\n
+\n`
+	fmt.Printf("%v\n", s4)
+	// Output:
+	// Goの文字列
+	//
+	// GOの
+	// RAW文字列リテラルによる
+	// 複数行に渡る
+	// 文字列
+	//
+	// abc
+	// \n
+	// \n
+}
+func ExampleArray1() {
+	a := [5]int{1, 2, 3, 4, 5}
+	fmt.Printf("%v\n", a)
+	fmt.Printf("%v\n", a[0]) // 出力: 1
+	a1 := [5]int{}
+	fmt.Printf("%v\n", a1)
+	a2 := [5]int{1, 2, 3}
+	fmt.Printf("%v\n", a2)
+	// a3 := [5]int{1, 2, 3, 4, 5, 6}
+	// fmt.Printf("%v\n", a3) // ./main.go:281:30: index 5 is out of bounds (>= 5)
+	var a3 [5]int
+	a4 := [5]int{}
+	fmt.Printf("%v\n", a3 == a4) // 出力: true
+	// Output:
+	// [1 2 3 4 5]
+	// 1
+	// [0 0 0 0 0]
+	// [1 2 3 0 0]
+	// true
+}
+
+func ExampleArray2() {
+	ia := [3]int{}
+	fmt.Printf("int array %v\n", ia) // 出力: [0 0 0]
+	ua := [3]uint{}
+	fmt.Printf("unsigned int array %v\n", ua) // 出力: [0 0 0]
+	ba := [3]bool{}
+	fmt.Printf("bool array %v\n", ba) // 出力: [false false false]
+	fa := [3]float64{}
+	fmt.Printf("float64 array %v\n", fa) // 出力: [0 0 0]
+	ca := [3]complex128{}
+	fmt.Printf("complex128 array %v\n", ca) // 出力: [(0+0i) (0+0i) (0+0i)]
+	ra := [3]rune{}
+	fmt.Printf("rune array %v\n", ra) // 出力: [0 0 0]
+	sa := [3]string{}
+	fmt.Printf("string array %v\n", sa) // 出力: [  ]
+	zeroa := [0]int{}
+	fmt.Printf("zero array %v\n", zeroa) // 出力: []
+	// Output:
+	// int array [0 0 0]
+	// unsigned int array [0 0 0]
+	// bool array [false false false]
+	// float64 array [0 0 0]
+	// complex128 array [(0+0i) (0+0i) (0+0i)]
+	// rune array [0 0 0]
+	// string array [  ]
+	// zero array []
+}
+
+func ExampleArray3() {
+	// 以下はエラーになる
+	// var (
+	// 	a6 [3]int
+	// 	a7 [5]int
+	// )
+	// a6 = a7 // ./main.go:317:7: cannot use a7 (variable of type [5]int) as type [3]int value in assignment(exit status 1)
+	a10 := [...]int{1, 2, 3}
+	a11 := [...]int{1, 2, 3, 4, 5}
+	a12 := [...]int{}
+	fmt.Printf("%v\n%v\n%v\n", a10, a11, a12)
+	a5 := [...]int{1, 2, 3}
+	a5[0] = 0
+	a5[2] = 0
+	fmt.Printf("%v\n", a5) // 出力: [0 2 0]
+	// Output:
+	// [1 2 3]
+	// [1 2 3 4 5]
+	// []
+	// [0 2 0]
+}
+
+func ExampleArray4() {
+	// 異なる型の配列は代入できません
+	// var (
+	// 	a8 [5]int
+	// 	a9 [5]uint
+	// )
+	// a8 = a9 // ./main.go:325:7: cannot use a9 (variable of type [5]uint) as [5]int value in assignment (exit status 1)
+	a1 := [3]int{1, 2, 3}
+	a2 := [3]int{4, 5, 6}
+	a1 = a2
+	a1[0] = 0
+	a1[2] = 0
+	fmt.Printf("a1 = %v\n", a1) // a13の値は[0 5 0]
+	fmt.Printf("a2 = %v\n", a2) // a14の値は[4 5 6]※a13とa14は別の配列
+	// Output:
+	// a1 = [0 5 0]
+	// a2 = [4 5 6]
 }
