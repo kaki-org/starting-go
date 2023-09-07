@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math"
 	"testing"
+
+	"github.com/kakikubo/starting-go/zoo/animals"
 )
 
 func ExampleArray() {
@@ -529,4 +531,274 @@ func TestDoSomethingXY(t *testing.T) {
 	x, y := doSomethingXY()
 	expect(t, x, 0)
 	expect(t, y, 5)
+}
+
+func TestIgnoreArgs(t *testing.T) {
+	expect(t, ignoreArgs(10, 20), 1)
+}
+
+func TestAnonymousFunc(t *testing.T) {
+	fn := func(x, y int) int { return x + y }
+	expect(t, fn(1, 2), 3)
+	output := fmt.Sprintf("%T\n", fn) // => "func(int, int) int"
+	expect(t, output, "func(int, int) int\n")
+}
+
+func TestClosure1(t *testing.T) {
+	var f func(int, int) int
+	f = func(x, y int) int { return x + y }
+	output := fmt.Sprintln(f(1, 2))
+	expect(t, output, "3\n")
+}
+
+func TestClosure2(t *testing.T) {
+	output := fmt.Sprintf("ClosureSample %#v\n", func(x, y int) int { return x + y }(2, 3))
+	expect(t, output, "ClosureSample 5\n")
+}
+
+func TestPlusAlias(t *testing.T) {
+	// 定義済みの関数に別名をつけているかのような記述
+	var plusAlias = plus
+	expect(t, plusAlias(1, 2), 3)
+}
+
+func TestReturnFunc(t *testing.T) {
+	// 関数を返す関数
+	f := ReturnFunc()
+	output := fmt.Sprintf("%T\n", f) // => "func()"
+	expect(t, output, "func()\n")
+}
+
+func ExampleReturnFunc() {
+	f := ReturnFunc()
+	f()
+	ReturnFunc()() // こうやっても実行できる
+	// Output:
+	// I'm a function
+	// I'm a function
+}
+
+func ExampleCallFunction() {
+	// 関数を引数にとる関数
+	CallFunction(func() {
+		fmt.Println("I'm a callFunction")
+	})
+	// Output:
+	// I'm a callFunction
+}
+
+func ExampleLater() {
+	// クロージャ(関数閉包)
+	f := later()
+	fmt.Println(f("Golang"))   // => ""
+	fmt.Println(f("is"))       // => "Golang"
+	fmt.Println(f("awesome!")) // => "is"
+	fmt.Println(f("awesome!")) // => "awesome!"
+	// Output:
+	// Golang
+	// is
+	// awesome!
+}
+
+func TestClosureIntegers(t *testing.T) {
+	// クロージャを利用してGeneratorを実装する
+	ints := integers()
+	expect(t, ints(), 1)
+	expect(t, ints(), 2)
+	expect(t, ints(), 3)
+	otherInts := integers()
+	expect(t, otherInts(), 1) // 1 (otherIntsの状態は別)
+}
+
+func TestOnetwo(t *testing.T) {
+	// 関数内での定数宣言
+	x, y := onetwo()
+	expect(t, x, 1)
+	expect(t, y, 2)
+	expect(t, ONE, 1)
+	// expect(t, TWO, 2) // これは参照できない
+}
+
+func ExampleConstant() {
+	// 定数定義(値の省略)
+	const (
+		XX = 10
+		YY
+		ZZ
+		S1 = "あ"
+		S2
+	)
+	fmt.Println(XX, YY, ZZ, S1, S2) // => "10 10 10 あ あ"
+	// Output:
+	// 10 10 10 あ あ
+}
+
+func ExampleConstant1() {
+	// 定数
+	// const X = 1
+	const (
+		X = 1
+		Y = 2
+		Z = 3
+	)
+	fmt.Println(X, Y, Z) // => "1 2 3"
+	// Output:
+	// 1 2 3
+}
+
+func ExampleConstant2() {
+	// 以前はこの書き方でもOKだったみたい(X1, X2が定義されていない状態でX12を定義している)
+	// const (
+	// 	X12 = X1 + X2
+	// 	X1 = 1
+	// 	X2 = 2
+	// )
+
+	const (
+		X = 2
+		Y = 7
+		Z = X + Y // Z = 9
+
+		S1 = "今日"
+		S2 = "晴れ"
+		S  = S1 + "は" + S2 // S = "今日は晴れ"
+	)
+
+	fmt.Println(Z, S)
+	fmt.Printf("%T\n", Z) // => "int"
+	// Output:
+	// 9 今日は晴れ
+	// int
+}
+
+func ExampleConstant3() {
+	// 以下はオーバーフローする
+	/*
+		const (
+			N = 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+		)
+		n999 := N
+		fmt.Printf("%T %v\n", n999, n999) // => "int64 999999
+	*/
+
+	// 型が違う場合はコンパイルエラーにしてくれる
+	/*
+		const (
+			UI64 = uint64(12345)
+		)
+
+		var i64 int64
+		i64 = UI64 // cannot use UI64 (constant 12345 of type uint64) as int64 value in assignment
+	*/
+	const (
+		// I64 int64   = -1
+		// F64 float64 = 1.2
+		I64 = int64(-1)
+		F64 = float64(1.2)
+	)
+	fmt.Printf("%T %v\n%T %v\n", I64, I64, F64, F64) // => "int64 -1\nfloat64 1.2"
+	// Output:
+	// int64 -1
+	// float64 1.2
+}
+
+func ExampleConstant4() {
+	// コンパイル時に演算が処理される為、以下はコンパイルエラーにならない
+	const (
+		// uint64の最大値に1を足した値
+		MAXUI64PLUS1 = math.MaxUint64 + 1
+	)
+	muint64 := uint64(MAXUI64PLUS1 - 1)     // コンパイル時に値が決定される為、18446744073709551615(uint64の最大値)になる
+	fmt.Printf("%T %v\n", muint64, muint64) // => "uint64 18446744073709551615"
+	// Output:
+	// uint64 18446744073709551615
+}
+
+func ExampleConstant5() {
+	// 浮動小数点数の定数
+	const (
+		Pi = 3.14
+	)
+	f32 := float32(math.Pi)
+	f64 := float64(math.Pi)
+	fmt.Printf("%v\n", f32)
+	fmt.Printf("%v\n", f64)
+	const F = 1.0000000000001
+	fmt.Println(float64(F) * 10000)
+	fmt.Println(F * 10000)
+	// Output:
+	// 3.1415927
+	// 3.141592653589793
+	// 10000.000000000999
+	// 10000.000000001
+}
+
+func ExampleConstantComplex() {
+	// 複素数の定数
+	const (
+		C = 4.7 + 1.3i
+	)
+	fmt.Printf("%T %v\n", C, C) // => "complex128 (4.7+1.3i)"
+	// Output:
+	// complex128 (4.7+1.3i)
+}
+
+func ExampleConstantRune() {
+	// ルーン、文字列の定数
+	const (
+		R  = 'あ'
+		S  = "Go言語"
+		RS = `秋の田のかりほの庵の苫をあらみ
+わが衣手は露にぬれつつ`
+	)
+	fmt.Printf("%v\n", R)  // => "12354"
+	fmt.Printf("%v\n", S)  // => "Go言語"
+	fmt.Printf("%v\n", RS) // => "秋の田のかりほの庵の苫をあらみ\nわが衣手は露にぬれつつ"
+	// Output:
+	// 12354
+	// Go言語
+	// 秋の田のかりほの庵の苫をあらみ
+	// わが衣手は露にぬれつつ
+}
+
+func ExampleConstantIota() {
+	// iota
+	const (
+		A1 = iota + 1
+		B1
+		C1
+		N = iota
+	)
+	// iotaは定数の宣言ごとにリセットされる
+	const (
+		A2 = iota
+		B2
+		C2
+	)
+	fmt.Println(A1, B1, C1, N) // => "1 2 3 3"
+	fmt.Println(A2, B2, C2)    // => "0 1 2"
+	// やらないけど言語仕様上は以下のようにもかける
+	const (
+		朝の挨拶 = "おはよう"
+		昼の挨拶 = "こんにちは"
+		夜の挨拶 = "こんばんは"
+	)
+	あいさつ(昼の挨拶) // => "こんにちは"
+	// Output:
+	// 1 2 3 3
+	// 0 1 2
+	// こんにちは
+
+	// 文字と認められていない〒(記号とされている)を使ってみる
+	// const 〒 = "郵便番号" // 〒は記号として扱われる。エラー
+}
+
+func TestAnimals(t *testing.T) {
+	expect(t, animals.ElephantFeed(), "Grass")
+	expect(t, animals.MonkeyFeed(), "Banana")
+	expect(t, animals.RabbitFeed(), "Carrot")
+	expect(t, animals.MAX, 100)
+	expect(t, animals.FooFunc(5), 6)
+	// fmt.Println(animals.internal_const) // コンパイルエラー
+	// fmt.Println(animals.internalFunc(5)) // コンパイルエラー
 }

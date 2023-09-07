@@ -38,3 +38,12 @@ func TestFooFunc(t *testing.T) {
 		t.Errorf("%d != %d", expect, actual)
 	}
 }
+
+func TestConstant(t *testing.T) {
+	if MAX != 100 {
+		t.Errorf("MAX should be 100, but has %d", MAX)
+	}
+	if internal_const != 1 {
+		t.Errorf("internal_const should be 1, but has %d", internal_const)
+	}
+}

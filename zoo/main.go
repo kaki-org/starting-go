@@ -6,8 +6,6 @@ import (
 	"os"
 	"reflect"
 	"testing"
-
-	"github.com/kakikubo/starting-go/zoo/animals"
 )
 
 // n1はパッケージ変数
@@ -15,193 +13,8 @@ var n1 = 100
 
 func main() {
 	fmt.Println(AppName()) /* 関数AppNameの呼び出しを追加 */
-	fmt.Println(animals.ElephantFeed())
-	fmt.Println(animals.MonkeyFeed())
-	fmt.Println(animals.RabbitFeed())
-
-	fmt.Println(doSomethingA())
-	fmt.Println(doSomethingXY())
-	fmt.Println(ignoreArgs(1, 2))
 
 	// fmt.Println(RequiredFunction(1))
-
-	// 無名関数
-	fn := func(x, y int) int { return x + y }
-	fmt.Println(fn(2, 3))
-	fmt.Printf("%T\n", fn) // => "func(int, int) int"
-	ClosureSample()
-
-	// 定義済みの関数に別名をつけているかのような記述
-	var plusAlias = plus
-	fmt.Println(plusAlias(10, 20))
-
-	// 関数を返す関数
-	rfn := returnFunc()
-	rfn()
-	fmt.Printf("%T\n", rfn) // => "func()"
-	returnFunc()()          // こうやっても実行できる
-
-	// 関数を引数にとる関数
-	callFunction(func() {
-		fmt.Println("I'm a callFunction")
-	})
-
-	// クロージャ(関数閉包)
-	later := later()
-	fmt.Println(later("Golang"))
-	fmt.Println(later("is"))
-	fmt.Println(later("awesome!"))
-	fmt.Println(later("awesome!"))
-
-	// クロージャを利用してGeneratorを実装する
-	ints := integers()
-
-	fmt.Println(ints()) // 1
-	fmt.Println(ints()) // 2
-	fmt.Println(ints()) // 3
-
-	otherInts := integers()
-	fmt.Println(otherInts()) // 1 (otherIntsの状態は別)
-
-	// 定数
-	// const X = 1
-	const (
-		X = 1
-		Y = 2
-		Z = 3
-	)
-
-	// 関数内での定数宣言
-	x, y := onetwo()
-	fmt.Printf("x=%d, y=%d\n", x, y) // => "x=1, y=2"
-
-	// 定数定義(値の省略)
-	const (
-		XX = 10
-		YY
-		ZZ
-		S1 = "あ"
-		S2
-	)
-	fmt.Println(XX, YY, ZZ, S1, S2) // => "10 10 10 あ あ"
-
-	const (
-		XXX = 2
-		YYY = 7
-		ZZZ = XXX + YYY // ZZZ = 9
-
-		S3  = "今日"
-		S4  = "晴れ"
-		S34 = S3 + "は" + S4 // S = "今日は晴れ"
-	)
-
-	fmt.Println(ZZZ, S34)
-	fmt.Printf("%T\n", ZZZ) // => "int"
-	// 以前はこの書き方でもOKだったみたい(X1, X2が定義されていない状態でX12を定義している)
-	// const (
-	// 	X12 = X1 + X2
-	// 	X1 = 1
-	// 	X2 = 2
-	// )
-
-	const (
-		// I64 int64   = -1
-		// F64 float64 = 1.2
-		I64 = int64(-1)
-		F64 = float64(1.2)
-	)
-	fmt.Printf("%T %v\n%T %v\n", I64, I64, F64, F64) // => "int64 -1\nfloat64 1.2"
-
-	// 以下はオーバーフローする
-	/*
-		const (
-			N = 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
-		)
-		n999 := N
-		fmt.Printf("%T %v\n", n999, n999) // => "int64 999999
-	*/
-
-	// 型が違う場合はコンパイルエラーにしてくれる
-	/*
-		const (
-			UI64 = uint64(12345)
-		)
-
-		var i64 int64
-		i64 = UI64 // cannot use UI64 (constant 12345 of type uint64) as int64 value in assignment
-	*/
-
-	// コンパイル時に演算が処理される為、以下はコンパイルエラーにならない
-	const (
-		// uint64の最大値に1を足した値
-		MAXUI64PLUS1 = math.MaxUint64 + 1
-	)
-	muint64 := uint64(MAXUI64PLUS1 - 1)     // コンパイル時に値が決定される為、18446744073709551615(uint64の最大値)になる
-	fmt.Printf("%T %v\n", muint64, muint64) // => "uint64 18446744073709551615"
-
-	// 浮動小数点数の定数
-	const (
-		Pi = 3.14
-	)
-	f32 := float32(math.Pi)
-	f64 := float64(math.Pi)
-	fmt.Printf("%v\n", f32)
-	fmt.Printf("%v\n", f64)
-	const F = 1.0000000000001
-	fmt.Println(float64(F) * 10000)
-	fmt.Println(F * 10000)
-
-	// 複素数の定数
-	const (
-		C = 4.7 + 1.3i
-	)
-	fmt.Printf("%T %v\n", C, C) // => "complex128 (4.7+1.3i)"
-
-	// ルーン、文字列の定数
-	const (
-		R  = 'あ'
-		S  = "Go言語"
-		RS = `秋の田のかりほの庵の苫をあらみ
-わが衣手は露にぬれつつ`
-	)
-	fmt.Printf("%v\n", R)  // => "12354"
-	fmt.Printf("%v\n", S)  // => "Go言語"
-	fmt.Printf("%v\n", RS) // => "秋の田のかりほの庵の苫をあらみ\nわが衣手は露にぬれつつ"
-
-	// iota
-	const (
-		A1 = iota + 1
-		B1
-		C1
-		N = iota
-	)
-	// iotaは定数の宣言ごとにリセットされる
-	const (
-		A2 = iota
-		B2
-		C2
-	)
-	fmt.Println(A1, B1, C1, N) // => "1 2 3 3"
-	fmt.Println(A2, B2, C2)    // => "0 1 2"
-	// やらないけど言語仕様上は以下のようにもかける
-
-	const (
-		朝の挨拶 = "おはよう"
-		昼の挨拶 = "こんにちは"
-		夜の挨拶 = "こんばんは"
-	)
-	あいさつ(昼の挨拶) // => "こんにちは"
-
-	// 文字と認められていない〒(記号とされている)を使ってみる
-	// const 〒 = "郵便番号"
-
-	fmt.Println(animals.MAX)
-	// fmt.Println(animals.internal_const) // コンパイルエラー
-
-	fmt.Println(animals.FooFunc(5)) // => "6"
-	// fmt.Println(animals.internalFunc(5)) // コンパイルエラー
-	fmain()
-
 	someCondition()
 	funcSwitch()
 	typeAssertion()
@@ -293,22 +106,13 @@ func (*T) RequiredFunction(a, _ int) int {
 	return a
 }
 
-func ClosureSample() {
-	var f func(int, int) int
-	f = func(x, y int) int { return x + y }
-	fmt.Println(f(1, 2))
-
-	// fmt.Printf("ClosureSample %#v\n", func(x, y int) int { return x + y })
-	fmt.Printf("ClosureSample %#v\n", func(x, y int) int { return x + y }(2, 3))
-}
-
-func returnFunc() func() {
+func ReturnFunc() func() {
 	return func() {
 		fmt.Println("I'm a function")
 	}
 }
 
-func callFunction(f func()) {
+func CallFunction(f func()) {
 	f()
 }
 
