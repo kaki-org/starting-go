@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"testing"
 )
 
 func ExampleArray() {
@@ -498,4 +499,24 @@ func ExampleMath() {
 	// Go言語の解説
 	// 50
 	// 2
+}
+
+func ExampleHello() {
+	hello()
+	// Output:
+	// Hello, World!
+}
+
+func TestPlus(t *testing.T) {
+	expect(t, plus(1, 2), 3)
+}
+
+func ExampleDiv() {
+	q, r := div(19, 7)
+	fmt.Printf("商=%d 余り=%d\n", q, r) // => "商=2 余り=5" quotient, remainder
+	q2, _ := div(19, 7)              // 余りは捨てる
+	fmt.Printf("商=%d\n", q2)         // => "商=2"
+	// Output:
+	// 商=2 余り=5
+	// 商=2
 }

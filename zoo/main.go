@@ -17,13 +17,6 @@ func main() {
 	fmt.Println(animals.MonkeyFeed())
 	fmt.Println(animals.RabbitFeed())
 
-	fmt.Println(plus(1, 2))
-	hello()
-	q, r := div(19, 7)
-	fmt.Printf("商=%d 余り=%d\n", q, r) // => "商=2 余り=5" quotient, remainder
-	q2, _ := div(19, 7)              // 余りは捨てる
-	fmt.Printf("商=%d\n", q2)         // => "商=2"
-
 	fmt.Println(doSomethingA())
 	fmt.Println(doSomethingXY())
 	fmt.Println(ignoreArgs(1, 2))
