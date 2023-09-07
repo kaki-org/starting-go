@@ -462,3 +462,40 @@ func ExampleArray4() {
 	// a1 = [0 5 0]
 	// a2 = [4 5 6]
 }
+
+func ExampleInterface() {
+	// interfaceはすべての型の値を汎用的に表す手段である為、演算の対象としては利用できない
+	// var xx, yy interface{}
+	// xx, yy = 1, 2 // 代入
+	// z := xx + yy  // 演算できない
+	var x interface{}
+	fmt.Printf("%#v\n", x) // 出力: <nil>
+	x = 1
+	x = 3.14
+	x = '山'
+	x = "文字列"
+	x = [...]uint8{1, 2, 3, 4, 5}
+	fmt.Printf("%#v\n", x) // 出力: [5]uint8{0x1, 0x2, 0x3, 0x4, 0x5}
+	// Output:
+	// <nil>
+	// [5]uint8{0x1, 0x2, 0x3, 0x4, 0x5}
+}
+
+func ExampleMath() {
+	var n int
+	s := "Go言語"
+	x := 10
+	n += 5
+	fmt.Println(n)
+	s += "の解説"
+	fmt.Println(s)
+	n *= 10
+	fmt.Println(n)
+	n &= x
+	fmt.Println(n)
+	// Output:
+	// 5
+	// Go言語の解説
+	// 50
+	// 2
+}
