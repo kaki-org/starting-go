@@ -807,3 +807,61 @@ func TestAnimals(t *testing.T) {
 	// fmt.Println(animals.internal_const) // コンパイルエラー
 	// fmt.Println(animals.internalFunc(5)) // コンパイルエラー
 }
+
+func ExampleCondition() {
+	for {
+		fmt.Println("loop")
+		break // このbreakがないと無限ループになる
+	}
+	for i := 0; i < 3; i++ {
+		fmt.Println(i)
+	}
+	x, y := 3, 5
+	if n := x * y; n%2 == 0 {
+		fmt.Println("偶数")
+	} else {
+		fmt.Println("奇数")
+	}
+	/* 変数iが100になるまでループ */
+	i := 0
+	for i < 10 {
+		// continue使うとdlvが停止してしまうのでコメントアウト
+		// if i == 5 {
+		// 	continue
+		// }
+		fmt.Println(i)
+		i++
+	}
+	fruits := [3]string{"Apple", "Banana", "Cherry"}
+	/* rangeを伴うfor */
+	for i, s := range fruits {
+		// iはインデックス、sは要素(値)を取る
+		fmt.Printf("fruits[%d]=%s\n", i, s)
+	}
+	/* 文字列の場合はrune型になる */
+	for i, r := range "あいう" {
+		fmt.Printf("[%d]=%d %v\n", i, r, string(r))
+	}
+	// Output:
+	// loop
+	// 0
+	// 1
+	// 2
+	// 奇数
+	// 0
+	// 1
+	// 2
+	// 3
+	// 4
+	// 5
+	// 6
+	// 7
+	// 8
+	// 9
+	// fruits[0]=Apple
+	// fruits[1]=Banana
+	// fruits[2]=Cherry
+	// [0]=12354 あ
+	// [3]=12356 い
+	// [6]=12358 う
+}

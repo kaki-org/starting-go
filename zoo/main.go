@@ -15,7 +15,6 @@ func main() {
 	fmt.Println(AppName()) /* 関数AppNameの呼び出しを追加 */
 
 	// fmt.Println(RequiredFunction(1))
-	someCondition()
 	funcSwitch()
 	typeAssertion()
 	typeAssertion2()
@@ -160,43 +159,6 @@ func DoSomethingDo() {
 /* パッケージ内のみで参照できる関数 */
 func doSomethingDo() {
 	fmt.Println("doSomething Do")
-}
-
-func someCondition() {
-	for {
-		fmt.Println("loop")
-		break // このbreakがないと無限ループになる
-	}
-	for i := 0; i < 10; i++ {
-		fmt.Println(i)
-	}
-	x, y := 3, 5
-	if n := x * y; n%2 == 0 {
-		fmt.Println("偶数")
-	} else {
-		fmt.Println("奇数")
-	}
-	/* 変数iが100になるまでループ */
-	i := 0
-	for i < 100 {
-		// continue使うとdlvが停止してしまうのでコメントアウト
-		// if i == 50 {
-		// 	continue
-		// }
-		fmt.Println(i)
-		i++
-	}
-	fruits := [3]string{"Apple", "Banana", "Cherry"}
-	/* rangeを伴うfor */
-	for i, s := range fruits {
-		// iはインデックス、sは要素(値)を取る
-		fmt.Printf("fruits[%d]=%s\n", i, s)
-	}
-	/* 文字列の場合はrune型になる */
-	for i, r := range "あいう" {
-		fmt.Printf("[%d]=%d %v\n", i, r, string(r))
-	}
-
 }
 
 func funcSwitch() {
