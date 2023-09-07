@@ -185,6 +185,11 @@ func ExampleMaxUint32() {
 	// uint32 max value = 4294967295
 }
 
+func TestValidateOverflow(t *testing.T) {
+	expect(t, validateOverflow(1, 2), true)
+	expect(t, validateOverflow(math.MaxInt32, 1), false)
+}
+
 func ExampleWrapAround() {
 	ui_1 := uint32(400000000)
 	ui_2 := uint32(4000000000)
