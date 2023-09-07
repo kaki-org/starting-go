@@ -1,7 +1,6 @@
 package main
 
 import (
-	"reflect"
 	"testing"
 	"unicode"
 )
@@ -38,17 +37,4 @@ func TestIsControl(t *testing.T) {
 	expect(t, unicode.IsControl('あ'), false)
 	expect(t, unicode.IsControl('\n'), true)
 	expect(t, unicode.IsControl('\t'), true)
-}
-
-// TODO: あとで引っ越しする
-func expect(t *testing.T, a, b interface{}) {
-	if a != b {
-		t.Errorf("Expected %d, got %d", a, b)
-	}
-}
-
-func expectEqual(t *testing.T, a, b interface{}) {
-	if !reflect.DeepEqual(a, b) {
-		t.Errorf("Expected %d, got %d", a, b)
-	}
 }

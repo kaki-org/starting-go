@@ -520,3 +520,13 @@ func ExampleDiv() {
 	// 商=2 余り=5
 	// 商=2
 }
+
+func TestDoSomethingA(t *testing.T) {
+	expect(t, doSomethingA(), 0)
+}
+
+func TestDoSomethingXY(t *testing.T) {
+	x, y := doSomethingXY()
+	expect(t, x, 0)
+	expect(t, y, 5)
+}

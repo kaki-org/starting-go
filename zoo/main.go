@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"reflect"
+	"testing"
 
 	"github.com/kakikubo/starting-go/zoo/animals"
 )
@@ -588,4 +590,16 @@ func testRecover(src interface{}) {
 	}()
 	panic(src)
 	return
+}
+
+func expect(t *testing.T, a, b interface{}) {
+	if a != b {
+		t.Errorf("Expected %d, got %d", b, a)
+	}
+}
+
+func expectEqual(t *testing.T, a, b interface{}) {
+	if !reflect.DeepEqual(a, b) {
+		t.Errorf("Expected %d, got %d", a, b)
+	}
 }
