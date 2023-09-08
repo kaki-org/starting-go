@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"reflect"
-	"testing"
 )
 
 // n1はパッケージ変数
@@ -186,16 +184,4 @@ func testRecover(src interface{}) {
 	}()
 	panic(src)
 	return
-}
-
-func expect(t *testing.T, a, b interface{}) {
-	if a != b {
-		t.Errorf("Expected %d, got %d", b, a)
-	}
-}
-
-func expectEqual(t *testing.T, a, b interface{}) {
-	if !reflect.DeepEqual(a, b) {
-		t.Errorf("Expected %d, got %d", a, b)
-	}
 }
