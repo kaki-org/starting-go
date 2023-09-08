@@ -767,6 +767,8 @@ func ExampleConstantRune() {
 }
 
 func ExampleConstantIota() {
+	// 文字と認められていない〒(記号とされている)を使ってみる
+	// const 〒 = "郵便番号" // 〒は記号として扱われる。エラー
 	// iota
 	const (
 		A1 = iota + 1
@@ -788,14 +790,15 @@ func ExampleConstantIota() {
 		昼の挨拶 = "こんにちは"
 		夜の挨拶 = "こんばんは"
 	)
+	あいさつ(朝の挨拶) // => "おはよう"
 	あいさつ(昼の挨拶) // => "こんにちは"
+	あいさつ(夜の挨拶) // => "こんばんは"
 	// Output:
 	// 1 2 3 3
 	// 0 1 2
+	// おはよう
 	// こんにちは
-
-	// 文字と認められていない〒(記号とされている)を使ってみる
-	// const 〒 = "郵便番号" // 〒は記号として扱われる。エラー
+	// こんばんは
 }
 
 func TestAnimals(t *testing.T) {
@@ -1086,4 +1089,9 @@ func ExampleTestRecover() {
 	// panic: int=128
 	// panic: string=hogehoge
 	// panic: unknown=[1 2 3]
+}
+
+func ExampleAisatsu() {
+	あいさつ("おはよう")
+	// Output:
 }
