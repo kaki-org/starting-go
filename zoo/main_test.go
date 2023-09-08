@@ -9,6 +9,18 @@ import (
 	"github.com/kakikubo/starting-go/zoo/animals"
 )
 
+func expect(t *testing.T, a, b interface{}) {
+	if a != b {
+		t.Errorf("Expected %d, got %d", b, a)
+	}
+}
+
+func expectEqual(t *testing.T, a, b interface{}) {
+	if !reflect.DeepEqual(a, b) {
+		t.Errorf("Expected %d, got %d", a, b)
+	}
+}
+
 func ExampleMain() {
 	main()
 	// Output:
@@ -1110,16 +1122,4 @@ func ExampleTestRecover() {
 	// panic: int=128
 	// panic: string=hogehoge
 	// panic: unknown=[1 2 3]
-}
-
-func expect(t *testing.T, a, b interface{}) {
-	if a != b {
-		t.Errorf("Expected %d, got %d", b, a)
-	}
-}
-
-func expectEqual(t *testing.T, a, b interface{}) {
-	if !reflect.DeepEqual(a, b) {
-		t.Errorf("Expected %d, got %d", a, b)
-	}
 }
