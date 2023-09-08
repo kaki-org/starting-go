@@ -885,7 +885,13 @@ func ExampleSwitch() {
 		fmt.Println("unknown")
 	}
 	fmt.Printf("結局nは%d\n", n) // ここで定義したnはswitch外でも有効
-
+	/* caseに定数と式が混在するswitch文はコンパイルエラー(正確には型が異なるとエラー) */
+	// switch x := 1; x {
+	// case 1, 2, 3:
+	// 	fmt.Println(x)
+	// case x > 3:
+	// 	fmt.Println("x > 3")
+	// }
 	nn := 4
 	switch {
 	case nn > 0 && nn < 3:
@@ -897,20 +903,44 @@ func ExampleSwitch() {
 	case nn > 0 && nn < 6:
 		fmt.Println("0 < nn < 6")
 	}
-
-	/* caseに定数と式が混在するswitch文はコンパイルエラー(正確には型が異なるとエラー) */
-	// switch x := 1; x {
-	// case 1, 2, 3:
-	// 	fmt.Println(x)
-	// case x > 3:
-	// 	fmt.Println("x > 3")
-	// }
-
 	// Output:
 	// 3 or 4です
 	// 5.0です
 	// 結局nは5
 	// 3 < nn < 6
 	// 0 < nn < 6
+}
 
+func ExampleTypeAssertion() {
+	anything(1)
+	anything(3.14)
+	anything(4 + 5i)
+	anything('海')
+	anything("日本語")
+	anything([...]int{1, 2, 3, 4, 5})
+
+	var x interface{} = 3
+	i := x.(int)
+	// f := x.(float64) // panic: interface conversion: interface {} is int, not float64
+	fmt.Println(i)
+
+	var y interface{} = 3.14
+
+	ii, isInt := y.(int)
+	ff, isFloat64 := y.(float64)
+	s, isString := y.(string)
+	fmt.Println(ii, isInt)     // 0 false
+	fmt.Println(ff, isFloat64) // 3.14 true
+	fmt.Println(s, isString)   //  false
+	// Output:
+	// 1
+	// 3.14
+	// (4+5i)
+	// 28023
+	// 日本語
+	// [1 2 3 4 5]
+	// 3
+	// 0 false
+	// 3.14 true
+	//  false
 }

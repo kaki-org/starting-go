@@ -15,7 +15,6 @@ func main() {
 	fmt.Println(AppName()) /* 関数AppNameの呼び出しを追加 */
 
 	// fmt.Println(RequiredFunction(1))
-	typeAssertion()
 	typeAssertion2()
 	typeSwitch()
 	typeSwitch2()
@@ -158,30 +157,6 @@ func DoSomethingDo() {
 /* パッケージ内のみで参照できる関数 */
 func doSomethingDo() {
 	fmt.Println("doSomething Do")
-}
-
-func typeAssertion() {
-	anything(1)
-	anything(3.14)
-	anything(4 + 5i)
-	anything('海')
-	anything("日本語")
-	anything([...]int{1, 2, 3, 4, 5})
-
-	var x interface{} = 3
-	i := x.(int)
-	// f := x.(float64) // panic: interface conversion: interface {} is int, not float64
-	fmt.Println(i)
-
-	var y interface{} = 3.14
-
-	ii, isInt := y.(int)
-	ff, isFloat64 := y.(float64)
-	s, isString := y.(string)
-	fmt.Println(ii, isInt)     // 0 false
-	fmt.Println(ff, isFloat64) // 3.14 true
-	fmt.Println(s, isString)   //  false
-
 }
 
 func typeAssertion2() {
