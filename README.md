@@ -23,7 +23,8 @@ export PATH=$PATH:$GOPATH/bin
 ビルドするには以下の通りで実施
 
 ```zsh
-go build -o hello hello.go```
+go build -o hello hello.go
+```
 
 ## TODO
 
