@@ -8,6 +8,14 @@ import (
 	"github.com/kakikubo/starting-go/zoo/animals"
 )
 
+func ExampleMain() {
+	main()
+	// Output:
+	// Zoo Application
+	// os.Exit
+	// !
+}
+
 func ExampleArray() {
 	// コメントです。
 	a := [3]string{

@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"os"
 	"reflect"
 	"testing"
 )
@@ -18,7 +17,7 @@ func main() {
 	defer fmt.Println("!")
 
 	fmt.Println("os.Exit")
-	os.Exit(0)
+	// os.Exit(0)
 }
 
 func one() int {
