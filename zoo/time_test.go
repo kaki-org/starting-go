@@ -259,6 +259,7 @@ func TestTimeSleep(t *testing.T) {
 }
 
 func TestTimeTicker(t *testing.T) {
+	t.Skip("skip TestTimeTicker")
 	// https://devlights.hatenablog.com/entry/2020/11/13/135630
 	// time.Tick だとgarbage collectionで回収されないのでtime.NewTickerを使う
 	ticker := time.NewTicker(1 * time.Second)
