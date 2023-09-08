@@ -1040,3 +1040,50 @@ L:
 	// 2 * 1 = 2
 	// 3 * 1 = 3
 }
+
+func ExampleDefer() {
+	/* deferに登録された式は関数の終了時に評価される。実行順序は最後に登録したものから先に実行される */
+	defer fmt.Println("defer1")
+	defer fmt.Println("defer2")
+	defer fmt.Println("defer3")
+	defer func() {
+		fmt.Println("A")
+		fmt.Println("B")
+		fmt.Println("C")
+	}() // deferに登録する関数を即時実行する場合は()を付ける
+	fmt.Println("done")
+	// Output:
+	// done
+	// A
+	// B
+	// C
+	// defer3
+	// defer2
+	// defer1
+}
+
+func TestRunPanic(t *testing.T) {
+	defer func() {
+		err := recover()
+		if err != "runtime error" {
+			t.Errorf("unexpected error: %v", err)
+		}
+	}()
+	runPanic()
+}
+
+func ExampleRunRecover() {
+	runRecover()
+	// Output:
+	// recover: runtime error
+}
+
+func ExampleTestRecover() {
+	testRecover(128)
+	testRecover("hogehoge")
+	testRecover([...]int{1, 2, 3})
+	// Output:
+	// panic: int=128
+	// panic: string=hogehoge
+	// panic: unknown=[1 2 3]
+}
