@@ -15,12 +15,6 @@ func main() {
 	fmt.Println(AppName()) /* 関数AppNameの呼び出しを追加 */
 
 	// fmt.Println(RequiredFunction(1))
-	typeAssertion2()
-	typeSwitch()
-	typeSwitch2()
-	gotoSample()
-	labelSample()
-	labelSample2()
 	runDefer()
 	// runPanic()
 	runRecover()
@@ -159,88 +153,8 @@ func doSomethingDo() {
 	fmt.Println("doSomething Do")
 }
 
-func typeAssertion2() {
-	// 2つの値を返す型アサーションの結果で条件分岐
-	var x interface{} = "abc"
-	if x == nil {
-		fmt.Println("x is nil")
-	} else if i, isInt := x.(int); isInt {
-		fmt.Printf("int %d\n", i)
-	} else if s, isString := x.(string); isString {
-		fmt.Printf("string %s\n", s)
-	} else {
-		fmt.Println("Unsupported type!")
-	}
-}
-
 func anything(a interface{}) {
 	fmt.Println(a)
-}
-
-func typeSwitch() {
-	var x interface{} = 3
-
-	switch x.(type) {
-	case bool:
-		fmt.Println("bool")
-	case int, uint:
-		fmt.Println("integer or unsigned integer")
-	case string:
-		fmt.Println("string")
-	default:
-		fmt.Println("don't know")
-	}
-}
-
-func typeSwitch2() {
-	var x interface{} = 3
-
-	switch v := x.(type) {
-	case bool:
-		fmt.Println("bool:", v)
-	case int:
-		fmt.Println(v * v)
-	case string:
-		fmt.Println(v)
-	default:
-		fmt.Printf("%#v\n", v)
-	}
-}
-
-func gotoSample() {
-	fmt.Println("A")
-	goto L
-	fmt.Println("B")
-L: /* ラベル */
-	fmt.Println("C")
-}
-
-func labelSample() {
-LOOP:
-	for {
-		for {
-			for {
-				fmt.Println("START")
-				break LOOP
-			}
-			fmt.Println("ここは通らない")
-		}
-		fmt.Println("ここは通らない")
-	}
-	fmt.Println("END")
-}
-
-func labelSample2() {
-L:
-	for i := 1; i <= 3; i++ {
-		for j := 1; j <= 3; j++ {
-			if j > 1 {
-				continue L
-			}
-			fmt.Printf("%d * %d = %d\n", i, j, i*j)
-		}
-		fmt.Println("ここは処理されない")
-	}
 }
 
 func runDefer() {

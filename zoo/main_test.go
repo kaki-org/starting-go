@@ -944,3 +944,99 @@ func ExampleTypeAssertion() {
 	// 3.14 true
 	//  false
 }
+
+func ExampleTypeAsertion2() {
+	// 2つの値を返す型アサーションの結果で条件分岐
+	var x interface{} = "abc"
+	if x == nil {
+		fmt.Println("x is nil")
+	} else if i, isInt := x.(int); isInt {
+		fmt.Printf("int %d\n", i)
+	} else if s, isString := x.(string); isString {
+		fmt.Printf("string %s\n", s)
+	} else {
+		fmt.Println("Unsupported type!")
+	}
+	// Output:
+	// string abc
+}
+
+func ExampleTypeSwitch() {
+	var x interface{} = 3
+
+	switch x.(type) {
+	case bool:
+		fmt.Println("bool")
+	case int, uint:
+		fmt.Println("integer or unsigned integer")
+	case string:
+		fmt.Println("string")
+	default:
+		fmt.Println("don't know")
+	}
+	// Output:
+	// integer or unsigned integer
+}
+
+func ExampleTypeSwitch2() {
+	var x interface{} = 3
+
+	switch v := x.(type) {
+	case bool:
+		fmt.Println("bool:", v)
+	case int:
+		fmt.Println(v * v)
+	case string:
+		fmt.Println(v)
+	default:
+		fmt.Printf("%#v\n", v)
+	}
+	// Output:
+	// 9
+}
+
+func ExampleGoto() {
+	fmt.Println("A")
+	goto L
+	fmt.Println("B")
+L: /* ラベル */
+	fmt.Println("C")
+	// Output:
+	// A
+	// C
+}
+
+func ExampleLabel() {
+LOOP:
+	for {
+		for {
+			for {
+				fmt.Println("START")
+				break LOOP
+			}
+			fmt.Println("ここは通らない")
+		}
+		fmt.Println("ここは通らない")
+	}
+	fmt.Println("END")
+	// Output:
+	// START
+	// END
+}
+
+func ExampleLabel2() {
+L:
+	for i := 1; i <= 3; i++ {
+		for j := 1; j <= 3; j++ {
+			if j > 1 {
+				continue L
+			}
+			fmt.Printf("%d * %d = %d\n", i, j, i*j)
+		}
+		fmt.Println("ここは処理されない")
+	}
+	// Output:
+	// 1 * 1 = 1
+	// 2 * 1 = 2
+	// 3 * 1 = 3
+}
