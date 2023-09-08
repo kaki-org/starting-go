@@ -16,6 +16,18 @@ func ExampleMain() {
 	// !
 }
 
+func ExampleDoSomethingDo() {
+	DoSomethingDo()
+	// Output:
+	// DoSomething Do
+}
+
+func ExamplePrivatedoSomethingDo() {
+	doSomethingDo()
+	// Output:
+	// doSomething Do
+}
+
 func ExampleArray() {
 	// コメントです。
 	a := [3]string{
