@@ -4,3 +4,4 @@ hello.txt
 hellotmp/*
 
 zoo/test.log
+coverage.out
