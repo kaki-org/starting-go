@@ -865,3 +865,52 @@ func ExampleCondition() {
 	// [3]=12356 い
 	// [6]=12358 う
 }
+
+func ExampleSwitch() {
+	n := 5
+	// golangのswitchはbreakが不要(フォールスルーしない)
+	switch n := 3; n { // ここで定義したnはswitch内でのみ有効
+	case 1, 2:
+		fmt.Println("1 or 2")
+	case 3, 4:
+		fmt.Println("3 or 4です")
+		fallthrough // フォールスルーさせる場合は明示的に記述する
+	// case "3": // 型が違うとコンパイルエラー
+	// 	fmt.Println("3")
+	case 5.0: // 整数5と互換性がある為エラーにならない
+		fmt.Println("5.0です")
+	case 6 + 0i: // 整数6と複素数6+0iは同じである為エラーにならない
+		fmt.Println("6+0i")
+	default:
+		fmt.Println("unknown")
+	}
+	fmt.Printf("結局nは%d\n", n) // ここで定義したnはswitch外でも有効
+
+	nn := 4
+	switch {
+	case nn > 0 && nn < 3:
+		fmt.Println("0 < nn < 3")
+		fallthrough
+	case nn > 3 && nn < 6:
+		fmt.Println("3 < nn < 6")
+		fallthrough
+	case nn > 0 && nn < 6:
+		fmt.Println("0 < nn < 6")
+	}
+
+	/* caseに定数と式が混在するswitch文はコンパイルエラー(正確には型が異なるとエラー) */
+	// switch x := 1; x {
+	// case 1, 2, 3:
+	// 	fmt.Println(x)
+	// case x > 3:
+	// 	fmt.Println("x > 3")
+	// }
+
+	// Output:
+	// 3 or 4です
+	// 5.0です
+	// 結局nは5
+	// 3 < nn < 6
+	// 0 < nn < 6
+
+}
