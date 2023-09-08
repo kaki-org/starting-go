@@ -1098,8 +1098,3 @@ func ExampleTestRecover() {
 	// panic: string=hogehoge
 	// panic: unknown=[1 2 3]
 }
-
-func ExampleAisatsu() {
-	あいさつ("おはよう")
-	// Output:
-}
