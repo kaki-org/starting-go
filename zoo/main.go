@@ -3,9 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"os"
-	"reflect"
-	"testing"
 )
 
 // n1はパッケージ変数
@@ -18,7 +15,7 @@ func main() {
 	defer fmt.Println("!")
 
 	fmt.Println("os.Exit")
-	os.Exit(0)
+	// os.Exit(0)
 }
 
 func one() int {
@@ -187,16 +184,4 @@ func testRecover(src interface{}) {
 	}()
 	panic(src)
 	return
-}
-
-func expect(t *testing.T, a, b interface{}) {
-	if a != b {
-		t.Errorf("Expected %d, got %d", b, a)
-	}
-}
-
-func expectEqual(t *testing.T, a, b interface{}) {
-	if !reflect.DeepEqual(a, b) {
-		t.Errorf("Expected %d, got %d", a, b)
-	}
 }

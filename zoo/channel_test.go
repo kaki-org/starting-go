@@ -112,6 +112,7 @@ func receive(name string, ch <-chan int) {
 func TestGoRoutine(t *testing.T) {
 	ch := make(chan int, 20)
 
+	// どれが受信するかはわからない
 	go receive("1st goroutine", ch)
 	go receive("2nd goroutine", ch)
 	go receive("3rd goroutine", ch)
@@ -123,7 +124,7 @@ func TestGoRoutine(t *testing.T) {
 	}
 	close(ch)
 
-	time.Sleep(3 * time.Second)
+	time.Sleep(1 * time.Second)
 }
 
 func TestChannelFor(t *testing.T) {
