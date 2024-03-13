@@ -1,6 +1,6 @@
 module zoo
 
-go 1.22.0
+go 1.22.1
 
 require (
 	github.com/k0kubun/pp v3.0.1+incompatible // indirect
