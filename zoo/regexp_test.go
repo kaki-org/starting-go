@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"testing"
 )
+const abcXyz999 = "abc xyz 999"
 
 func TestRegexpMatchString(t *testing.T) {
 	m, _ := regexp.MatchString("A", "ABC")
@@ -126,10 +127,10 @@ func TestRegexpFindString(t *testing.T) {
 	/* 連続した英数字かアンダースコアの繰り返し */
 	re := regexp.MustCompile(`\w+`)
 	// マッチした最初の文字列を取得
-	expect(t, re.FindString("abc xyz 999"), "abc")
+	expect(t, re.FindString(abcXyz999), "abc")
 	// マッチした文字列を指定した数だけ取得
-	expectEqual(t, re.FindAllString("abc xyz 999", 2), []string{"abc", "xyz"})
-	expectEqual(t, re.FindAllString("abc xyz 999", -1), []string{"abc", "xyz", "999"})
+	expectEqual(t, re.FindAllString(abcXyz999, 2), []string{"abc", "xyz"})
+	expectEqual(t, re.FindAllString(abcXyz999, -1), []string{"abc", "xyz", "999"})
 }
 
 func TestRegexpSplit(t *testing.T) {
