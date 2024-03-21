@@ -6,6 +6,10 @@ import (
 	"log"
 	"os"
 )
+const nameFormat = "name = %s\n"
+const sizeFormat = "size = %d\n"
+const isDirFormat = "isdir = %v\n"
+
 
 func main() {
 	fmt.Println("Hello, World!")
@@ -67,20 +71,21 @@ func readFile(filename string) ([]byte, error) {
 	// n, err := f.ReadAt(bs, 10) // 10バイト目から読み込む
 
 	/* ファイル内のシーク */
+	const offsetFormat = "offset = %d err=%v\n"
 	offset, err := f.Seek(10, io.SeekStart) // ファイルの先頭から10バイト目にシーク
-	fmt.Printf("offset = %d err=%v\n", offset, err)
+	fmt.Printf(offsetFormat, offset, err)
 	offset, err = f.Seek(-2, io.SeekCurrent) // 現在位置から-2バイト先にシーク
-	fmt.Printf("offset = %d err=%v\n", offset, err)
+	fmt.Printf(offsetFormat, offset, err)
 	offset, err = f.Seek(0, io.SeekEnd) // ファイルの末尾から0バイト目にシーク
-	fmt.Printf("offset = %d err=%v\n", offset, err)
+	fmt.Printf(offsetFormat, offset, err)
 
 	/* ファイルのステータスを取得 */
-	fi, err := f.Stat()                        // fiはos.FileInfo型
-	fmt.Printf("name = %s\n", fi.Name())       // ファイル名(string型)
-	fmt.Printf("size = %d\n", fi.Size())       // ファイルサイズ(int64型)
+	fi, err := f.Stat() // fiはos.FileInfo型
+	fmt.Printf(nameFormat, fi.Name())       // ファイル名(string型)
+	fmt.Printf(sizeFormat, fi.Size())       // ファイルサイズ(int64型)
 	fmt.Printf("mode = %v\n", fi.Mode())       // ファイルのモード(os.FileMode型)
 	fmt.Printf("modtime = %v\n", fi.ModTime()) // 最終更新日時(time.Time型)
-	fmt.Printf("isdir = %v\n", fi.IsDir())     // ディレクトリかどうか(bool型)
+	fmt.Printf(isDirFormat, fi.IsDir())     // ディレクトリかどうか(bool型)
 	return bs, err
 }
 
@@ -91,9 +96,9 @@ func createHelloText(filename string) {
 
 	/* 新規作成したファイルのステータス */
 	fi, _ := f.Stat()
-	fmt.Printf("name = %s\n", fi.Name())   // ファイル名(string型)
-	fmt.Printf("size = %d\n", fi.Size())   // ファイルサイズ(int64型)
-	fmt.Printf("isdir = %v\n", fi.IsDir()) // ディレクトリかどうか(bool型)
+	fmt.Printf(nameFormat, fi.Name())   // ファイル名(string型)
+	fmt.Printf(sizeFormat, fi.Size())   // ファイルサイズ(int64型)
+	fmt.Printf(isDirFormat, fi.IsDir()) // ディレクトリかどうか(bool型)
 
 	f.Write([]byte("Hello, World!\n")) // ファイルに[]byte型のスライスを書き込む
 	f.WriteAt([]byte("Golang!"), 7)    // ファイルの7バイト目から[]byte型のスライスを書き込む
@@ -202,9 +207,9 @@ func symlinkUsage() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("name = %s\n", fi.Name())   // ファイル名(string型)
-	fmt.Printf("size = %d\n", fi.Size())   // ファイルサイズ(int64型)
-	fmt.Printf("isdir = %v\n", fi.IsDir()) // ディレクトリかどうか(bool型)
+	fmt.Printf(nameFormat, fi.Name())   // ファイル名(string型)
+	fmt.Printf(sizeFormat, fi.Size())   // ファイルサイズ(int64型)
+	fmt.Printf(isDirFormat, fi.IsDir()) // ディレクトリかどうか(bool型)
 	fmt.Printf("mode = %v\n", fi.Mode())   // ファイルのモード(os.FileMode型)
 
 	/* シンボリックリンクの削除 */

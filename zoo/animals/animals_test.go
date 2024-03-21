@@ -3,13 +3,15 @@ package animals
 import (
 	"testing"
 )
+const errorExpectFormat = "%s != %s"
+const errorNumberFormat = "%d != %d"
 
 func TestElephantFeed(t *testing.T) {
 	expect := "Grass"
 	actual := ElephantFeed()
 
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(errorExpectFormat, expect, actual)
 	}
 }
 func TestMonkeyFeed(t *testing.T) {
@@ -17,7 +19,7 @@ func TestMonkeyFeed(t *testing.T) {
 	actual := MonkeyFeed()
 
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(errorExpectFormat, expect, actual)
 	}
 }
 
@@ -26,7 +28,7 @@ func TestRabbitFeed(t *testing.T) {
 	actual := RabbitFeed()
 
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(errorExpectFormat, expect, actual)
 	}
 }
 
@@ -35,7 +37,7 @@ func TestFooFunc(t *testing.T) {
 	actual := FooFunc(2)
 
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(errorNumberFormat, expect, actual)
 	}
 }
 

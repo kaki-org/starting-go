@@ -5,11 +5,12 @@ import (
 	"testing"
 	"time"
 )
+const fixedTimeString = "2006-01-02 15:04:05"
 
 func TestTimeStandard(t *testing.T) {
 	tm := time.Date(2023, 8, 31, 7, 15, 30, 0, time.Local)
 	expect := "2023-08-31 07:15:30"
-	actual := tm.Format("2006-01-02 15:04:05")
+	actual := tm.Format(fixedTimeString)
 	if expect != actual {
 		t.Errorf("%s != %s", expect, actual)
 	}
@@ -46,7 +47,7 @@ func TestTimeDuration(t *testing.T) {
 	tm = tm.Add(2*time.Hour + 15*time.Minute + 30*time.Second)
 
 	expect := "2023-09-01 07:00:00"
-	actual := tm.Format("2006-01-02 15:04:05")
+	actual := tm.Format(fixedTimeString)
 
 	// 日本時間2023/09/01 7:00:00を表すTimeが生成された事を確認
 	if expect != actual {
@@ -120,7 +121,7 @@ func TestTimeFormat(t *testing.T) {
 		t.Errorf("err != nil")
 	}
 	expect := "2015-10-01 00:00:00"
-	actual := tm.Format("2006-01-02 15:04:05")
+	actual := tm.Format(fixedTimeString)
 	if expect != actual {
 		t.Errorf("%s != %s", expect, actual)
 	}
@@ -139,7 +140,7 @@ func TestTimeFormat(t *testing.T) {
 	}
 
 	expect = "2015-10-01 00:00:00"
-	actual = tm2.Format("2006-01-02 15:04:05") // 時刻形式に%Yなどは使わない
+	actual = tm2.Format(fixedTimeString) // 時刻形式に%Yなどは使わない
 	if expect != actual {
 		t.Errorf("%s != %s", expect, actual)
 	}
@@ -147,7 +148,7 @@ func TestTimeFormat(t *testing.T) {
 	// 日本語を混ぜた文字列もパース可能
 	jt, _ := time.Parse("2006年01月02日", "2015年10月01日")
 	expect = "2015-10-01 00:00:00"
-	actual = jt.Format("2006-01-02 15:04:05")
+	actual = jt.Format(fixedTimeString)
 	if expect != actual {
 		t.Errorf("%s != %s", expect, actual)
 	}

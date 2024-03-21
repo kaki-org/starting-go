@@ -40,35 +40,7 @@ func TestE(t *testing.T) {
 	}
 }
 
-func TestNumericFixedNumber(t *testing.T) {
-	// float32で表現可能な最大値
-	expectMaxFloat32 := 3.40282346638528859811704183484516925440e+38
-	actualMaxFloat32 := math.MaxFloat32
-	if actualMaxFloat32 != expectMaxFloat32 {
-		t.Errorf("MaxFloat32 = %f, want %f", actualMaxFloat32, expectMaxFloat32)
-	}
-
-	// float32で表現可能な0ではない最小値
-	expectSmallestNonZeroFloat32 := 1.401298464324817070923729583289916131280e-45
-	actualSmallestNonZeroFloat32 := math.SmallestNonzeroFloat32
-	if actualSmallestNonZeroFloat32 != expectSmallestNonZeroFloat32 {
-		t.Errorf("SmallestNonzeroFloat32 = %f, want %f", actualSmallestNonZeroFloat32, expectSmallestNonZeroFloat32)
-	}
-
-	// float64で表現可能な最大値
-	expectMaxFloat64 := 1.797693134862315708145274237317043567981e+308
-	actualMaxFloat64 := math.MaxFloat64
-	if actualMaxFloat64 != expectMaxFloat64 {
-		t.Errorf("MaxFloat64 = %f, want %f", actualMaxFloat64, expectMaxFloat64)
-	}
-
-	// float64で表現可能な0ではない最小値
-	expectSmallestNonZeroFloat64 := 4.940656458412465441765687928682213723651e-324
-	actualSmallestNonZeroFloat64 := math.SmallestNonzeroFloat64
-	if actualSmallestNonZeroFloat64 != expectSmallestNonZeroFloat64 {
-		t.Errorf("SmallestNonzeroFloat64 = %f, want %f", actualSmallestNonZeroFloat64, expectSmallestNonZeroFloat64)
-	}
-
+func TestMinMaxFixedNumber(t *testing.T) {
 	expectMaxInt8 := 127
 	actualMaxInt8 := math.MaxInt8
 	if actualMaxInt8 != expectMaxInt8 {
@@ -128,6 +100,36 @@ func TestNumericFixedNumber(t *testing.T) {
 	actualMaxUint64 := uint64(math.MaxUint64)
 	if actualMaxUint64 != expectMaxUint64 {
 		t.Errorf("MaxUint64 = %d, want %d", actualMaxUint64, expectMaxUint64)
+	}
+}
+
+func TestNumericFixedNumber(t *testing.T) {
+	// float32で表現可能な最大値
+	expectMaxFloat32 := 3.40282346638528859811704183484516925440e+38
+	actualMaxFloat32 := math.MaxFloat32
+	if actualMaxFloat32 != expectMaxFloat32 {
+		t.Errorf("MaxFloat32 = %f, want %f", actualMaxFloat32, expectMaxFloat32)
+	}
+
+	// float32で表現可能な0ではない最小値
+	expectSmallestNonZeroFloat32 := 1.401298464324817070923729583289916131280e-45
+	actualSmallestNonZeroFloat32 := math.SmallestNonzeroFloat32
+	if actualSmallestNonZeroFloat32 != expectSmallestNonZeroFloat32 {
+		t.Errorf("SmallestNonzeroFloat32 = %f, want %f", actualSmallestNonZeroFloat32, expectSmallestNonZeroFloat32)
+	}
+
+	// float64で表現可能な最大値
+	expectMaxFloat64 := 1.797693134862315708145274237317043567981e+308
+	actualMaxFloat64 := math.MaxFloat64
+	if actualMaxFloat64 != expectMaxFloat64 {
+		t.Errorf("MaxFloat64 = %f, want %f", actualMaxFloat64, expectMaxFloat64)
+	}
+
+	// float64で表現可能な0ではない最小値
+	expectSmallestNonZeroFloat64 := 4.940656458412465441765687928682213723651e-324
+	actualSmallestNonZeroFloat64 := math.SmallestNonzeroFloat64
+	if actualSmallestNonZeroFloat64 != expectSmallestNonZeroFloat64 {
+		t.Errorf("SmallestNonzeroFloat64 = %f, want %f", actualSmallestNonZeroFloat64, expectSmallestNonZeroFloat64)
 	}
 }
 

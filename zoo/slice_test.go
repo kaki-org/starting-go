@@ -15,13 +15,13 @@ func TestSlice(t *testing.T) {
 	fmt.Printf("%d\n%d\n", len(a), len(s))
 	fmt.Printf("%v\n%v\n", a, s)
 	expect := 10
-	expect_value := 0
+	expectValue := 0
 	actual := s
 	if expect != len(actual) {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
-	if expect_value != actual[9] {
-		t.Errorf("%d != %d", expect_value, actual[0])
+	if expectValue != actual[9] {
+		t.Errorf(decimalExpectFormat, expectValue, actual[0])
 	}
 	// 要素数を超えた値を指定するとpanicになる
 	// fmt.Println(actual[10]) // panic: runtime error: index out of range
@@ -37,8 +37,8 @@ func TestSliceCap(t *testing.T) {
 	expect_cap5 := 5
 	expect_cap10 := 10
 	if (expect_cap5 != cap(s5)) || (expect_cap10 != cap(s10)) {
-		t.Errorf("%d != %d", expect_cap5, cap(s5))
-		t.Errorf("%d != %d", expect_cap10, cap(s10))
+		t.Errorf(decimalExpectFormat, expect_cap5, cap(s5))
+		t.Errorf(decimalExpectFormat, expect_cap10, cap(s10))
 	}
 	// fmt.Println(s10[9]) // これはpanicになる
 	s10[4] = 100
@@ -55,7 +55,7 @@ func TestSliceCap(t *testing.T) {
 	s := []int{1, 2, 3, 4, 5}
 
 	if !reflect.DeepEqual(s5, s) {
-		t.Errorf("%v != %v", s5, s)
+		t.Errorf(valueExpectFormat, s5, s)
 	}
 }
 
@@ -74,19 +74,19 @@ func TestSimpleSliceExpressions(t *testing.T) {
 	expect5 := []int{4, 5}
 
 	if !reflect.DeepEqual(expect1, actual1) {
-		t.Errorf("%v != %v", expect1, actual1)
+		t.Errorf(valueExpectFormat, expect1, actual1)
 	}
 	if !reflect.DeepEqual(expect2, actual2) {
-		t.Errorf("%v != %v", expect2, actual2)
+		t.Errorf(valueExpectFormat, expect2, actual2)
 	}
 	if !reflect.DeepEqual(expect3, actual3) {
-		t.Errorf("%v != %v", expect3, actual3)
+		t.Errorf(valueExpectFormat, expect3, actual3)
 	}
 	if !reflect.DeepEqual(expect4, actual4) {
-		t.Errorf("%v != %v", expect4, actual4)
+		t.Errorf(valueExpectFormat, expect4, actual4)
 	}
 	if !reflect.DeepEqual(expect5, actual5) {
-		t.Errorf("%v != %v", expect5, actual5)
+		t.Errorf(valueExpectFormat, expect5, actual5)
 	}
 
 }
@@ -98,10 +98,10 @@ func TestSimpleSliceExpressionsString(t *testing.T) {
 	expect := "BC"
 	expectMultibytes := "いう"
 	if !reflect.DeepEqual(expect, s) {
-		t.Errorf("%v != %v", expect, s)
+		t.Errorf(valueExpectFormat, expect, s)
 	}
 	if !reflect.DeepEqual(expectMultibytes, multibytes) {
-		t.Errorf("%v != %v", expectMultibytes, multibytes)
+		t.Errorf(valueExpectFormat, expectMultibytes, multibytes)
 	}
 }
 func TestSliceAppend(t *testing.T) {
@@ -111,14 +111,14 @@ func TestSliceAppend(t *testing.T) {
 	// append(s, 4) // 代入を伴わないappendはコンパイルエラー
 	expect := []int{1, 2, 3, 4}
 	if !reflect.DeepEqual(expect, s) {
-		t.Errorf("%v != %v", expect, s)
+		t.Errorf(valueExpectFormat, expect, s)
 	}
 
 	// 5,6,7を続けて追加できる
 	s = append(s, 5, 6, 7)
 	expect = []int{1, 2, 3, 4, 5, 6, 7}
 	if !reflect.DeepEqual(expect, s) {
-		t.Errorf("%v != %v", expect, s)
+		t.Errorf(valueExpectFormat, expect, s)
 	}
 
 	// スライス同士を結合する。s1の追加の「...」に注意
@@ -128,7 +128,7 @@ func TestSliceAppend(t *testing.T) {
 
 	expect = []int{1, 2, 3, 4, 5, 6}
 	if !reflect.DeepEqual(expect, s2) {
-		t.Errorf("%v != %v", expect, s2)
+		t.Errorf(valueExpectFormat, expect, s2)
 	}
 
 	// []byte型のスライスに文字列を追加する
@@ -140,7 +140,7 @@ func TestSliceAppend(t *testing.T) {
 	fmt.Println(string(b)) // あいうえおかきくけこさしすせそ
 	expectStr := "あいうえおかきくけこさしすせそ"
 	if expectStr != string(b) {
-		t.Errorf("%v != %v", expect, string(b))
+		t.Errorf(valueExpectFormat, expect, string(b))
 	}
 
 }
@@ -150,42 +150,42 @@ func TestSliceAppendCapacity(t *testing.T) {
 	fmt.Printf("len=%d cap=%d value=%v\n", len(s), cap(s), s)
 	expect := 0
 	if expect != cap(s) {
-		t.Errorf("%d != %d", expect, cap(s))
+		t.Errorf(decimalExpectFormat, expect, cap(s))
 	}
 
 	s = append(s, 1)
 	fmt.Printf("len=%d cap=%d value=%v\n", len(s), cap(s), s)
 	expect = 1
 	if expect != cap(s) {
-		t.Errorf("%d != %d", expect, cap(s))
+		t.Errorf(decimalExpectFormat, expect, cap(s))
 	}
 
 	s = append(s, []int{2, 3, 4}...)
 	fmt.Printf("len=%d cap=%d value=%v\n", len(s), cap(s), s)
 	expect = 4
 	if expect != cap(s) {
-		t.Errorf("%d != %d", expect, cap(s))
+		t.Errorf(decimalExpectFormat, expect, cap(s))
 	}
 
 	s = append(s, 5)
 	fmt.Printf("len=%d cap=%d value=%v\n", len(s), cap(s), s)
 	expect = 8
 	if expect != cap(s) {
-		t.Errorf("%d != %d", expect, cap(s))
+		t.Errorf(decimalExpectFormat, expect, cap(s))
 	}
 
 	s = append(s, 6, 7, 8, 9)
 	fmt.Printf("len=%d cap=%d value=%v\n", len(s), cap(s), s)
 	expect = 16
 	if expect != cap(s) {
-		t.Errorf("%d != %d", expect, cap(s))
+		t.Errorf(decimalExpectFormat, expect, cap(s))
 	}
 
 	s = make([]int, 1024, 1024)
 	fmt.Printf("len=%d cap=%d\n", len(s), cap(s))
 	expect = 1024
 	if expect != cap(s) {
-		t.Errorf("%d != %d", expect, cap(s))
+		t.Errorf(decimalExpectFormat, expect, cap(s))
 	}
 
 	// その時の実装においてどのくらい拡張されるかは不明
@@ -193,7 +193,7 @@ func TestSliceAppendCapacity(t *testing.T) {
 	fmt.Printf("len=%d cap=%d\n", len(s), cap(s))
 	expect = 1536
 	if expect != cap(s) {
-		t.Errorf("%d != %d", expect, cap(s))
+		t.Errorf(decimalExpectFormat, expect, cap(s))
 	}
 }
 
@@ -205,10 +205,10 @@ func TestSliceCopy(t *testing.T) {
 	expect_len := 2
 	expect_slice := []int{10, 11, 3, 4, 5}
 	if expect_len != n {
-		t.Errorf("%d != %d", expect_len, n)
+		t.Errorf(decimalExpectFormat, expect_len, n)
 	}
 	if !reflect.DeepEqual(expect_slice, s1) {
-		t.Errorf("%v != %v", expect_slice, s1)
+		t.Errorf(valueExpectFormat, expect_slice, s1)
 	}
 
 	s3 := []int{1, 2, 3, 4, 5}
@@ -217,10 +217,10 @@ func TestSliceCopy(t *testing.T) {
 	expect_len = 5
 	expect_slice = []int{10, 11, 12, 13, 14}
 	if expect_len != n2 {
-		t.Errorf("%d != %d", expect_len, n2)
+		t.Errorf(decimalExpectFormat, expect_len, n2)
 	}
 	if !reflect.DeepEqual(expect_slice, expect_slice) {
-		t.Errorf("%v != %v", expect_slice, expect_slice)
+		t.Errorf(valueExpectFormat, expect_slice, expect_slice)
 	}
 
 	// あくまで[]byte単位でコピーする
@@ -230,10 +230,10 @@ func TestSliceCopy(t *testing.T) {
 	expect_len = 9
 	expect_string := "あいう"
 	if expect_len != n3 {
-		t.Errorf("%d != %d", expect_len, n3)
+		t.Errorf(decimalExpectFormat, expect_len, n3)
 	}
 	if expect_string != string(b) {
-		t.Errorf("%v != %v", expect_string, string(b))
+		t.Errorf(valueExpectFormat, expect_string, string(b))
 	}
 }
 
@@ -245,30 +245,30 @@ func TestFullSliceExpressions(t *testing.T) {
 	expect_len := 2
 	expect_cap := 8 // (len(a) - low) → 10 - 2 = 8
 	if expect_len != len(s1) {
-		t.Errorf("%d != %d", expect_len, len(s1))
+		t.Errorf(decimalExpectFormat, expect_len, len(s1))
 	}
 	if expect_cap != cap(s1) {
-		t.Errorf("%d != %d", expect_cap, cap(s1))
+		t.Errorf(decimalExpectFormat, expect_cap, cap(s1))
 	}
 
 	s2 := a[2:4:4]
 	expect_len = 2
 	expect_cap = 2 // max - low → 4 - 2 = 2
 	if expect_len != len(s2) {
-		t.Errorf("%d != %d", expect_len, len(s2))
+		t.Errorf(decimalExpectFormat, expect_len, len(s2))
 	}
 	if expect_cap != cap(s2) {
-		t.Errorf("%d != %d", expect_cap, cap(s2))
+		t.Errorf(decimalExpectFormat, expect_cap, cap(s2))
 	}
 
 	s3 := a[2:4:6]
 	expect_len = 2
 	expect_cap = 4 // max - low → 6 - 2 = 4
 	if expect_len != len(s3) {
-		t.Errorf("%d != %d", expect_len, len(s3))
+		t.Errorf(decimalExpectFormat, expect_len, len(s3))
 	}
 	if expect_cap != cap(s3) {
-		t.Errorf("%d != %d", expect_cap, cap(s3))
+		t.Errorf(decimalExpectFormat, expect_cap, cap(s3))
 	}
 }
 
@@ -283,11 +283,11 @@ func TestSliceFor(t *testing.T) {
 	}
 	expect := "i=0 v=Apple\ni=1 v=Banana\ni=2 v=Cherry\n"
 	if expect != output {
-		t.Errorf("%v != %v", expect, output)
+		t.Errorf(valueExpectFormat, expect, output)
 	}
-	expect_slice := []string{"Apple", "Banana", "Cherry", "Melon", "Melon", "Melon"}
-	if !reflect.DeepEqual(expect_slice, s) {
-		t.Errorf("%v != %v", expect_slice, s)
+	expectSlice := []string{"Apple", "Banana", "Cherry", "Melon", "Melon", "Melon"}
+	if !reflect.DeepEqual(expectSlice, s) {
+		t.Errorf(valueExpectFormat, expectSlice, s)
 	}
 
 }
@@ -309,26 +309,26 @@ func TestVariableLengthArguments(t *testing.T) {
 	expect := 6
 	actual := sum(1, 2, 3)
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 
 	expect = 15
 	actual = sum(1, 2, 3, 4, 5)
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 
 	expect = 0
 	actual = sum()
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 
 	s := []int{1, 2, 3}
 	expect = 6
 	actual = sum(s...)
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 
@@ -349,14 +349,14 @@ func TestArrayAndSlice(t *testing.T) {
 	powArray(a)
 	expect := [3]int{1, 2, 3} // 配列は値渡し
 	if !reflect.DeepEqual(expect, a) {
-		t.Errorf("%v != %v", expect, a)
+		t.Errorf(valueExpectFormat, expect, a)
 	}
 
 	s := []int{1, 2, 3}
 	powSlice(s)
-	expect_slice := []int{1, 4, 9} // スライスは参照渡し
-	if !reflect.DeepEqual(expect_slice, s) {
-		t.Errorf("%v != %v", expect_slice, s)
+	expectSlice := []int{1, 4, 9} // スライスは参照渡し
+	if !reflect.DeepEqual(expectSlice, s) {
+		t.Errorf(valueExpectFormat, expectSlice, s)
 	}
 
 	var (
@@ -364,12 +364,12 @@ func TestArrayAndSlice(t *testing.T) {
 		s2 []int
 	)
 	expectArray := [3]int{0, 0, 0}
-	expectSlice := []int(nil)
+	expectSlice2 := []int(nil)
 	if !reflect.DeepEqual(expectArray, a2) {
-		t.Errorf("%v != %v", expectArray, a2)
+		t.Errorf(valueExpectFormat, expectArray, a2)
 	}
-	if !reflect.DeepEqual(expectSlice, s2) {
-		t.Errorf("%v != %v", expectSlice, s2)
+	if !reflect.DeepEqual(expectSlice2, s2) {
+		t.Errorf(valueExpectFormat, expectSlice2, s2)
 	}
 
 }
@@ -378,19 +378,19 @@ func TestSlicePitfall(t *testing.T) {
 	a := [3]int{1, 2, 3}
 	s := a[:]
 
-	expect_len := 3
-	expect_cap := 3
-	if expect_len != len(s) {
-		t.Errorf("%d != %d", expect_len, len(s))
+	expectLen := 3
+	expectCap := 3
+	if expectLen != len(s) {
+		t.Errorf(decimalExpectFormat, expectLen, len(s))
 	}
-	if expect_cap != cap(s) {
-		t.Errorf("%d != %d", expect_cap, cap(s))
+	if expectCap != cap(s) {
+		t.Errorf(decimalExpectFormat, expectCap, cap(s))
 	}
 	// この時点では配列とスライスの要素は同じ
 	a[0] = 9
 	// 配列に代入した値はスライスにも反映される
 	if a[0] != s[0] {
-		t.Errorf("%d != %d", a[0], s[0])
+		t.Errorf(decimalExpectFormat, a[0], s[0])
 	}
 
 	// スライスの自動拡張が起こるように要素を追加する
@@ -403,7 +403,7 @@ func TestSlicePitfall(t *testing.T) {
 	}
 	// スライスは別の参照領域を指すようになった為、9のまま
 	if s[0] != 9 {
-		t.Errorf("%d != %d", s[0], 9)
+		t.Errorf(decimalExpectFormat, s[0], 9)
 	}
 	// この時点で配列とスライスは値が異なる
 	if a[0] == s[0] {

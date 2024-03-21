@@ -5,6 +5,8 @@ import (
 	"math"
 )
 
+const helloWorld = "Hello, World!"
+
 // n1はパッケージ変数
 var n1 = 100
 
@@ -39,7 +41,7 @@ func plus(x, y int) int {
 }
 
 func hello() {
-	fmt.Println("Hello, World!")
+	fmt.Println(helloWorld)
 	return
 }
 
@@ -152,7 +154,7 @@ func runPanic() {
 	defer fmt.Println("defer on runPanic")
 
 	panic("runtime error") // ここでエラー終了
-	fmt.Println("Hello, World!")
+	fmt.Println(helloWorld)
 }
 
 func runRecover() {
@@ -165,7 +167,7 @@ func runRecover() {
 	}()
 	panic("runtime error")
 	/* これは実行されない */
-	fmt.Println("Hello, World!")
+	fmt.Println(helloWorld)
 }
 
 func testRecover(src interface{}) {
