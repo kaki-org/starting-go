@@ -35,14 +35,14 @@ func TestAddressOperator(t *testing.T) {
 	expect := 5
 	actual := *p // *pはiのエイリアス
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 
 	*p = 10
 	expect = 10
 	actual = i
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 
@@ -59,7 +59,7 @@ func TestPointerArgument(t *testing.T) {
 	expect := 4
 	actual := i
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 
@@ -80,7 +80,7 @@ func TestPointerArray(t *testing.T) {
 	expect := [3]int{1, 4, 9}
 	actual := *p
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 

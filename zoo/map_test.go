@@ -5,6 +5,9 @@ import (
 	"reflect"
 	"testing"
 )
+const valueExpectFormat = "%v != %v"
+const stringExpectFormat = "%s != %s"
+const decimalExpectFormat = "%d != %d"
 
 func TestMap(t *testing.T) {
 	m := make(map[int]string)
@@ -16,7 +19,7 @@ func TestMap(t *testing.T) {
 	expect := map[int]string{1: "US", 81: "Japan", 86: "China"}
 	actual := m
 	if !reflect.DeepEqual(expect, actual) {
-		t.Errorf("%v != %v", expect, actual)
+		t.Errorf(valueExpectFormat, expect, actual)
 	}
 }
 
@@ -30,7 +33,7 @@ func TestMapOverride(t *testing.T) {
 	expect := map[string]string{"Yamada": "Jiro", "Sato": "Hanako"}
 	actual := m
 	if !reflect.DeepEqual(expect, actual) {
-		t.Errorf("%v != %v", expect, actual)
+		t.Errorf(valueExpectFormat, expect, actual)
 	}
 }
 
@@ -43,7 +46,7 @@ func TestMapFloat(t *testing.T) {
 
 	expect := 3
 	if expect != m[1.0] {
-		t.Errorf("%d != %d", expect, m[1.0])
+		t.Errorf(decimalExpectFormat, expect, m[1.0])
 	}
 }
 
@@ -61,7 +64,7 @@ func TestMapLiteral(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(m1, m2) {
-		t.Errorf("%v != %v", m1, m2)
+		t.Errorf(valueExpectFormat, m1, m2)
 	}
 }
 
@@ -72,12 +75,12 @@ func TestMapReference(t *testing.T) {
 	s := m[1]
 	expect := "A"
 	if expect != s {
-		t.Errorf("%s != %s", expect, s)
+		t.Errorf(stringExpectFormat, expect, s)
 	}
 	s2 := m[9] // 存在しないキーを指定してもエラーにならない
 	expect = ""
 	if expect != s2 {
-		t.Errorf("%s != %s", expect, s2)
+		t.Errorf(stringExpectFormat, expect, s2)
 	}
 
 	// 0が返るが、値がとれて0なのか、存在しないキーなのか区別できない
@@ -86,7 +89,7 @@ func TestMapReference(t *testing.T) {
 	n := m2[7] // 存在しないキー
 
 	if e != n {
-		t.Errorf("%d != %d", e, n)
+		t.Errorf(decimalExpectFormat, e, n)
 	}
 
 	// キーが存在しなかったかどうかを調べる方法
@@ -138,13 +141,13 @@ func TestMapFor(t *testing.T) {
 	expect_3 := "Cherry"
 
 	if expect_1 != m[1] {
-		t.Errorf("%s != %s", expect_1, m[1])
+		t.Errorf(stringExpectFormat, expect_1, m[1])
 	}
 	if expect_2 != m[2] {
-		t.Errorf("%s != %s", expect_2, m[2])
+		t.Errorf(stringExpectFormat, expect_2, m[2])
 	}
 	if expect_3 != m[3] {
-		t.Errorf("%s != %s", expect_3, m[3])
+		t.Errorf(stringExpectFormat, expect_3, m[3])
 	}
 }
 
@@ -154,7 +157,7 @@ func TestMapLen(t *testing.T) {
 	expect := 3
 	actual := len(m)
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 
 	m[4] = "D"
@@ -162,7 +165,7 @@ func TestMapLen(t *testing.T) {
 	expect = 5
 	actual = len(m)
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 
@@ -174,7 +177,7 @@ func TestMapDelete(t *testing.T) {
 	actual := m
 
 	if !reflect.DeepEqual(expect, actual) {
-		t.Errorf("%v != %v", expect, actual)
+		t.Errorf(valueExpectFormat, expect, actual)
 	}
 }
 
@@ -190,6 +193,6 @@ func TestMapMake(t *testing.T) {
 	actual := m
 
 	if !reflect.DeepEqual(expect, actual) {
-		t.Errorf("%v != %v", expect, actual)
+		t.Errorf(valueExpectFormat, expect, actual)
 	}
 }

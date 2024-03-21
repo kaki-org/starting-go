@@ -6,10 +6,12 @@ import (
 	"testing"
 )
 
+const logNumberFormat = "ログの%d行目\n"
+
 func TestLogging(t *testing.T) {
 	log.Print("ログの1行目\n")
 	log.Println("ログの2行目")
-	log.Printf("ログの%d行目\n", 3)
+	log.Printf(logNumberFormat, 3)
 
 	// テストのロギングにはlog.Printlnではなくt.Logを使った方が良い理由
 	// https://qiita.com/croquette0212/items/be2e19c4af45d6dab3ab
@@ -18,7 +20,7 @@ func TestLogging(t *testing.T) {
 
 	// ログの出力先を変更
 	log.SetOutput(os.Stdout)
-	log.Printf("ログの%d行目\n", 4)
+	log.Printf(logNumberFormat, 4)
 
 	/* test.logファイルを作成 */
 	f, err := os.Create("test.log")
@@ -26,7 +28,7 @@ func TestLogging(t *testing.T) {
 		log.Fatal(err)
 	}
 	log.SetOutput(f)
-	log.Printf("ログの%d行目\n", 5)
+	log.Printf(logNumberFormat, 5)
 	defer f.Close()
 }
 
