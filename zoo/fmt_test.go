@@ -7,6 +7,8 @@ import (
 	"testing"
 )
 
+const errorExpectFormat = "%s != %s"
+
 func TestPrintf(t *testing.T) {
 	n := 4
 	// outには出力したバイト数が入る
@@ -54,17 +56,17 @@ func (p *People) String() string {
 func TestPercentV(t *testing.T) {
 	v := fmt.Sprintf("%v\n", [3]int{1, 2, 3})
 	if v != "[1 2 3]\n" {
-		t.Errorf("%s != %s", v, "[1 2 3]\n")
+		t.Errorf(errorExpectFormat, v, "[1 2 3]\n")
 	}
 
 	v = fmt.Sprintf("%v\n", []string{"A", "B", "C"})
 	if v != "[A B C]\n" {
-		t.Errorf("%s != %s", v, "[A B C]\n")
+		t.Errorf(errorExpectFormat, v, "[A B C]\n")
 	}
 
 	v = fmt.Sprintf("%v\n", map[int]float64{1: 1.0, 2: 4.0, 3: 32.0})
 	if v != "map[1:1 2:4 3:32]\n" {
-		t.Errorf("%s != %s", v, "map[1:1 2:4 3:32]\n")
+		t.Errorf(errorExpectFormat, v, "map[1:1 2:4 3:32]\n")
 	}
 
 	u := &People{Id: 123, Email: "mail@example.com"}
@@ -83,12 +85,12 @@ func TestPercentV(t *testing.T) {
 	// printの場合は文字列と隣接しない場合のみスペースで区切られる
 	s := fmt.Sprint(123, 3.14, "Golang", struct{ X, Y int }{1, 2})
 	if s != "123 3.14Golang{1 2}" {
-		t.Errorf("%s != %s", s, "1233.14Golang{1 2}")
+		t.Errorf(errorExpectFormat, s, "1233.14Golang{1 2}")
 	}
 
 	// printlnの場合は必ずスペースで区切られる
 	s = fmt.Sprintln(123, 3.14, "Golang", struct{ X, Y int }{1, 2})
 	if s != "123 3.14 Golang {1 2}\n" {
-		t.Errorf("%s != %s", s, "123 3.14 Golang {1 2}\n")
+		t.Errorf(errorExpectFormat, s, "123 3.14 Golang {1 2}\n")
 	}
 }
