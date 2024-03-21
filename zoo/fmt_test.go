@@ -21,7 +21,7 @@ func TestPrintf(t *testing.T) {
 	// sには出力した文字列が入る
 	s := fmt.Sprintf("%d\n", n)
 	if s != "4\n" {
-		t.Errorf("%s != %s", s, "4\n")
+		t.Errorf(errorExpectFormat, s, "4\n")
 	}
 
 	// ファイルへフォーマットした文字列を出力
@@ -80,7 +80,7 @@ func TestPercentV(t *testing.T) {
 	// 出力内容が変わる。ただし、%#vは変わらない
 	v = fmt.Sprintf("%v\n", u)
 	if v != "<123, mail@example.com>\n" {
-		t.Errorf("%s != %s", v, "<123, mail@example.com>\n")
+		t.Errorf(errorExpectFormat, v, "<123, mail@example.com>\n")
 	}
 
 	// printの場合は文字列と隣接しない場合のみスペースで区切られる
