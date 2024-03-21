@@ -307,16 +307,16 @@ func ExampleDouble2() {
 }
 
 func ExampleDoubleCast() {
-	fmt.Printf("value = %v\n", float32(1.0000000000000000))
-	fmt.Printf("value = %v\n", float32(1.0000000000000001))
-	fmt.Printf("value = %v\n", float32(1.0000000000000002))
-	fmt.Printf("value = %v\n", float32(1.0000000000000003))
-	fmt.Printf("value = %v\n", float32(1.0000000000000004))
-	fmt.Printf("value = %v\n", float32(1.0000000000000005))
-	fmt.Printf("value = %v\n", float32(1.0000000000000006))
-	fmt.Printf("value = %v\n", float32(1.0000000000000007))
-	fmt.Printf("value = %v\n", float32(1.0000000000000008))
-	fmt.Printf("value = %v\n", float32(1.0000000000000009))
+	fmt.Printf(valueFormat, float32(1.0000000000000000))
+	fmt.Printf(valueFormat, float32(1.0000000000000001))
+	fmt.Printf(valueFormat, float32(1.0000000000000002))
+	fmt.Printf(valueFormat, float32(1.0000000000000003))
+	fmt.Printf(valueFormat, float32(1.0000000000000004))
+	fmt.Printf(valueFormat, float32(1.0000000000000005))
+	fmt.Printf(valueFormat, float32(1.0000000000000006))
+	fmt.Printf(valueFormat, float32(1.0000000000000007))
+	fmt.Printf(valueFormat, float32(1.0000000000000008))
+	fmt.Printf(valueFormat, float32(1.0000000000000009))
 	fmt.Println(float32(1.0) / float32(3.0))
 	fmt.Println(float64(1.0) / float64(3.0))
 	// Output:
