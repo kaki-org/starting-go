@@ -224,27 +224,27 @@ func TestValidateOverflow(t *testing.T) {
 }
 
 func ExampleWrapAround() {
-	ui_1 := uint32(400000000)
-	ui_2 := uint32(4000000000)
-	if !validateOverflow(ui_1, ui_2) {
+	ui1 := uint32(400000000)
+	ui2 := uint32(4000000000)
+	if !validateOverflow(ui1, ui2) {
 		fmt.Println(math.MaxUint32)
 		fmt.Println("エラーが発生しました")
 		return
 	}
 
-	sum := ui_1 + ui_2
-	fmt.Printf("%d + %d = %d\n", ui_1, ui_2, sum)
+	sum := ui1 + ui2
+	fmt.Printf("%d + %d = %d\n", ui1, ui2, sum)
 	// Output:
 	// 4294967295
 	// エラーが発生しました
 }
 
 func ExampleWrapAround2() {
-	ui_1 := uint32(400000000)
-	ui_2 := uint32(4000000000)
+	ui1 := uint32(400000000)
+	ui2 := uint32(4000000000)
 	// ここでvalidateOverflowを呼び出さないとおかしな事になる
-	sum := ui_1 + ui_2
-	fmt.Printf("%d + %d = %d\n", ui_1, ui_2, sum)
+	sum := ui1 + ui2
+	fmt.Printf("%d + %d = %d\n", ui1, ui2, sum)
 	// 400000000 + 4000000000 = 105032704 オーバーフローして1億弱になってしまう
 	// Output:
 	// 400000000 + 4000000000 = 105032704
@@ -268,17 +268,19 @@ func ExampleFloat() {
 	// 0.01
 }
 
+const valueFormat = "value = %v\n"
+
 func ExampleDouble() {
-	fmt.Printf("value = %v\n", 1.0000000000000000)
-	fmt.Printf("value = %v\n", 1.0000000000000001)
-	fmt.Printf("value = %v\n", 1.0000000000000002)
-	fmt.Printf("value = %v\n", 1.0000000000000003)
-	fmt.Printf("value = %v\n", 1.0000000000000004)
-	fmt.Printf("value = %v\n", 1.0000000000000005)
-	fmt.Printf("value = %v\n", 1.0000000000000006)
-	fmt.Printf("value = %v\n", 1.0000000000000007)
-	fmt.Printf("value = %v\n", 1.0000000000000008)
-	fmt.Printf("value = %v\n", 1.0000000000000009)
+	fmt.Printf(valueFormat, 1.0000000000000000)
+	fmt.Printf(valueFormat, 1.0000000000000001)
+	fmt.Printf(valueFormat, 1.0000000000000002)
+	fmt.Printf(valueFormat, 1.0000000000000003)
+	fmt.Printf(valueFormat, 1.0000000000000004)
+	fmt.Printf(valueFormat, 1.0000000000000005)
+	fmt.Printf(valueFormat, 1.0000000000000006)
+	fmt.Printf(valueFormat, 1.0000000000000007)
+	fmt.Printf(valueFormat, 1.0000000000000008)
+	fmt.Printf(valueFormat, 1.0000000000000009)
 	// Output:
 	// value = 1
 	// value = 1
