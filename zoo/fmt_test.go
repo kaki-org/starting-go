@@ -8,6 +8,7 @@ import (
 )
 
 const errorExpectFormat = "%s != %s"
+const dummyFileName = "test.txt"
 
 func TestPrintf(t *testing.T) {
 	n := 4
@@ -24,7 +25,7 @@ func TestPrintf(t *testing.T) {
 	}
 
 	// ファイルへフォーマットした文字列を出力
-	f, err := os.Create("test.txt")
+	f, err := os.Create(dummyFileName)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,7 +41,7 @@ func TestPrintf(t *testing.T) {
 	fmt.Fscanf(f, "%d", &n)
 	fmt.Println(n)
 	if f != nil {
-		os.Remove("test.txt")
+		os.Remove(dummyFileName)
 	}
 }
 
