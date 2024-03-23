@@ -5,8 +5,6 @@ import (
 	"math"
 )
 
-const helloWorld = "Hello, World!"
-
 // n1はパッケージ変数
 var n1 = 100
 

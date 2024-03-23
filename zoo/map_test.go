@@ -5,9 +5,6 @@ import (
 	"reflect"
 	"testing"
 )
-const valueExpectFormat = "%v != %v"
-const stringExpectFormat = "%s != %s"
-const decimalExpectFormat = "%d != %d"
 
 func TestMap(t *testing.T) {
 	m := make(map[int]string)

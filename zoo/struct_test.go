@@ -10,12 +10,6 @@ import (
 	"github.com/kakikubo/starting-go/zoo/animals"
 )
 
-const valueTypeFormat = "%v %T\n"
-const decimalExpectFormat = "%d != %d"
-const valueExpectFormat = "%v != %v"
-const floatExpectFormat = "%f != %f"
-const stringExpectFormat = "%s != %s"
-
 func TestType(t *testing.T) {
 	type (
 		IntPair     [2]int

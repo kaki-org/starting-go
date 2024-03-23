@@ -5,10 +5,6 @@ import (
 	"testing"
 	"time"
 )
-const fixedTimeString = "2006-01-02 15:04:05"
-const stringExpectFormat = "%s != %s"
-const fixedDateString = "2006/01/02"
-const fixedDateTimeStirng = "2015-10-01 00:00:00"
 
 func TestTimeStandard(t *testing.T) {
 	tm := time.Date(2023, 8, 31, 7, 15, 30, 0, time.Local)

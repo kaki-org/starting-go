@@ -7,8 +7,6 @@ import (
 	"testing"
 )
 
-const errorExpectFormat = "%s != %s"
-const dummyFileName = "test.txt"
 
 func TestPrintf(t *testing.T) {
 	n := 4
