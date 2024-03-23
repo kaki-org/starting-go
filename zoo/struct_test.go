@@ -11,6 +11,7 @@ import (
 )
 
 const valueTypeFormat = "%v %T\n"
+const decimalExpectFormat = "%d != %d"
 
 func TestType(t *testing.T) {
 	type (
@@ -52,7 +53,7 @@ func TestTypeCallback(t *testing.T) {
 	expect := 30
 	actual := n
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 
@@ -84,12 +85,12 @@ func TestStruct(t *testing.T) {
 	expectX := 0
 	actualX := pt2.X
 	if expectX != actualX {
-		t.Errorf("%d != %d", expectX, actualX)
+		t.Errorf(decimalExpectFormat, expectX, actualX)
 	}
 	expectY := 5
 	actualY := pt2.Y
 	if expectY != actualY {
-		t.Errorf("%d != %d", expectY, actualY)
+		t.Errorf(decimalExpectFormat, expectY, actualY)
 	}
 }
 
@@ -104,7 +105,7 @@ func TestStructField(ts *testing.T) {
 	expectInt := 5
 	actualInt := t.int
 	if expectInt != actualInt {
-		ts.Errorf("%d != %d", expectInt, actualInt)
+		ts.Errorf(decimalExpectFormat, expectInt, actualInt)
 	}
 	expectFloat64 := 3.14
 	actualFloat64 := t.float64
@@ -304,7 +305,7 @@ func TestStructNew(t *testing.T) {
 	expectId := 0
 	actualId := p.Id
 	if expectId != actualId {
-		t.Errorf("%d != %d", expectId, actualId)
+		t.Errorf(decimalExpectFormat, expectId, actualId)
 	}
 	expectName := ""
 	actualName := p.Name
@@ -372,7 +373,7 @@ func TestPlusMyInt(t *testing.T) {
 	expect := 6
 	actual := MyInt(4).Plus(2)
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 
@@ -409,12 +410,12 @@ func TestAliasMethods(t *testing.T) {
 	expectFirst := 1
 	actualFirst := ip.First()
 	if expectFirst != actualFirst {
-		t.Errorf("%d != %d", expectFirst, actualFirst)
+		t.Errorf(decimalExpectFormat, expectFirst, actualFirst)
 	}
 	expectLast := 2
 	actualLast := ip.Last()
 	if expectLast != actualLast {
-		t.Errorf("%d != %d", expectLast, actualLast)
+		t.Errorf(decimalExpectFormat, expectLast, actualLast)
 	}
 
 	strs := Strings{"Apple", "Banana", "Cherry"}
@@ -444,7 +445,7 @@ func TestNewUser(t *testing.T) {
 	expectId := 1
 	actualId := u.Id
 	if expectId != actualId {
-		t.Errorf("%d != %d", expectId, actualId)
+		t.Errorf(decimalExpectFormat, expectId, actualId)
 	}
 	expectName := "Taro"
 	actualName := u.Name
@@ -541,7 +542,7 @@ func TestAnimalPackage(t *testing.T) {
 	expect := 1
 	actual := a.Field1
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 
