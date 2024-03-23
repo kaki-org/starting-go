@@ -10,6 +10,8 @@ import (
 	"github.com/kakikubo/starting-go/zoo/animals"
 )
 
+const valueTypeFormat = "%v %T\n"
+
 func TestType(t *testing.T) {
 	type (
 		IntPair     [2]int
@@ -23,10 +25,10 @@ func TestType(t *testing.T) {
 	amap := AreaMap{"Tokyo": {35.689488, 139.691706}}
 	ich := make(IntsChannel)
 
-	fmt.Printf("%v %T\n", pair, pair) // [1 2] main.IntPair
-	fmt.Printf("%v %T\n", strs, strs) // [Apple Banana Cherry] main.Strings
-	fmt.Printf("%v %T\n", amap, amap) // map[Tokyo:[35.689488 139.691706]] main.AreaMap
-	fmt.Printf("%v %T\n", ich, ich)   // 0xc0000a4000 chan []int
+	fmt.Printf(valueTypeFormat, pair, pair) // [1 2] main.IntPair
+	fmt.Printf(valueTypeFormat, strs, strs) // [Apple Banana Cherry] main.Strings
+	fmt.Printf(valueTypeFormat, amap, amap) // map[Tokyo:[35.689488 139.691706]] main.AreaMap
+	fmt.Printf(valueTypeFormat, ich, ich)   // 0xc0000a4000 chan []int
 }
 
 type Callback func(i int) int
