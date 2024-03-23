@@ -13,6 +13,7 @@ import (
 const valueTypeFormat = "%v %T\n"
 const decimalExpectFormat = "%d != %d"
 const valueExpectFormat = "%v != %v"
+const floatExpectFormat = "%f != %f"
 
 func TestType(t *testing.T) {
 	type (
@@ -111,7 +112,7 @@ func TestStructField(ts *testing.T) {
 	expectFloat64 := 3.14
 	actualFloat64 := t.float64
 	if expectFloat64 != actualFloat64 {
-		ts.Errorf("%f != %f", expectFloat64, actualFloat64)
+		ts.Errorf(floatExpectFormat, expectFloat64, actualFloat64)
 	}
 	expectString := "文字列"
 	actualString := t.string
@@ -352,7 +353,7 @@ func TestStructMethod(t *testing.T) {
 	distance := p.Distance(&Point{X: 1, Y: 1}) // メソッド呼び出し
 	expect := 1.4142135623730951
 	if expect != distance {
-		t.Errorf("%f != %f", expect, distance)
+		t.Errorf(floatExpectFormat, expect, distance)
 	}
 
 	fp := FloatPoint{X: 0.0, Y: 0.0}
@@ -360,7 +361,7 @@ func TestStructMethod(t *testing.T) {
 	distanceFloat := fp.Distance(&FloatPoint{X: 1.0, Y: 1.0}) // メソッド呼び出し
 	expectFloat := 1.4142135623730951
 	if expectFloat != distanceFloat {
-		t.Errorf("%f != %f", expectFloat, distanceFloat)
+		t.Errorf(floatExpectFormat, expectFloat, distanceFloat)
 	}
 }
 
