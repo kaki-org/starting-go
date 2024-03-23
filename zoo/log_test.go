@@ -6,8 +6,6 @@ import (
 	"testing"
 )
 
-const logNumberFormat = "ログの%d行目\n"
-
 func TestLogging(t *testing.T) {
 	log.Print("ログの1行目\n")
 	log.Println("ログの2行目")

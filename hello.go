@@ -6,10 +6,10 @@ import (
 	"log"
 	"os"
 )
+
 const nameFormat = "name = %s\n"
 const sizeFormat = "size = %d\n"
 const isDirFormat = "isdir = %v\n"
-
 
 func main() {
 	fmt.Println("Hello, World!")

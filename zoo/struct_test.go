@@ -23,10 +23,10 @@ func TestType(t *testing.T) {
 	amap := AreaMap{"Tokyo": {35.689488, 139.691706}}
 	ich := make(IntsChannel)
 
-	fmt.Printf("%v %T\n", pair, pair) // [1 2] main.IntPair
-	fmt.Printf("%v %T\n", strs, strs) // [Apple Banana Cherry] main.Strings
-	fmt.Printf("%v %T\n", amap, amap) // map[Tokyo:[35.689488 139.691706]] main.AreaMap
-	fmt.Printf("%v %T\n", ich, ich)   // 0xc0000a4000 chan []int
+	fmt.Printf(valueTypeFormat, pair, pair) // [1 2] main.IntPair
+	fmt.Printf(valueTypeFormat, strs, strs) // [Apple Banana Cherry] main.Strings
+	fmt.Printf(valueTypeFormat, amap, amap) // map[Tokyo:[35.689488 139.691706]] main.AreaMap
+	fmt.Printf(valueTypeFormat, ich, ich)   // 0xc0000a4000 chan []int
 }
 
 type Callback func(i int) int
@@ -50,7 +50,7 @@ func TestTypeCallback(t *testing.T) {
 	expect := 30
 	actual := n
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 
@@ -70,11 +70,11 @@ func TestStruct(t *testing.T) {
 	expect := Point{10, 8} // 省略してかけるが、後述のようにフィールド名を指定する書き方が推奨
 	actual := pt
 	if expect != actual {
-		t.Errorf("%v != %v", expect, actual)
+		t.Errorf(valueExpectFormat, expect, actual)
 	}
 	expect = Point{X: 10, Y: 8} // フィールド名を指定して初期化
 	if expect != actual {
-		t.Errorf("%v != %v", expect, actual)
+		t.Errorf(valueExpectFormat, expect, actual)
 	}
 
 	pt2 := Point{Y: 5}
@@ -82,12 +82,12 @@ func TestStruct(t *testing.T) {
 	expectX := 0
 	actualX := pt2.X
 	if expectX != actualX {
-		t.Errorf("%d != %d", expectX, actualX)
+		t.Errorf(decimalExpectFormat, expectX, actualX)
 	}
 	expectY := 5
 	actualY := pt2.Y
 	if expectY != actualY {
-		t.Errorf("%d != %d", expectY, actualY)
+		t.Errorf(decimalExpectFormat, expectY, actualY)
 	}
 }
 
@@ -102,17 +102,17 @@ func TestStructField(ts *testing.T) {
 	expectInt := 5
 	actualInt := t.int
 	if expectInt != actualInt {
-		ts.Errorf("%d != %d", expectInt, actualInt)
+		ts.Errorf(decimalExpectFormat, expectInt, actualInt)
 	}
 	expectFloat64 := 3.14
 	actualFloat64 := t.float64
 	if expectFloat64 != actualFloat64 {
-		ts.Errorf("%f != %f", expectFloat64, actualFloat64)
+		ts.Errorf(floatExpectFormat, expectFloat64, actualFloat64)
 	}
 	expectString := "文字列"
 	actualString := t.string
 	if expectString != actualString {
-		ts.Errorf("%s != %s", expectString, actualString)
+		ts.Errorf(stringExpectFormat, expectString, actualString)
 	}
 
 	// 無名フィールドを用いた構造体の埋め込み
@@ -128,7 +128,7 @@ func TestStructField(ts *testing.T) {
 	}
 	expect2 := T2{1, 0, "文字列"} // 0はint16のゼロ値。無名フィールドにも値は存在する
 	if expect2 != t2 {
-		ts.Errorf("%v != %v", expect2, t2)
+		ts.Errorf(valueExpectFormat, expect2, t2)
 	}
 	fmt.Println(t2)
 }
@@ -270,7 +270,7 @@ func TestAnonymousStruct(t *testing.T) {
 	p := Point{X: 1, Y: 2}
 	showStruct(p) // 互換性はあるのでPointを渡してもOK
 	if reflect.DeepEqual(s, p) {
-		t.Errorf("%v != %v", s, p)
+		t.Errorf(valueExpectFormat, s, p)
 	}
 }
 
@@ -302,17 +302,17 @@ func TestStructNew(t *testing.T) {
 	expectId := 0
 	actualId := p.Id
 	if expectId != actualId {
-		t.Errorf("%d != %d", expectId, actualId)
+		t.Errorf(decimalExpectFormat, expectId, actualId)
 	}
 	expectName := ""
 	actualName := p.Name
 	if expectName != actualName {
-		t.Errorf("%s != %s", expectName, actualName)
+		t.Errorf(stringExpectFormat, expectName, actualName)
 	}
 	expectArea := ""
 	actualArea := p.Area
 	if expectArea != actualArea {
-		t.Errorf("%s != %s", expectArea, actualArea)
+		t.Errorf(stringExpectFormat, expectArea, actualArea)
 	}
 
 	setPerson(p, 1, "Gopher", "Tokyo")
@@ -320,7 +320,7 @@ func TestStructNew(t *testing.T) {
 	expectPerson := Person{Id: 1, Name: "Gopher", Area: "Tokyo"}
 	actualPerson := *p
 	if expectPerson != actualPerson {
-		t.Errorf("%v != %v", expectPerson, actualPerson)
+		t.Errorf(valueExpectFormat, expectPerson, actualPerson)
 	}
 }
 
@@ -348,7 +348,7 @@ func TestStructMethod(t *testing.T) {
 	distance := p.Distance(&Point{X: 1, Y: 1}) // メソッド呼び出し
 	expect := 1.4142135623730951
 	if expect != distance {
-		t.Errorf("%f != %f", expect, distance)
+		t.Errorf(floatExpectFormat, expect, distance)
 	}
 
 	fp := FloatPoint{X: 0.0, Y: 0.0}
@@ -356,7 +356,7 @@ func TestStructMethod(t *testing.T) {
 	distanceFloat := fp.Distance(&FloatPoint{X: 1.0, Y: 1.0}) // メソッド呼び出し
 	expectFloat := 1.4142135623730951
 	if expectFloat != distanceFloat {
-		t.Errorf("%f != %f", expectFloat, distanceFloat)
+		t.Errorf(floatExpectFormat, expectFloat, distanceFloat)
 	}
 }
 
@@ -370,7 +370,7 @@ func TestPlusMyInt(t *testing.T) {
 	expect := 6
 	actual := MyInt(4).Plus(2)
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 
@@ -407,19 +407,19 @@ func TestAliasMethods(t *testing.T) {
 	expectFirst := 1
 	actualFirst := ip.First()
 	if expectFirst != actualFirst {
-		t.Errorf("%d != %d", expectFirst, actualFirst)
+		t.Errorf(decimalExpectFormat, expectFirst, actualFirst)
 	}
 	expectLast := 2
 	actualLast := ip.Last()
 	if expectLast != actualLast {
-		t.Errorf("%d != %d", expectLast, actualLast)
+		t.Errorf(decimalExpectFormat, expectLast, actualLast)
 	}
 
 	strs := Strings{"Apple", "Banana", "Cherry"}
 	expectJoin := "Apple,Banana,Cherry"
 	actualJoin := strs.Join(",")
 	if expectJoin != actualJoin {
-		t.Errorf("%s != %s", expectJoin, actualJoin)
+		t.Errorf(stringExpectFormat, expectJoin, actualJoin)
 	}
 }
 
@@ -442,12 +442,12 @@ func TestNewUser(t *testing.T) {
 	expectId := 1
 	actualId := u.Id
 	if expectId != actualId {
-		t.Errorf("%d != %d", expectId, actualId)
+		t.Errorf(decimalExpectFormat, expectId, actualId)
 	}
 	expectName := "Taro"
 	actualName := u.Name
 	if expectName != actualName {
-		t.Errorf("%s != %s", expectName, actualName)
+		t.Errorf(stringExpectFormat, expectName, actualName)
 	}
 }
 
@@ -461,23 +461,23 @@ func TestStructToString(t *testing.T) {
 	expect := "[1, 2]"
 	actual := f(&Point{X: 1, Y: 2}) // メソッド呼び出し(関数の第一引数にレシーバを渡す)
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 
 	actual = (&Point{X: 1, Y: 2}).ToString() // (通常の)メソッド呼び出し
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 	actual = ((*Point).ToString)(&Point{X: 1, Y: 2}) // メソッド呼び出し(関数の第一引数にレシーバを渡す)
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 
 	p := &Point{X: 1, Y: 2}
 	fm := p.ToString // メソッド値 func() string型
 	actual = fm()    // メソッドを関数として実行
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 }
 
@@ -499,14 +499,14 @@ func TestPointReceiver(t *testing.T) {
 	expect := Point{0, 0}
 	actual := p1
 	if expect != actual {
-		t.Errorf("%v != %v", expect, actual)
+		t.Errorf(valueExpectFormat, expect, actual)
 	}
 	p2 := &Point{} // ポインタ型のレシーバ
 	p2.Set(3, 4)
 	expect2 := Point{0, 0} // それでも値は変更されない
 	actual2 := *p2
 	if expect2 != actual2 {
-		t.Errorf("%v != %v", expect2, actual2)
+		t.Errorf(valueExpectFormat, expect2, actual2)
 	}
 
 	// レシーバがポインタ型の場合は、値が変更される
@@ -515,14 +515,14 @@ func TestPointReceiver(t *testing.T) {
 	expect3 := Point{1, 2}
 	actual3 := p3
 	if expect3 != actual3 {
-		t.Errorf("%v != %v", expect3, actual3)
+		t.Errorf(valueExpectFormat, expect3, actual3)
 	}
 	p4 := &Point{}
 	p4.Set2(3, 4)
 	expect4 := Point{3, 4}
 	actual4 := *p4
 	if expect4 != actual4 {
-		t.Errorf("%v != %v", expect4, actual4)
+		t.Errorf(valueExpectFormat, expect4, actual4)
 	}
 }
 
@@ -539,7 +539,7 @@ func TestAnimalPackage(t *testing.T) {
 	expect := 1
 	actual := a.Field1
 	if expect != actual {
-		t.Errorf("%d != %d", expect, actual)
+		t.Errorf(decimalExpectFormat, expect, actual)
 	}
 }
 
@@ -577,7 +577,7 @@ func TestStructSlice2(t *testing.T) {
 	expect := "[1, 2],<nil>,[3, 4]"
 	actual := ps.ToString()
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 }
 
@@ -604,25 +604,25 @@ func TestStructMap(t *testing.T) {
 	expect1 := "Tokyo"
 	actual1 := m1[User{Id: 1, Name: "Taro"}]
 	if expect1 != actual1 {
-		t.Errorf("%s != %s", expect1, actual1)
+		t.Errorf(stringExpectFormat, expect1, actual1)
 	}
 
 	expect2 := "Taro"
 	actual2 := m2[1].Name
 	if expect2 != actual2 {
-		t.Errorf("%s != %s", expect2, actual2)
+		t.Errorf(stringExpectFormat, expect2, actual2)
 	}
 
 	expect3 := "B"
 	actual3 := ms[1][1]
 	if expect3 != actual3 {
-		t.Errorf("%s != %s", expect3, actual3)
+		t.Errorf(stringExpectFormat, expect3, actual3)
 	}
 
 	expect4 := "Banana"
 	actual4 := mm[1][2]
 	if expect4 != actual4 {
-		t.Errorf("%s != %s", expect4, actual4)
+		t.Errorf(stringExpectFormat, expect4, actual4)
 	}
 }
 
@@ -646,7 +646,7 @@ func TestStructTag(t *testing.T) {
 	expect := "ユーザID,名前,年齢"
 	actual := str
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 }
 
@@ -666,6 +666,6 @@ func TestJsonMarshal(t *testing.T) {
 	expect := `{"user_id":1,"user_name":"Taro","user_age":32}`
 	actual := string(bs)
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 }
