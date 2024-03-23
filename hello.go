@@ -1,5 +1,9 @@
 package main
 
+const nameFormat = "name = %s\n"
+const sizeFormat = "size = %d\n"
+const isDirFormat = "isdir = %v\n"
+
 import (
 	"fmt"
 	"io"
