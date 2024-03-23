@@ -8,6 +8,7 @@ import (
 const fixedTimeString = "2006-01-02 15:04:05"
 const stringExpectFormat = "%s != %s"
 const fixedDateString = "2006/01/02"
+const fixedDateTimeStirng = "2015-10-01 00:00:00"
 
 func TestTimeStandard(t *testing.T) {
 	tm := time.Date(2023, 8, 31, 7, 15, 30, 0, time.Local)
@@ -121,7 +122,7 @@ func TestTimeFormat(t *testing.T) {
 	if err != nil {
 		t.Errorf("err != nil")
 	}
-	expect := "2015-10-01 00:00:00"
+	expect := fixedDateTimeString
 	actual := tm.Format(fixedTimeString)
 	if expect != actual {
 		t.Errorf(stringExpectFormat, expect, actual)
@@ -140,7 +141,7 @@ func TestTimeFormat(t *testing.T) {
 		t.Errorf("err != nil")
 	}
 
-	expect = "2015-10-01 00:00:00"
+	expect = fixedDateTimeString
 	actual = tm2.Format(fixedTimeString) // 時刻形式に%Yなどは使わない
 	if expect != actual {
 		t.Errorf(stringExpectFormat, expect, actual)
@@ -148,7 +149,7 @@ func TestTimeFormat(t *testing.T) {
 
 	// 日本語を混ぜた文字列もパース可能
 	jt, _ := time.Parse("2006年01月02日", "2015年10月01日")
-	expect = "2015-10-01 00:00:00"
+	expect = fixedDateTimeString
 	actual = jt.Format(fixedTimeString)
 	if expect != actual {
 		t.Errorf(stringExpectFormat, expect, actual)
