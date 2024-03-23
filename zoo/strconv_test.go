@@ -6,6 +6,8 @@ import (
 	"testing"
 )
 
+const errorFormatValue = "err = %v"
+
 func TestFormatBool(t *testing.T) {
 	b := true
 
@@ -138,12 +140,12 @@ func TestParseInt(t *testing.T) {
 	//負の値はエラー
 	_, err := strconv.ParseUint("-1", 10, 0)
 	if err != nil {
-		t.Logf("err = %v", err)
+		t.Logf(errorFormatValue, err)
 	}
 	//指定した精度を超える整数表現はエラー
 	_, err = strconv.ParseInt("123456", 10, 16)
 	if err != nil {
-		t.Logf("err = %v", err)
+		t.Logf(errorFormatValue, err)
 	}
 
 	// 0が指定された場合は文字列のプリフィックスが作用する
@@ -174,12 +176,12 @@ func TestParseFloat(t *testing.T) {
 	floatValue, err := strconv.ParseFloat("1E500", 64)
 	cmp(floatValue, math.Inf(0), t)
 	if err != nil {
-		t.Logf("err = %v", err)
+		t.Logf(errorFormatValue, err)
 	}
 	floatValue, err = strconv.ParseFloat("-1E500", 64)
 	cmp(floatValue, math.Inf(-1), t)
 	if err != nil {
-		t.Logf("err = %v", err)
+		t.Logf(errorFormatValue, err)
 	}
 
 }
