@@ -12,6 +12,7 @@ import (
 
 const valueTypeFormat = "%v %T\n"
 const decimalExpectFormat = "%d != %d"
+const valueExpectFormat = "%v != %v"
 
 func TestType(t *testing.T) {
 	type (
@@ -73,11 +74,11 @@ func TestStruct(t *testing.T) {
 	expect := Point{10, 8} // 省略してかけるが、後述のようにフィールド名を指定する書き方が推奨
 	actual := pt
 	if expect != actual {
-		t.Errorf("%v != %v", expect, actual)
+		t.Errorf(valueExpectFormat, expect, actual)
 	}
 	expect = Point{X: 10, Y: 8} // フィールド名を指定して初期化
 	if expect != actual {
-		t.Errorf("%v != %v", expect, actual)
+		t.Errorf(valueExpectFormat, expect, actual)
 	}
 
 	pt2 := Point{Y: 5}
@@ -131,7 +132,7 @@ func TestStructField(ts *testing.T) {
 	}
 	expect2 := T2{1, 0, "文字列"} // 0はint16のゼロ値。無名フィールドにも値は存在する
 	if expect2 != t2 {
-		ts.Errorf("%v != %v", expect2, t2)
+		ts.Errorf(valueExpectFormat, expect2, t2)
 	}
 	fmt.Println(t2)
 }
@@ -273,7 +274,7 @@ func TestAnonymousStruct(t *testing.T) {
 	p := Point{X: 1, Y: 2}
 	showStruct(p) // 互換性はあるのでPointを渡してもOK
 	if reflect.DeepEqual(s, p) {
-		t.Errorf("%v != %v", s, p)
+		t.Errorf(valueExpectFormat, s, p)
 	}
 }
 
@@ -323,7 +324,7 @@ func TestStructNew(t *testing.T) {
 	expectPerson := Person{Id: 1, Name: "Gopher", Area: "Tokyo"}
 	actualPerson := *p
 	if expectPerson != actualPerson {
-		t.Errorf("%v != %v", expectPerson, actualPerson)
+		t.Errorf(valueExpectFormat, expectPerson, actualPerson)
 	}
 }
 
@@ -502,14 +503,14 @@ func TestPointReceiver(t *testing.T) {
 	expect := Point{0, 0}
 	actual := p1
 	if expect != actual {
-		t.Errorf("%v != %v", expect, actual)
+		t.Errorf(valueExpectFormat, expect, actual)
 	}
 	p2 := &Point{} // ポインタ型のレシーバ
 	p2.Set(3, 4)
 	expect2 := Point{0, 0} // それでも値は変更されない
 	actual2 := *p2
 	if expect2 != actual2 {
-		t.Errorf("%v != %v", expect2, actual2)
+		t.Errorf(valueExpectFormat, expect2, actual2)
 	}
 
 	// レシーバがポインタ型の場合は、値が変更される
@@ -518,14 +519,14 @@ func TestPointReceiver(t *testing.T) {
 	expect3 := Point{1, 2}
 	actual3 := p3
 	if expect3 != actual3 {
-		t.Errorf("%v != %v", expect3, actual3)
+		t.Errorf(valueExpectFormat, expect3, actual3)
 	}
 	p4 := &Point{}
 	p4.Set2(3, 4)
 	expect4 := Point{3, 4}
 	actual4 := *p4
 	if expect4 != actual4 {
-		t.Errorf("%v != %v", expect4, actual4)
+		t.Errorf(valueExpectFormat, expect4, actual4)
 	}
 }
 
