@@ -14,6 +14,7 @@ const valueTypeFormat = "%v %T\n"
 const decimalExpectFormat = "%d != %d"
 const valueExpectFormat = "%v != %v"
 const floatExpectFormat = "%f != %f"
+const stringExpectFormat = "%s != %s"
 
 func TestType(t *testing.T) {
 	type (
@@ -117,7 +118,7 @@ func TestStructField(ts *testing.T) {
 	expectString := "文字列"
 	actualString := t.string
 	if expectString != actualString {
-		ts.Errorf("%s != %s", expectString, actualString)
+		ts.Errorf(stringExpectFormat, expectString, actualString)
 	}
 
 	// 無名フィールドを用いた構造体の埋め込み
@@ -312,12 +313,12 @@ func TestStructNew(t *testing.T) {
 	expectName := ""
 	actualName := p.Name
 	if expectName != actualName {
-		t.Errorf("%s != %s", expectName, actualName)
+		t.Errorf(stringExpectFormat, expectName, actualName)
 	}
 	expectArea := ""
 	actualArea := p.Area
 	if expectArea != actualArea {
-		t.Errorf("%s != %s", expectArea, actualArea)
+		t.Errorf(stringExpectFormat, expectArea, actualArea)
 	}
 
 	setPerson(p, 1, "Gopher", "Tokyo")
@@ -424,7 +425,7 @@ func TestAliasMethods(t *testing.T) {
 	expectJoin := "Apple,Banana,Cherry"
 	actualJoin := strs.Join(",")
 	if expectJoin != actualJoin {
-		t.Errorf("%s != %s", expectJoin, actualJoin)
+		t.Errorf(stringExpectFormat, expectJoin, actualJoin)
 	}
 }
 
@@ -452,7 +453,7 @@ func TestNewUser(t *testing.T) {
 	expectName := "Taro"
 	actualName := u.Name
 	if expectName != actualName {
-		t.Errorf("%s != %s", expectName, actualName)
+		t.Errorf(stringExpectFormat, expectName, actualName)
 	}
 }
 
@@ -466,23 +467,23 @@ func TestStructToString(t *testing.T) {
 	expect := "[1, 2]"
 	actual := f(&Point{X: 1, Y: 2}) // メソッド呼び出し(関数の第一引数にレシーバを渡す)
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 
 	actual = (&Point{X: 1, Y: 2}).ToString() // (通常の)メソッド呼び出し
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 	actual = ((*Point).ToString)(&Point{X: 1, Y: 2}) // メソッド呼び出し(関数の第一引数にレシーバを渡す)
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 
 	p := &Point{X: 1, Y: 2}
 	fm := p.ToString // メソッド値 func() string型
 	actual = fm()    // メソッドを関数として実行
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 }
 
@@ -582,7 +583,7 @@ func TestStructSlice2(t *testing.T) {
 	expect := "[1, 2],<nil>,[3, 4]"
 	actual := ps.ToString()
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 }
 
@@ -609,25 +610,25 @@ func TestStructMap(t *testing.T) {
 	expect1 := "Tokyo"
 	actual1 := m1[User{Id: 1, Name: "Taro"}]
 	if expect1 != actual1 {
-		t.Errorf("%s != %s", expect1, actual1)
+		t.Errorf(stringExpectFormat, expect1, actual1)
 	}
 
 	expect2 := "Taro"
 	actual2 := m2[1].Name
 	if expect2 != actual2 {
-		t.Errorf("%s != %s", expect2, actual2)
+		t.Errorf(stringExpectFormat, expect2, actual2)
 	}
 
 	expect3 := "B"
 	actual3 := ms[1][1]
 	if expect3 != actual3 {
-		t.Errorf("%s != %s", expect3, actual3)
+		t.Errorf(stringExpectFormat, expect3, actual3)
 	}
 
 	expect4 := "Banana"
 	actual4 := mm[1][2]
 	if expect4 != actual4 {
-		t.Errorf("%s != %s", expect4, actual4)
+		t.Errorf(stringExpectFormat, expect4, actual4)
 	}
 }
 
@@ -651,7 +652,7 @@ func TestStructTag(t *testing.T) {
 	expect := "ユーザID,名前,年齢"
 	actual := str
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 }
 
@@ -671,6 +672,6 @@ func TestJsonMarshal(t *testing.T) {
 	expect := `{"user_id":1,"user_name":"Taro","user_age":32}`
 	actual := string(bs)
 	if expect != actual {
-		t.Errorf("%s != %s", expect, actual)
+		t.Errorf(stringExpectFormat, expect, actual)
 	}
 }
