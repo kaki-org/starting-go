@@ -114,7 +114,7 @@ func TestTimeAddDate(t *testing.T) {
 }
 
 func TestTimeFormat(t *testing.T) {
-	tm, err := time.Parse("fixedDateString", "2015/10/01")
+	tm, err := time.Parse(fixedDateString, "2015/10/01")
 	if err != nil {
 		t.Errorf("err != nil")
 	}
@@ -152,7 +152,7 @@ func TestTimeFormat(t *testing.T) {
 	}
 
 	// Parseに足りない要素(時,分,秒)は初期値が入る
-	tm3, _ := time.Parse("fixedDateString", "2015/10/01")
+	tm3, _ := time.Parse(fixedDateString, "2015/10/01")
 
 	// ここは与えられた文字列からパースした部分
 	if tm3.Year() != 2015 {
@@ -198,7 +198,7 @@ func TestGenerateStringFromTime(t *testing.T) {
 	}
 
 	expect := "2023/09/01"
-	actual := tm.Format("fixedDateString")
+	actual := tm.Format(fixedDateString)
 	if expect != actual {
 		t.Errorf(stringExpectFormat, expect, actual)
 	}
