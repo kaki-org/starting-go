@@ -50,9 +50,9 @@ func TestMapFloat(t *testing.T) {
 func TestMapLiteral(t *testing.T) {
 	// 以下、どちらも同じ意味
 	m1 := map[int][]int{
-		1: []int{1},
-		2: []int{1, 2},
-		3: []int{1, 2, 3},
+		1: {1},
+		2: {1, 2},
+		3: {1, 2, 3},
 	}
 	m2 := map[int][]int{
 		1: {1},
