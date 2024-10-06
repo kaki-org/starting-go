@@ -30,5 +30,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: develop
+          branch: ${{ steps.create-branch.outputs.BRANCH_NAME }}
           title: ${{ steps.create-branch.outputs.BRANCH_NAME }} to develop
           body: 'Automated PR from ${{ steps.create-branch.outputs.BRANCH_NAME }} to develop'
