@@ -13,15 +13,15 @@ jobs:
   create_branch_and_pr:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout master branch
+      - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          ref: master
+          ref: main
 
       - name: Create new branch
         id: create-branch
         run: |
-          BRANCH_NAME=$(date +'%Y%m%d')_master
+          BRANCH_NAME=$(date +'%Y%m%d')_main
           git checkout -b $BRANCH_NAME
           git push origin $BRANCH_NAME
 
