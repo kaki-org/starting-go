@@ -25,7 +25,7 @@ jobs:
           echo "::set-output name=branch_name::$BRANCH_NAME"
           git checkout main
           git checkout -b $BRANCH_NAME
-          git push origin $BRANCH_NAME -f
+          git push origin $BRANCH_NAME
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v7
