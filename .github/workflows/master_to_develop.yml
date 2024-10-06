@@ -24,6 +24,8 @@ jobs:
         run: |
           BRANCH_NAME=$(date +'%Y%m%d')_main
           echo "::set-output name=branch_name::$BRANCH_NAME"
+          git fetch origin --prune
+          git checkout main && git pull origin main
           git checkout main
           git checkout -b $BRANCH_NAME
           git push origin $BRANCH_NAME
