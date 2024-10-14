@@ -29,7 +29,8 @@ jobs:
         run: |
           BRANCH_NAME=$(date +'%Y%m%d')_main
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
-          git fetch origin main:main
+          git checkout main
+          git fetch origin
           git pull origin main
           git switch -c $BRANCH_NAME
           git push origin $BRANCH_NAME -f
