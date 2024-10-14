@@ -30,10 +30,8 @@ jobs:
           BRANCH_NAME=$(date +'%Y%m%d')_main
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
           git fetch origin --prune
-          git checkout develop
-          git pull origin develop
+          git pull origin main
           git switch -c $BRANCH_NAME
-          git merge origin/main
           git push origin $BRANCH_NAME -f
 
       - name: Create pull request
