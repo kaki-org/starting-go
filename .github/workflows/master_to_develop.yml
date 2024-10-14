@@ -28,6 +28,7 @@ jobs:
         id: create-branch
         run: |
           BRANCH_NAME=$(date +'%Y%m%d')_main
+          set +x
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
           git checkout main
           git fetch origin
