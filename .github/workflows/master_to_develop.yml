@@ -37,7 +37,6 @@ jobs:
 
       - name: Create pull request
         run: |
-          BRANCH_NAME=$(cat $GITHUB_ENV | grep branch_name | cut -d'=' -f2)
           gh pr create --base main --head $BRANCH_NAME --title "$BRANCH_NAME to main" --body "Automated PR from $BRANCH_NAME to main"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
