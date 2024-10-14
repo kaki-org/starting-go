@@ -28,14 +28,12 @@ jobs:
         id: create-branch
         run: |
           BRANCH_NAME=$(date +'%Y%m%d')_main
-          set +x
           echo "branch_name=$BRANCH_NAME" >> $GITHUB_ENV
           git checkout main
           git fetch origin
           git pull origin main
           git switch -c $BRANCH_NAME
-          git push origin :$BRANCH_NAME
-          git push origin $BRANCH_NAME -f
+          git push origin $BRANCH_NAME
 
       - name: Create pull request
         run: |
