@@ -33,6 +33,7 @@ jobs:
           git fetch origin
           git pull origin main
           git switch -c $BRANCH_NAME
+          git push origin :$BRANCH_NAME
           git push origin $BRANCH_NAME -f
 
       - name: Create pull request
