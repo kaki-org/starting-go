@@ -1,4 +1,4 @@
-# starting-go
+# starting-go :rocket:
 
 ## requirements
 
