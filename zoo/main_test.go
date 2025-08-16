@@ -1125,3 +1125,47 @@ func ExampleTestRecover() {
 	// panic: string=hogehoge
 	// panic: unknown=[1 2 3]
 }
+
+func TestSalutations(t *testing.T) {
+	Salutations()
+}
+
+func TestArray0(t *testing.T) {
+	Array0()
+}
+
+func TestTypeInference(t *testing.T) {
+	TypeInference()
+}
+
+func TestDefineVariables(t *testing.T) {
+	DefineVariables()
+}
+
+func TestPackageVariables(t *testing.T) {
+	PackageVariables()
+}
+
+func TestVar1(t *testing.T) {
+	Var1()
+}
+
+func TestVar2(t *testing.T) {
+	Var2()
+}
+
+func TestVar3(t *testing.T) {
+	Var3()
+}
+
+func TestFloat(t *testing.T) {
+	Float()
+}
+
+func TestConstant(t *testing.T) {
+	Constant()
+}
+
+func TestDefer(t *testing.T) {
+	Defer()
+}
