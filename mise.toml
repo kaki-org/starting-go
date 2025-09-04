@@ -1,0 +1,33 @@
+[env]
+ENV_NAME = "develop"
+
+mise.file = ".env"
+
+[tools]
+go = "1.25.1"
+pre-commit = "latest"
+shellcheck = "latest"
+
+[tasks.setup]
+description = "Setup Project"
+run = "mise i && pre-commit install && go mod download"
+
+[tasks.build]
+description = "Build"
+run = "cd ./zoo && go build -ldflags='-s -w' -trimpath -o zoo"
+
+[tasks.test]
+description = "Run tests"
+run = "cd ./zoo && go test -v ./..."
+
+[tasks.coverage]
+description = "Run tests with coverage"
+run = "cd ./zoo && go test -race -coverprofile=coverage.out -covermode=atomic"
+
+[tasks.fmt]
+description = "Run go fmt"
+run = "go fmt ./..."
+
+[tasks.ci]
+description = "Run CI tasks"
+depends = ["test", "fmt"]
