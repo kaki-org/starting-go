@@ -80,12 +80,12 @@ func readFile(filename string) ([]byte, error) {
 	fmt.Printf(offsetFormat, offset, err)
 
 	/* ファイルのステータスを取得 */
-	fi, err := f.Stat() // fiはos.FileInfo型
-	fmt.Printf(nameFormat, fi.Name())       // ファイル名(string型)
-	fmt.Printf(sizeFormat, fi.Size())       // ファイルサイズ(int64型)
+	fi, err := f.Stat()                        // fiはos.FileInfo型
+	fmt.Printf(nameFormat, fi.Name())          // ファイル名(string型)
+	fmt.Printf(sizeFormat, fi.Size())          // ファイルサイズ(int64型)
 	fmt.Printf("mode = %v\n", fi.Mode())       // ファイルのモード(os.FileMode型)
 	fmt.Printf("modtime = %v\n", fi.ModTime()) // 最終更新日時(time.Time型)
-	fmt.Printf(isDirFormat, fi.IsDir())     // ディレクトリかどうか(bool型)
+	fmt.Printf(isDirFormat, fi.IsDir())        // ディレクトリかどうか(bool型)
 	return bs, err
 }
 
@@ -207,10 +207,10 @@ func symlinkUsage() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf(nameFormat, fi.Name())   // ファイル名(string型)
-	fmt.Printf(sizeFormat, fi.Size())   // ファイルサイズ(int64型)
-	fmt.Printf(isDirFormat, fi.IsDir()) // ディレクトリかどうか(bool型)
-	fmt.Printf("mode = %v\n", fi.Mode())   // ファイルのモード(os.FileMode型)
+	fmt.Printf(nameFormat, fi.Name())    // ファイル名(string型)
+	fmt.Printf(sizeFormat, fi.Size())    // ファイルサイズ(int64型)
+	fmt.Printf(isDirFormat, fi.IsDir())  // ディレクトリかどうか(bool型)
+	fmt.Printf("mode = %v\n", fi.Mode()) // ファイルのモード(os.FileMode型)
 
 	/* シンボリックリンクの削除 */
 	err = os.Remove("zoo2")
