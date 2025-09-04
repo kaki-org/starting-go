@@ -1,0 +1,13 @@
+[env]
+ENV_NAME = "develop"
+
+mise.file = ".env"
+
+[tools]
+go = "1.25.1"
+pre-commit = "latest"
+shellcheck = "latest"
+
+[tasks.setup]
+description = "Setup Project"
+run = "mise i && pre-commit install && go mod download"
