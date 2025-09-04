@@ -7,3 +7,5 @@ zoo/test.log
 coverage.out
 .config
 .envrc
+
+.env
