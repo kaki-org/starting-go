@@ -21,22 +21,9 @@ jobs:
       - uses: actions/checkout@v5
       - uses: jdx/mise-action@v2
         with:
-          version: 2025.8.21 # [default: latest] mise version to install
-          install: true # [default: true] run `mise install`
-          # install_args: "bun" # [default: ""] additional arguments to `mise install`
-          cache: true # [default: true] cache mise using GitHub's cache
-          experimental: false # [default: false] enable experimental features
-          log_level: debug # [default: info] log level
-          # automatically write this .tool-versions file
-          tool_versions: |
-            shellcheck 0.9.0
-          # or, if you prefer .mise.toml format:
-          mise_toml: |
-            [tools]
-            shellcheck = "0.9.0"
-          working_directory: . # [default: .] directory to run mise in
-          reshim: false # [default: false] run `mise reshim -f`
-          github_token: ${{ secrets.GITHUB_TOKEN }} # [default: ${{ github.token }}] GitHub token for API authentication
+          version: 2025.8.21
+          install: true
+          cache: true
       - run: |
           mise run setup
           mise run build
