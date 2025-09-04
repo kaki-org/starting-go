@@ -19,16 +19,29 @@ jobs:
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           show-waiting-runner: true
       - uses: actions/checkout@v5
-      - name: Go Package
-        uses: actions/setup-go@v5
+      - uses: jdx/mise-action@v2
         with:
-          go-version: 1.25
-      - name: Build
-        run: go build -o zoo
-      - name: Test
-        run: go test -v ./...
-      - name: Run Coverage
-        run: go test -race -coverprofile=coverage.out -covermode=atomic
+          version: 2025.8.21 # [default: latest] mise version to install
+          install: true # [default: true] run `mise install`
+          # install_args: "bun" # [default: ""] additional arguments to `mise install`
+          cache: true # [default: true] cache mise using GitHub's cache
+          experimental: false # [default: false] enable experimental features
+          log_level: debug # [default: info] log level
+          # automatically write this .tool-versions file
+          tool_versions: |
+            shellcheck 0.9.0
+          # or, if you prefer .mise.toml format:
+          mise_toml: |
+            [tools]
+            shellcheck = "0.9.0"
+          working_directory: . # [default: .] directory to run mise in
+          reshim: false # [default: false] run `mise reshim -f`
+          github_token: ${{ secrets.GITHUB_TOKEN }} # [default: ${{ github.token }}] GitHub token for API authentication
+      - run: |
+          mise run setup
+          mise run build
+          mise run test
+          mise run coverage
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         env:
