@@ -24,6 +24,7 @@ jobs:
           version: 2025.8.21
           install: true
           cache: true
+          working_directory: .
       - run: |
           mise run setup
           mise run build
