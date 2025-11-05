@@ -4,7 +4,7 @@ ENV_NAME = "develop"
 mise.file = ".env"
 
 [tools]
-go = "1.25.3"
+go = "1.25.4"
 pre-commit = "latest"
 shellcheck = "latest"
 
