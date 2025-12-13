@@ -4,13 +4,12 @@ ENV_NAME = "develop"
 mise.file = ".env"
 
 [tools]
-go = "1.25.4"
-pre-commit = "latest"
+go = "1.25.5"
 shellcheck = "latest"
 
 [tasks.setup]
 description = "Setup Project"
-run = "mise i && pre-commit install && go mod download"
+run = "mise i && go mod download"
 
 [tasks.build]
 description = "Build"
