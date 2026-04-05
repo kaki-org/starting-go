@@ -14,12 +14,12 @@ jobs:
     #     working-directory: ./zoo
 
     steps:
-      - uses: Kesin11/actions-timeline@v2
+      - uses: Kesin11/actions-timeline@v3
         with:
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           show-waiting-runner: true
       - uses: actions/checkout@v6
-      - uses: jdx/mise-action@v3
+      - uses: jdx/mise-action@v4
         with:
           version: 2025.8.21
           install: true
@@ -30,6 +30,6 @@ jobs:
           mise run test
           mise run coverage
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
