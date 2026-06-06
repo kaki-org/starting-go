@@ -4,7 +4,7 @@ ENV_NAME = "develop"
 mise.file = ".env"
 
 [tools]
-go = "1.26.3"
+go = "1.26.4"
 shellcheck = "latest"
 
 [tasks.setup]
