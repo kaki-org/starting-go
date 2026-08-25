@@ -2,5 +2,31 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "automergeStrategy": "merge-commit",
+  "packageRules": [
+    {
+      "description": "信頼できる GitHub Actions の minor/patch/digest は automerge",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest"
+      ],
+      "automerge": true,
+      "platformAutomerge": true,
+      "matchPackageNames": [
+        "actions/checkout",
+        "actions/setup-go",
+        "codecov/codecov-action",
+        "jdx/mise-action",
+        "Kesin11/actions-timeline",
+        "release-drafter/release-drafter",
+        "tj-actions/coverage-badge-go",
+        "tj-actions/verify-changed-files"
+      ]
+    }
   ]
 }
