@@ -14,14 +14,14 @@ jobs:
     #     working-directory: ./zoo
 
     steps:
-      - uses: Kesin11/actions-timeline@v3
+      - uses: Kesin11/actions-timeline@v3.2.0
         with:
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           show-waiting-runner: true
       - uses: actions/checkout@v7
-      - uses: jdx/mise-action@v4
+      - uses: jdx/mise-action@v4.3.0
         with:
-          version: 2026.8.0
+          version: 2026.8.8
           install: true
           cache: true
       - run: |
